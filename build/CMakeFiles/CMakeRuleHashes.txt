@@ -1,0 +1,4 @@
+# Hashes of file build rules.
+b9a7acccc51e9db3917bb970fef8eb8b CMakeFiles/format
+1cd32bce0fd713d2b78d58e824b9b69d docs/CMakeFiles/docs
+d4f2dbc6821bff03812483b4bf683b11 src/scanner/scan.c

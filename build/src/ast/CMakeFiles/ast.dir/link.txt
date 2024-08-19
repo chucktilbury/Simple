@@ -1,0 +1,2 @@
+/usr/bin/llvm-ar qc /home/chuck/Src/Simple/lib/libast.a CMakeFiles/ast.dir/ast.c.o
+/usr/bin/llvm-ranlib /home/chuck/Src/Simple/lib/libast.a

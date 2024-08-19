@@ -1,0 +1,2 @@
+/usr/bin/llvm-ar qc /home/chuck/Src/Simple/lib/libcommon.a CMakeFiles/common.dir/buffer.c.o CMakeFiles/common.dir/cmderrors.c.o CMakeFiles/common.dir/cmdline.c.o CMakeFiles/common.dir/cmdparse.c.o CMakeFiles/common.dir/hash.c.o CMakeFiles/common.dir/memory.c.o CMakeFiles/common.dir/ptr_lst.c.o CMakeFiles/common.dir/str.c.o CMakeFiles/common.dir/str_lst.c.o
+/usr/bin/llvm-ranlib /home/chuck/Src/Simple/lib/libcommon.a

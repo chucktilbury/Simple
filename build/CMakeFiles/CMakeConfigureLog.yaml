@@ -1,0 +1,356 @@
+
+---
+events:
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/CMakeDetermineSystem.cmake:205 (message)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      The system is: FreeBSD - 14.0-RELEASE - amd64
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCCompiler.cmake:123 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the C compiler identification source file "CMakeCCompilerId.c" succeeded.
+      Compiler: /usr/bin/clang 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the C compiler identification source "CMakeCCompilerId.c" produced "a.out"
+      
+      The C compiler identification is Clang, found in:
+        /home/chuck/Src/Simple/build/CMakeFiles/3.29.6/CompilerIdC/a.out
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:17 (message)"
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerId.cmake:64 (__determine_compiler_id_test)"
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCXXCompiler.cmake:126 (CMAKE_DETERMINE_COMPILER_ID)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Compiling the CXX compiler identification source file "CMakeCXXCompilerId.cpp" succeeded.
+      Compiler: /usr/bin/clang++ 
+      Build flags: 
+      Id flags:  
+      
+      The output was:
+      0
+      
+      
+      Compilation of the CXX compiler identification source "CMakeCXXCompilerId.cpp" produced "a.out"
+      
+      The CXX compiler identification is Clang, found in:
+        /home/chuck/Src/Simple/build/CMakeFiles/3.29.6/CompilerIdCXX/a.out
+      
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:67 (try_compile)"
+      - "/usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting C compiler ABI info"
+    directories:
+      source: "/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9"
+      binary: "/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS-NOTFOUND"
+      CMAKE_C_FLAGS: ""
+      CMAKE_C_FLAGS_DEBUG: "-g"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_C_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9'
+        
+        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/local/bin/gmake -f Makefile cmTC_39522/fast
+        /usr/local/bin/gmake  -f CMakeFiles/cmTC_39522.dir/build.make CMakeFiles/cmTC_39522.dir/build
+        gmake[1]: Entering directory '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9'
+        Building C object CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o
+        /usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
+        FreeBSD clang version 16.0.6 (https://github.com/llvm/llvm-project.git llvmorg-16.0.6-0-g7cbf1a259152)
+        Target: x86_64-unknown-freebsd14.0
+        Thread model: posix
+        InstalledDir: /usr/bin
+         (in-process)
+         "/usr/bin/clang" -cc1 -triple x86_64-unknown-freebsd14.0 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v -fcoverage-compilation-dir=/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9 -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/16/include -internal-externc-isystem /usr/include -fdebug-compilation-dir=/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9 -ferror-limit 19 -fgnuc-version=4.2.1 -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c
+        clang -cc1 version 16.0.6 based upon LLVM 16.0.6 default target x86_64-unknown-freebsd14.0
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/lib/clang/16/include
+         /usr/include
+        End of search list.
+        Linking C executable cmTC_39522
+        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_39522.dir/link.txt --verbose=1
+        /usr/bin/clang  -v CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -o cmTC_39522
+        FreeBSD clang version 16.0.6 (https://github.com/llvm/llvm-project.git llvmorg-16.0.6-0-g7cbf1a259152)
+        Target: x86_64-unknown-freebsd14.0
+        Thread model: posix
+        InstalledDir: /usr/bin
+         "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_39522 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o
+        gmake[1]: Leaving directory '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:137 (message)"
+      - "/usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/lib/clang/16/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/lib/clang/16/include] ==> [/usr/lib/clang/16/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/lib/clang/16/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:173 (message)"
+      - "/usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed C implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/local/bin/gmake -f Makefile cmTC_39522/fast]
+        ignore line: [/usr/local/bin/gmake  -f CMakeFiles/cmTC_39522.dir/build.make CMakeFiles/cmTC_39522.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9']
+        ignore line: [Building C object CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o]
+        ignore line: [/usr/bin/clang   -v -MD -MT CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -MF CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o.d -o CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [FreeBSD clang version 16.0.6 (https://github.com/llvm/llvm-project.git llvmorg-16.0.6-0-g7cbf1a259152)]
+        ignore line: [Target: x86_64-unknown-freebsd14.0]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/bin]
+        ignore line: [ (in-process)]
+        ignore line: [ "/usr/bin/clang" -cc1 -triple x86_64-unknown-freebsd14.0 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCCompilerABI.c -mrelocation-model static -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v -fcoverage-compilation-dir=/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9 -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o.d -MT CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -sys-header-deps -internal-isystem /usr/lib/clang/16/include -internal-externc-isystem /usr/include -fdebug-compilation-dir=/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-636GZ9 -ferror-limit 19 -fgnuc-version=4.2.1 -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -x c /usr/local/share/cmake/Modules/CMakeCCompilerABI.c]
+        ignore line: [clang -cc1 version 16.0.6 based upon LLVM 16.0.6 default target x86_64-unknown-freebsd14.0]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/lib/clang/16/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking C executable cmTC_39522]
+        ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_39522.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/clang  -v CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -o cmTC_39522]
+        ignore line: [FreeBSD clang version 16.0.6 (https://github.com/llvm/llvm-project.git llvmorg-16.0.6-0-g7cbf1a259152)]
+        ignore line: [Target: x86_64-unknown-freebsd14.0]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/bin]
+        link line: [ "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_39522 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o]
+          arg [/usr/bin/ld] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/libexec/ld-elf.so.1] ==> ignore
+          arg [--hash-style=both] ==> ignore
+          arg [--enable-new-dtags] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_39522] ==> ignore
+          arg [/usr/lib/crt1.o] ==> obj [/usr/lib/crt1.o]
+          arg [/usr/lib/crti.o] ==> obj [/usr/lib/crti.o]
+          arg [/usr/lib/crtbegin.o] ==> obj [/usr/lib/crtbegin.o]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [CMakeFiles/cmTC_39522.dir/CMakeCCompilerABI.c.o] ==> ignore
+          arg [-lgcc] ==> lib [gcc]
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--no-as-needed] ==> ignore
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--no-as-needed] ==> ignore
+          arg [/usr/lib/crtend.o] ==> obj [/usr/lib/crtend.o]
+          arg [/usr/lib/crtn.o] ==> obj [/usr/lib/crtn.o]
+        linker tool for 'C': /usr/bin/ld
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [gcc;gcc_s;c;gcc;gcc_s]
+        implicit objs: [/usr/lib/crt1.o;/usr/lib/crti.o;/usr/lib/crtbegin.o;/usr/lib/crtend.o;/usr/lib/crtn.o]
+        implicit dirs: [/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:210 (cmake_determine_linker_id)"
+      - "/usr/local/share/cmake/Modules/CMakeTestCCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the C compiler's linker: "/usr/bin/ld" "-v"
+      LLD 16.0.6 (FreeBSD llvmorg-16.0.6-0-g7cbf1a259152-1400006) (compatible with GNU linkers)
+  -
+    kind: "try_compile-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:67 (try_compile)"
+      - "/usr/local/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    checks:
+      - "Detecting CXX compiler ABI info"
+    directories:
+      source: "/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa"
+      binary: "/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa"
+    cmakeVariables:
+      CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS: "CMAKE_CXX_COMPILER_CLANG_SCAN_DEPS-NOTFOUND"
+      CMAKE_CXX_FLAGS: ""
+      CMAKE_CXX_FLAGS_DEBUG: "-g"
+      CMAKE_CXX_SCAN_FOR_MODULES: "OFF"
+      CMAKE_EXE_LINKER_FLAGS: ""
+    buildResult:
+      variable: "CMAKE_CXX_ABI_COMPILED"
+      cached: true
+      stdout: |
+        Change Dir: '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa'
+        
+        Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/local/bin/gmake -f Makefile cmTC_c8c10/fast
+        /usr/local/bin/gmake  -f CMakeFiles/cmTC_c8c10.dir/build.make CMakeFiles/cmTC_c8c10.dir/build
+        gmake[1]: Entering directory '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa'
+        Building CXX object CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o
+        /usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        FreeBSD clang version 16.0.6 (https://github.com/llvm/llvm-project.git llvmorg-16.0.6-0-g7cbf1a259152)
+        Target: x86_64-unknown-freebsd14.0
+        Thread model: posix
+        InstalledDir: /usr/bin
+         (in-process)
+         "/usr/bin/clang++" -cc1 -triple x86_64-unknown-freebsd14.0 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model static -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v -fcoverage-compilation-dir=/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/include/c++/v1 -internal-isystem /usr/lib/clang/16/include -internal-externc-isystem /usr/include -fdeprecated-macro -fdebug-compilation-dir=/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa -ferror-limit 19 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp
+        clang -cc1 version 16.0.6 based upon LLVM 16.0.6 default target x86_64-unknown-freebsd14.0
+        #include "..." search starts here:
+        #include <...> search starts here:
+         /usr/include/c++/v1
+         /usr/lib/clang/16/include
+         /usr/include
+        End of search list.
+        Linking CXX executable cmTC_c8c10
+        /usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c8c10.dir/link.txt --verbose=1
+        /usr/bin/clang++  -v CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_c8c10
+        FreeBSD clang version 16.0.6 (https://github.com/llvm/llvm-project.git llvmorg-16.0.6-0-g7cbf1a259152)
+        Target: x86_64-unknown-freebsd14.0
+        Thread model: posix
+        InstalledDir: /usr/bin
+         "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_c8c10 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lm -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o
+        gmake[1]: Leaving directory '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa'
+        
+      exitCode: 0
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:137 (message)"
+      - "/usr/local/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit include dir info: rv=done
+        found start of include info
+        found start of implicit include info
+          add: [/usr/include/c++/v1]
+          add: [/usr/lib/clang/16/include]
+          add: [/usr/include]
+        end of search list found
+        collapse include dir [/usr/include/c++/v1] ==> [/usr/include/c++/v1]
+        collapse include dir [/usr/lib/clang/16/include] ==> [/usr/lib/clang/16/include]
+        collapse include dir [/usr/include] ==> [/usr/include]
+        implicit include dirs: [/usr/include/c++/v1;/usr/lib/clang/16/include;/usr/include]
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:173 (message)"
+      - "/usr/local/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Parsed CXX implicit link information:
+        link line regex: [^( *|.*[/\\])(ld[0-9]*(\\.[a-z]+)?|CMAKE_LINK_STARTFILE-NOTFOUND|([^/\\]+-)?ld|collect2)[^/\\]*( |$)]
+        linker tool regex: [^[ 	]*(->|")?[ 	]*(([^"]*[/\\])?(ld[0-9]*(\\.[a-z]+)?))("|,| |$)]
+        ignore line: [Change Dir: '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa']
+        ignore line: []
+        ignore line: [Run Build Command(s): /usr/local/bin/cmake -E env VERBOSE=1 /usr/local/bin/gmake -f Makefile cmTC_c8c10/fast]
+        ignore line: [/usr/local/bin/gmake  -f CMakeFiles/cmTC_c8c10.dir/build.make CMakeFiles/cmTC_c8c10.dir/build]
+        ignore line: [gmake[1]: Entering directory '/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa']
+        ignore line: [Building CXX object CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o]
+        ignore line: [/usr/bin/clang++   -v -MD -MT CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -MF CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o.d -o CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -c /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [FreeBSD clang version 16.0.6 (https://github.com/llvm/llvm-project.git llvmorg-16.0.6-0-g7cbf1a259152)]
+        ignore line: [Target: x86_64-unknown-freebsd14.0]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/bin]
+        ignore line: [ (in-process)]
+        ignore line: [ "/usr/bin/clang++" -cc1 -triple x86_64-unknown-freebsd14.0 -emit-obj -mrelax-all -disable-free -clear-ast-before-backend -disable-llvm-verifier -discard-value-names -main-file-name CMakeCXXCompilerABI.cpp -mrelocation-model static -mframe-pointer=all -ffp-contract=on -fno-rounding-math -mconstructor-aliases -funwind-tables=2 -target-cpu x86-64 -tune-cpu generic -mllvm -treat-scalable-fixed-error-as-warning -debugger-tuning=gdb -v -fcoverage-compilation-dir=/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa -resource-dir /usr/lib/clang/16 -dependency-file CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o.d -MT CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -sys-header-deps -internal-isystem /usr/include/c++/v1 -internal-isystem /usr/lib/clang/16/include -internal-externc-isystem /usr/include -fdeprecated-macro -fdebug-compilation-dir=/home/chuck/Src/Simple/build/CMakeFiles/CMakeScratch/TryCompile-DzTTAa -ferror-limit 19 -fgnuc-version=4.2.1 -fcxx-exceptions -fexceptions -faddrsig -D__GCC_HAVE_DWARF2_CFI_ASM=1 -o CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -x c++ /usr/local/share/cmake/Modules/CMakeCXXCompilerABI.cpp]
+        ignore line: [clang -cc1 version 16.0.6 based upon LLVM 16.0.6 default target x86_64-unknown-freebsd14.0]
+        ignore line: [#include "..." search starts here:]
+        ignore line: [#include <...> search starts here:]
+        ignore line: [ /usr/include/c++/v1]
+        ignore line: [ /usr/lib/clang/16/include]
+        ignore line: [ /usr/include]
+        ignore line: [End of search list.]
+        ignore line: [Linking CXX executable cmTC_c8c10]
+        ignore line: [/usr/local/bin/cmake -E cmake_link_script CMakeFiles/cmTC_c8c10.dir/link.txt --verbose=1]
+        ignore line: [/usr/bin/clang++  -v CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -o cmTC_c8c10]
+        ignore line: [FreeBSD clang version 16.0.6 (https://github.com/llvm/llvm-project.git llvmorg-16.0.6-0-g7cbf1a259152)]
+        ignore line: [Target: x86_64-unknown-freebsd14.0]
+        ignore line: [Thread model: posix]
+        ignore line: [InstalledDir: /usr/bin]
+        link line: [ "/usr/bin/ld" --eh-frame-hdr -dynamic-linker /libexec/ld-elf.so.1 --hash-style=both --enable-new-dtags -o cmTC_c8c10 /usr/lib/crt1.o /usr/lib/crti.o /usr/lib/crtbegin.o -L/usr/lib CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o -lc++ -lm -lgcc --as-needed -lgcc_s --no-as-needed -lc -lgcc --as-needed -lgcc_s --no-as-needed /usr/lib/crtend.o /usr/lib/crtn.o]
+          arg [/usr/bin/ld] ==> ignore
+          arg [--eh-frame-hdr] ==> ignore
+          arg [-dynamic-linker] ==> ignore
+          arg [/libexec/ld-elf.so.1] ==> ignore
+          arg [--hash-style=both] ==> ignore
+          arg [--enable-new-dtags] ==> ignore
+          arg [-o] ==> ignore
+          arg [cmTC_c8c10] ==> ignore
+          arg [/usr/lib/crt1.o] ==> obj [/usr/lib/crt1.o]
+          arg [/usr/lib/crti.o] ==> obj [/usr/lib/crti.o]
+          arg [/usr/lib/crtbegin.o] ==> obj [/usr/lib/crtbegin.o]
+          arg [-L/usr/lib] ==> dir [/usr/lib]
+          arg [CMakeFiles/cmTC_c8c10.dir/CMakeCXXCompilerABI.cpp.o] ==> ignore
+          arg [-lc++] ==> lib [c++]
+          arg [-lm] ==> lib [m]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--no-as-needed] ==> ignore
+          arg [-lc] ==> lib [c]
+          arg [-lgcc] ==> lib [gcc]
+          arg [--as-needed] ==> ignore
+          arg [-lgcc_s] ==> lib [gcc_s]
+          arg [--no-as-needed] ==> ignore
+          arg [/usr/lib/crtend.o] ==> obj [/usr/lib/crtend.o]
+          arg [/usr/lib/crtn.o] ==> obj [/usr/lib/crtn.o]
+        linker tool for 'CXX': /usr/bin/ld
+        collapse library dir [/usr/lib] ==> [/usr/lib]
+        implicit libs: [c++;m;gcc;gcc_s;c;gcc;gcc_s]
+        implicit objs: [/usr/lib/crt1.o;/usr/lib/crti.o;/usr/lib/crtbegin.o;/usr/lib/crtend.o;/usr/lib/crtn.o]
+        implicit dirs: [/usr/lib]
+        implicit fwks: []
+      
+      
+  -
+    kind: "message-v1"
+    backtrace:
+      - "/usr/local/share/cmake/Modules/Internal/CMakeDetermineLinkerId.cmake:40 (message)"
+      - "/usr/local/share/cmake/Modules/CMakeDetermineCompilerABI.cmake:210 (cmake_determine_linker_id)"
+      - "/usr/local/share/cmake/Modules/CMakeTestCXXCompiler.cmake:26 (CMAKE_DETERMINE_COMPILER_ABI)"
+      - "CMakeLists.txt:2 (project)"
+    message: |
+      Running the CXX compiler's linker: "/usr/bin/ld" "-v"
+      LLD 16.0.6 (FreeBSD llvmorg-16.0.6-0-g7cbf1a259152-1400006) (compatible with GNU linkers)
+...
