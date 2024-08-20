@@ -42,4 +42,4 @@ This requires an ANSI C compiler, GNU Flex, cmake, graphiz, and doxygen. No othe
 I would also welcome some help. Compilers are such a slog....
 
 # Grammar
-This is the complete and updated [grammar](docs/simple-grammar.txt) for **Simple**:
+This is the complete and updated [grammar for **Simple**](docs/simple-grammar.txt) 
