@@ -1,1 +1,0 @@
-/usr/bin/clang -g CMakeFiles/simple.dir/main.c.o -o /home/chuck/Src/Simple/bin/simple  /home/chuck/Src/Simple/lib/libparse.a -lscan /home/chuck/Src/Simple/lib/libast.a /home/chuck/Src/Simple/lib/libcommon.a

@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc /home/chuck/Src/Simple/lib/libscanner.a CMakeFiles/scanner.dir/scan.c.o
-/usr/bin/llvm-ranlib /home/chuck/Src/Simple/lib/libscanner.a

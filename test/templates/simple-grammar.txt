@@ -170,35 +170,35 @@ expr_and
 
 expr_equality
     : expr_compare
-    | EQUALS expr_compare
-    | NOTEQUALS expr_compare
+    | '=' expr_compare
+    | '!=' expr_compare
     ;
 
 expr_compare
     : expr_term
-    | LESS_THAN expr_term
-    | GREATER_THAN expr_term
-    | LESS_OR_EQUAL expr_term
-    | GREATER_OR_EQUAL expr_term
+    | '<' expr_term
+    | '>' expr_term
+    | '<=' expr_term
+    | '>=' expr_term
     ;
 
 expr_term
     : expr_factor
-    | PLUS expr_factor
-    | MINUS expr_factor
+    | '+' expr_factor
+    | '-' expr_factor
     ;
 
 expr_factor
     : expr_unary
-    | STAR expr_unary
-    | SLASH expr_unary
-    | PERCENT expr_unary
+    | '*' expr_unary
+    | '/' expr_unary
+    | '%' expr_unary
     ;
 
 expr_unary
     : expr_primary
-    | MINUS expr_primary
-    | BANG expr_primary
+    | '-' expr_primary
+    | '!' expr_primary
     ;
 
 expr_primary
@@ -277,12 +277,12 @@ assign_inc_item
     ;
 
 assignment
-    : compound_reference EQUAL assign_eq_item
-    | compound_reference PLUS_EQUAL assign_inc_item
-    | compound_reference MINUS_EQUAL expression
-    | compound_reference STAR_EQUAL expression
-    | compound_reference SLASH_EQUAL expression
-    | compound_reference PERCENT_EQUAL expression
+    : compound_reference '=' assign_eq_item
+    | compound_reference '+=' assign_inc_item
+    | compound_reference '-=' expression
+    | compound_reference '*=' expression
+    | compound_reference '/=' expression
+    | compound_reference '%=' expression
     ;
 
 function_body_element

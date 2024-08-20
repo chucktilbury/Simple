@@ -13,6 +13,8 @@ add_library(${PROJECT_NAME} STATIC
     ptr_lst.c       
     str.c           
     str_lst.c
+    trace.c
+    llist.c
 )
 
 

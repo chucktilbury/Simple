@@ -1,113 +1,870 @@
-/*
- * Public interface to the AST system.
- */
+
 #ifndef _AST_H_
 #define _AST_H_
 
-#include "ptr_lst.h"
-#include "str.h"
-
 typedef enum {
-    // defined by the grammar grammar
-    AST_TERMINAL = 100,
-    AST_NON_TERMINAL,
-    AST_ZERO_OR_ONE,
-    AST_ONE_OR_MORE,
-    AST_ZERO_OR_MORE,
-    AST_GROUP,
-    // defined in the target grammar
-    AST_GRAMMAR,
-    AST_RULE,
-    AST_PRODUCTION_LIST,
-    AST_PRODUCTION,
-    AST_PROD_ELEM,
+    AST_ARRAY_PARAM,
+    AST_ARRAY_PARAM_ITEM,
+    AST_ARRAY_PARAM_LIST,
+    AST_ARRAY_REFERENCE,
+    AST_ASSIGN_EQ_ITEM,
+    AST_ASSIGN_INC_ITEM,
+    AST_ASSIGNMENT,
+    AST_ASSIGNMENT_ITEM,
+    AST_BREAK_STATEMENT,
+    AST_CAST_STATEMENT,
+    AST_CLASS_DEFINITION,
+    AST_CLASS_ITEM,
+    AST_COMPOUND_NAME,
+    AST_COMPOUND_NAME_LIST,
+    AST_COMPOUND_REF_ITEM,
+    AST_COMPOUND_REFERENCE,
+    AST_CONTINUE_STATEMENT,
+    AST_CREATE_DECLARATION,
+    AST_CREATE_DEFINITION,
+    AST_CREATE_NAME,
+    AST_CREATE_REFERENCE,
+    AST_DESTROY_DECLARATION,
+    AST_DESTROY_DEFINITION,
+    AST_DESTROY_NAME,
+    AST_DESTROY_REFERENCE,
+    AST_DO_CLAUSE,
+    AST_ELSE_CLAUSE,
+    AST_EXCEPT_CLAUSE,
+    AST_EXIT_STATEMENT,
+    AST_EXPR_AND,
+    AST_EXPR_COMPARE,
+    AST_EXPR_EQUALITY,
+    AST_EXPR_FACTOR,
+    AST_EXPR_OR,
+    AST_EXPR_PRIMARY,
+    AST_EXPR_TERM,
+    AST_EXPR_UNARY,
+    AST_EXPRESSION,
+    AST_EXPRESSION_LIST,
+    AST_FINAL_CLAUSE,
+    AST_FINAL_ELSE_CLAUSE,
+    AST_FOR_CLAUSE,
+    AST_FORMATTED_STRG,
+    AST_FUNCTION_BODY,
+    AST_FUNCTION_BODY_ELEMENT,
+    AST_FUNCTION_DECLARATION,
+    AST_FUNCTION_ASSIGNMENT,
+    AST_FUNCTION_DEFINITION,
+    AST_FUNCTION_REFERENCE,
+    AST_IF_CLAUSE,
+    AST_IMPORT_STATEMENT,
+    AST_LIST_INIT,
+    AST_LIST_INIT_ELEMENT,
+    AST_LIST_INIT_STR,
+    AST_LITERAL_TYPE_NAME,
+    AST_LITERAL_VALUE,
+    AST_MODULE,
+    AST_MODULE_ITEM,
+    AST_NAMESPACE_DEFINITION,
+    AST_NAMESPACE_ITEM,
+    AST_PRINT_STATEMENT,
+    AST_RAISE_STATEMENT,
+    AST_RETURN_STATEMENT,
+    AST_SCOPE_OPERATOR,
+    AST_START_DEFINITION,
+    AST_STRING_LITERAL,
+    AST_TRACE_STATEMENT,
+    AST_TRY_CLAUSE,
+    AST_TYPE_NAME,
+    AST_TYPE_NAME_LIST,
+    AST_TYPE_STATEMENT,
+    AST_VAR_DECL,
+    AST_VAR_DECL_LIST,
+    AST_VAR_DEFINITION,
+    AST_WHILE_CLAUSE,
+    AST_WHILE_DEFINITION,
+    AST_YIELD_STATEMENT,
 } AstNodeType;
-
 
 typedef struct _ast_node_ {
     AstNodeType type;
 } AstNode;
 
-typedef struct _ast_terminal_ {
-    AstNode type;
-    String* tok;
-    String* name;
-} ast_terminal_t;
+/*
+    Production being parsed:
 
-typedef struct _ast_non_terminal_ {
-    AstNode type;
-    String* tok;
-    String* name;
-} ast_non_terminal_t;
+ */
+typedef struct _ast_array_param_ {
+    AstNode node;
 
-typedef struct _ast_zero_or_one_ {
-    AstNode type;
-    struct _ast_group_* group;
-} ast_zero_or_one_t;
+} ast_array_param_t;
 
-typedef struct _ast_one_or_more_ {
-    AstNode type;
-    struct _ast_group_* group;
-} ast_one_or_more_t;
+/*
+    Production being parsed:
 
-typedef struct _ast_zero_or_more_ {
-    AstNode type;
-    struct _ast_group_* group;
-} ast_zero_or_more_t;
+ */
+typedef struct _ast_array_param_item_ {
+    AstNode node;
 
-typedef struct _ast_group_ {
-    AstNode type;
-    // list of one or more ast_prod_elem_t
-    struct _ast_production_* prod;
-} ast_group_t;
+} ast_array_param_item_t;
 
-typedef struct _ast_grammar_ {
-    AstNode type;
-    // List of rules.
-    PtrLst* list;
-} ast_grammar_t;
+/*
+    Production being parsed:
 
-typedef struct _ast_rule_ {
-    AstNode type;
-    // a rule definition
-    String* name;
-    struct _ast_production_list_* list;
-} ast_rule_t;
+ */
+typedef struct _ast_array_param_list_ {
+    AstNode node;
 
-typedef struct _ast_production_list_ {
-    AstNode type;
-    // list of productions
-    PtrLst* list;
-} ast_production_list_t;
+} ast_array_param_list_t;
 
-typedef struct _ast_production_ {
-    AstNode type;
-    // list of ast_prod_elem_t
-    PtrLst* list;
-} ast_production_t;
+/*
+    Production being parsed:
 
-typedef struct _ast_prod_elem_ {
-    AstNode type;
-    // a single item that could be a repetition function, another
-    // non-terminal or a terminal
-    AstNode* node;
-} ast_prod_elem_t;
+ */
+typedef struct _ast_array_reference_ {
+    AstNode node;
 
-typedef int (*AstPassFunc)(AstNode*);
+} ast_array_reference_t;
 
-void traverse_ast(AstPassFunc pre, AstPassFunc post);
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_assign_eq_item_ {
+    AstNode node;
+
+} ast_assign_eq_item_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_assign_inc_item_ {
+    AstNode node;
+
+} ast_assign_inc_item_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_assignment_ {
+    AstNode node;
+
+} ast_assignment_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_assignment_item_ {
+    AstNode node;
+
+} ast_assignment_item_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_break_statement_ {
+    AstNode node;
+
+} ast_break_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_cast_statement_ {
+    AstNode node;
+
+} ast_cast_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_class_definition_ {
+    AstNode node;
+
+} ast_class_definition_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_class_item_ {
+    AstNode node;
+
+} ast_class_item_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_compound_name_ {
+    AstNode node;
+
+} ast_compound_name_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_compound_name_list_ {
+    AstNode node;
+
+} ast_compound_name_list_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_compound_ref_item_ {
+    AstNode node;
+
+} ast_compound_ref_item_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_compound_reference_ {
+    AstNode node;
+
+} ast_compound_reference_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_continue_statement_ {
+    AstNode node;
+
+} ast_continue_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_create_declaration_ {
+    AstNode node;
+
+} ast_create_declaration_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_create_definition_ {
+    AstNode node;
+
+} ast_create_definition_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_create_name_ {
+    AstNode node;
+
+} ast_create_name_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_create_reference_ {
+    AstNode node;
+
+} ast_create_reference_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_destroy_declaration_ {
+    AstNode node;
+
+} ast_destroy_declaration_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_destroy_definition_ {
+    AstNode node;
+
+} ast_destroy_definition_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_destroy_name_ {
+    AstNode node;
+
+} ast_destroy_name_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_destroy_reference_ {
+    AstNode node;
+
+} ast_destroy_reference_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_do_clause_ {
+    AstNode node;
+
+} ast_do_clause_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_else_clause_ {
+    AstNode node;
+
+} ast_else_clause_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_except_clause_ {
+    AstNode node;
+
+} ast_except_clause_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_exit_statement_ {
+    AstNode node;
+
+} ast_exit_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expr_and_ {
+    AstNode node;
+
+} ast_expr_and_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expr_compare_ {
+    AstNode node;
+
+} ast_expr_compare_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expr_equality_ {
+    AstNode node;
+
+} ast_expr_equality_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expr_factor_ {
+    AstNode node;
+
+} ast_expr_factor_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expr_or_ {
+    AstNode node;
+
+} ast_expr_or_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expr_primary_ {
+    AstNode node;
+
+} ast_expr_primary_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expr_term_ {
+    AstNode node;
+
+} ast_expr_term_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expr_unary_ {
+    AstNode node;
+
+} ast_expr_unary_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expression_ {
+    AstNode node;
+
+} ast_expression_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_expression_list_ {
+    AstNode node;
+
+} ast_expression_list_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_final_clause_ {
+    AstNode node;
+
+} ast_final_clause_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_final_else_clause_ {
+    AstNode node;
+
+} ast_final_else_clause_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_for_clause_ {
+    AstNode node;
+
+} ast_for_clause_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_formatted_strg_ {
+    AstNode node;
+
+} ast_formatted_strg_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_function_body_ {
+    AstNode node;
+
+} ast_function_body_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_function_body_element_ {
+    AstNode node;
+
+} ast_function_body_element_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_function_declaration_ {
+    AstNode node;
+
+} ast_function_declaration_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_function_assignment_ {
+    AstNode node;
+
+} ast_function_assignment_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_function_definition_ {
+    AstNode node;
+
+} ast_function_definition_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_function_reference_ {
+    AstNode node;
+
+} ast_function_reference_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_if_clause_ {
+    AstNode node;
+
+} ast_if_clause_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_import_statement_ {
+    AstNode node;
+
+} ast_import_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_list_init_ {
+    AstNode node;
+
+} ast_list_init_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_list_init_element_ {
+    AstNode node;
+
+} ast_list_init_element_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_list_init_str_ {
+    AstNode node;
+
+} ast_list_init_str_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_literal_type_name_ {
+    AstNode node;
+
+} ast_literal_type_name_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_literal_value_ {
+    AstNode node;
+
+} ast_literal_value_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_module_ {
+    AstNode node;
+
+} ast_module_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_module_item_ {
+    AstNode node;
+
+} ast_module_item_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_namespace_definition_ {
+    AstNode node;
+
+} ast_namespace_definition_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_namespace_item_ {
+    AstNode node;
+
+} ast_namespace_item_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_print_statement_ {
+    AstNode node;
+
+} ast_print_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_raise_statement_ {
+    AstNode node;
+
+} ast_raise_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_return_statement_ {
+    AstNode node;
+
+} ast_return_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_scope_operator_ {
+    AstNode node;
+
+} ast_scope_operator_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_start_definition_ {
+    AstNode node;
+
+} ast_start_definition_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_string_literal_ {
+    AstNode node;
+
+} ast_string_literal_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_trace_statement_ {
+    AstNode node;
+
+} ast_trace_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_try_clause_ {
+    AstNode node;
+
+} ast_try_clause_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_type_name_ {
+    AstNode node;
+
+} ast_type_name_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_type_name_list_ {
+    AstNode node;
+
+} ast_type_name_list_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_type_statement_ {
+    AstNode node;
+
+} ast_type_statement_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_var_decl_ {
+    AstNode node;
+
+} ast_var_decl_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_var_decl_list_ {
+    AstNode node;
+
+} ast_var_decl_list_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_var_definition_ {
+    AstNode node;
+
+} ast_var_definition_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_while_clause_ {
+    AstNode node;
+
+} ast_while_clause_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_while_definition_ {
+    AstNode node;
+
+} ast_while_definition_t;
+
+/*
+    Production being parsed:
+
+ */
+typedef struct _ast_yield_statement_ {
+    AstNode node;
+
+} ast_yield_statement_t;
+
+#define CALL_NODE_FUNC(f) do { \
+        if((f) != NULL) { \
+            (*f)((AstNode*)node); \
+        }\
+    } while(0)
+
+typedef void (*AstFuncPtr)(AstNode* node);
 AstNode* create_ast_node(AstNodeType type);
 
-void ast_terminal(ast_terminal_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_non_terminal(ast_non_terminal_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_grammar(ast_grammar_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_rule(ast_rule_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_production_list(ast_production_list_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_production(ast_production_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_prod_elem(ast_prod_elem_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_zero_or_one(ast_zero_or_one_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_one_or_more(ast_one_or_more_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_zero_or_more(ast_zero_or_more_t* node, AstPassFunc pre, AstPassFunc post);
-void ast_group(ast_group_t* node, AstPassFunc pre, AstPassFunc post);
+void traverse_array_param(ast_array_param_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_array_param_item(ast_array_param_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_array_param_list(ast_array_param_list_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_array_reference(ast_array_reference_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_assign_eq_item(ast_assign_eq_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_assign_inc_item(ast_assign_inc_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_assignment(ast_assignment_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_assignment_item(ast_assignment_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_break_statement(ast_break_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_cast_statement(ast_cast_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_class_definition(ast_class_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_class_item(ast_class_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_compound_name(ast_compound_name_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_compound_name_list(ast_compound_name_list_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_compound_ref_item(ast_compound_ref_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_compound_reference(ast_compound_reference_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_continue_statement(ast_continue_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_create_declaration(ast_create_declaration_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_create_definition(ast_create_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_create_name(ast_create_name_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_create_reference(ast_create_reference_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_destroy_declaration(ast_destroy_declaration_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_destroy_definition(ast_destroy_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_destroy_name(ast_destroy_name_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_destroy_reference(ast_destroy_reference_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_do_clause(ast_do_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_else_clause(ast_else_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_except_clause(ast_except_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_exit_statement(ast_exit_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_and(ast_expr_and_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_compare(ast_expr_compare_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_equality(ast_expr_equality_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_factor(ast_expr_factor_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_or(ast_expr_or_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_primary(ast_expr_primary_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_term(ast_expr_term_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_unary(ast_expr_unary_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expression(ast_expression_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expression_list(ast_expression_list_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_final_clause(ast_final_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_final_else_clause(ast_final_else_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_for_clause(ast_for_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_formatted_strg(ast_formatted_strg_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_function_body(ast_function_body_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_function_body_element(ast_function_body_element_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_function_declaration(ast_function_declaration_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_function_assignment(ast_function_assignment_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_function_definition(ast_function_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_function_reference(ast_function_reference_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_if_clause(ast_if_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_import_statement(ast_import_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_list_init(ast_list_init_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_list_init_element(ast_list_init_element_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_list_init_str(ast_list_init_str_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_literal_type_name(ast_literal_type_name_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_literal_value(ast_literal_value_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_module(ast_module_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_module_item(ast_module_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_namespace_definition(ast_namespace_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_namespace_item(ast_namespace_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_print_statement(ast_print_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_raise_statement(ast_raise_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_return_statement(ast_return_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_scope_operator(ast_scope_operator_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_start_definition(ast_start_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_string_literal(ast_string_literal_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_trace_statement(ast_trace_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_try_clause(ast_try_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_type_name(ast_type_name_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_type_name_list(ast_type_name_list_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_type_statement(ast_type_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_var_decl(ast_var_decl_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_var_decl_list(ast_var_decl_list_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_var_definition(ast_var_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_while_clause(ast_while_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_while_definition(ast_while_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_yield_statement(ast_yield_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
 
 #endif /* _AST_H_ */
+

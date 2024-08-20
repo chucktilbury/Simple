@@ -1,2 +1,0 @@
-/usr/bin/llvm-ar qc /home/chuck/Src/Simple/lib/libparse.a CMakeFiles/parse.dir/parse.c.o
-/usr/bin/llvm-ranlib /home/chuck/Src/Simple/lib/libparse.a
