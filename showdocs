@@ -1,2 +1,0 @@
-#!/usr/bin/env bash
-firefox $_PROJECT_LOC/docs/out/html/index.html

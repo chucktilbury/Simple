@@ -53,22 +53,7 @@ function dbg {
     fi
 }
 
-## Set the cross compiler target name, should match the directory of the
-## cross compiler.
-#export _CROSS_TARGET=i686-elf
-#export _CROSS_LOC="$HOME/opt/cross"
-#export _CROSS_PATH=$_CROSS_LOC/bin
-
-#alias gcc=$_CROSS_TARGET-gcc
-#alias g++=$_CROSS_TARGET-g++
-#alias ar=$_CROSS_TARGET-ar
-#alias as=$_CROSS_TARGET-as
-#alias ld=$_CROSS_TARGET-ld
-#alias db="nemiver --last "
-
-#export PATH=$_CROSS_PATH:$_CROSS_LOC/$_CROSS_TARGET/bin:$PATH
-
-export PATH=$_PROJECT_LOC:$_PROJECT_LOC/bin:$_PROJECT_LOC/utils:$_PROJECT_LOC/test/scripts:$PATH
+export PATH=$_PROJECT_LOC:$_PROJECT_LOC/bin:$_PROJECT_LOC/scripts:$PATH
 export _RUNTIME=$_PROJECT_LOC/src/runtime
 
 PS1='\[\e[0;30;107m\]$_PROJECT_NAME($_BUILD_TYPE):\[\e[0m\]'$PS1
