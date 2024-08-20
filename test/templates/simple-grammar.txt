@@ -6,6 +6,7 @@ module
 module_item
     : namespace_item
     | import_statement
+    | include_statement
     | start_definition
     ;
 
@@ -14,7 +15,11 @@ start_definition
     ;
 
 import_statement
-    : 'import' IDENT ('as' IDENT)?
+    : 'import' formatted_strg 'as' IDENT
+    ;
+
+include_statement
+    : 'include' formatted_strg
     ;
 
 namespace_item
@@ -159,45 +164,38 @@ expression
     ;
 
 expr_or
-    : expr_and
-    | OR expr_and
+    : expr_and OR expr_and
     ;
 
 expr_and
-    : expr_equality
-    | AND expr_equality
+    : expr_equality AND expr_equality
     ;
 
 expr_equality
-    : expr_compare
-    | '=' expr_compare
-    | '!=' expr_compare
+    : expr_compare '=' expr_compare
+    | expr_compare '!=' expr_compare
     ;
 
 expr_compare
-    : expr_term
-    | '<' expr_term
-    | '>' expr_term
-    | '<=' expr_term
-    | '>=' expr_term
+    : expr_term '<' expr_term
+    | expr_term '>' expr_term
+    | expr_term '<=' expr_term
+    | expr_term '>=' expr_term
     ;
 
 expr_term
-    : expr_factor
-    | '+' expr_factor
-    | '-' expr_factor
+    : expr_factor '+' expr_factor
+    | expr_factor '-' expr_factor
     ;
 
 expr_factor
-    : expr_unary
-    | '*' expr_unary
-    | '/' expr_unary
-    | '%' expr_unary
+    : expr_unary '*' expr_unary
+    | expr_unary '/' expr_unary
+    | expr_unary '%' expr_unary
     ;
 
 expr_unary
-    : expr_primary
-    | '-' expr_primary
+    : '-' expr_primary
     | '!' expr_primary
     ;
 
@@ -217,8 +215,7 @@ namespace_definition
     ;
 
 class_definition
-    : 'class' IDENT ( '(' ( type_name )? ')' )?
-        '{' ( class_item )+ '}'
+    : 'class' IDENT ( '(' ( type_name )? ')' )? '{' ( class_item )+ '}'
     ;
 
 class_item

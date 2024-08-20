@@ -2,85 +2,12 @@ project(parser)
 
 include(${PROJECT_SOURCE_DIR}/../../BuildOpts.txt)
 
+file(GLOB_RECURSE parser_xxfiles
+    ${PROJECT_SOURCE_DIR}/*.c
+)
+
 add_library(${PROJECT_NAME} STATIC
-    parser.c
-    array_param.c
-    array_param_item.c
-    array_param_list.c
-    array_reference.c
-    assign_eq_item.c
-    assign_inc_item.c
-    assignment.c
-    assignment_item.c
-    break_statement.c
-    cast_statement.c
-    class_definition.c
-    class_item.c
-    compound_name.c
-    compound_name_list.c
-    compound_ref_item.c
-    compound_reference.c
-    continue_statement.c
-    create_declaration.c
-    create_definition.c
-    create_name.c
-    create_reference.c
-    destroy_declaration.c
-    destroy_definition.c
-    destroy_name.c
-    destroy_reference.c
-    do_clause.c
-    else_clause.c
-    except_clause.c
-    exit_statement.c
-    expr_and.c
-    expr_compare.c
-    expr_equality.c
-    expr_factor.c
-    expr_or.c
-    expr_primary.c
-    expr_term.c
-    expr_unary.c
-    expression.c
-    expression_list.c
-    final_clause.c
-    final_else_clause.c
-    for_clause.c
-    formatted_strg.c
-    function_body.c
-    function_body_element.c
-    function_declaration.c
-    function_assignment.c
-    function_definition.c
-    function_reference.c
-    if_clause.c
-    import_statement.c
-    list_init.c
-    list_init_element.c
-    list_init_str.c
-    literal_type_name.c
-    literal_value.c
-    module.c
-    module_item.c
-    namespace_definition.c
-    namespace_item.c
-    print_statement.c
-    raise_statement.c
-    return_statement.c
-    scope_operator.c
-    start_definition.c
-    string_literal.c
-    trace_statement.c
-    try_clause.c
-    type_name.c
-    type_name_list.c
-    type_statement.c
-    var_decl.c
-    var_decl_list.c
-    var_definition.c
-    while_clause.c
-    while_definition.c
-    yield_statement.c
+    ${parser_xxfiles}
 )
 
 
