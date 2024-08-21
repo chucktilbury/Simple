@@ -7,5 +7,7 @@ include(${PROJECT_SOURCE_DIR}/../../BuildOpts.txt)
 add_library(${PROJECT_NAME} STATIC
     fileio.c
     scanner.c
+    token_defs.c
+    tokens.c
 )
 

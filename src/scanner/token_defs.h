@@ -10,7 +10,7 @@
 #define _TOKEN_DEFS_H_
 
 typedef enum {
-    TOK_START = 500,
+    TOK_START,
     TOK_IMPORT,
     TOK_AS,
     TOK_IDENT,
@@ -99,5 +99,5 @@ typedef struct {
 const char* token_type_to_str(TokenType type);
 token_database_t* find_keyword(const char* str);
 
-#endif  /* _TOKEN_DEFS_H_ */
+#endif /* _TOKEN_DEFS_H_ */
 

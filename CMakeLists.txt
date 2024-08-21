@@ -11,6 +11,7 @@ find_package(FLEX REQUIRED)
 #find_package(BISON REQUIRED)
 
 add_subdirectory(src)
+add_subdirectory(testing EXCLUDE_FROM_ALL)
 add_subdirectory(docs EXCLUDE_FROM_ALL)
 
 file(GLOB_RECURSE format_xxfiles
