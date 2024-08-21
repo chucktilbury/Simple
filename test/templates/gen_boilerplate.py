@@ -363,11 +363,6 @@ def gen_token_defs():
         fp.write(s)
         fp.write("\n}\n\n")
 
-def install_everything():
-    os.system("mv -f parser/*.c parser/*.h ../../src/parser/")
-    os.system("mv -f ast/*.c ast/*.h ../../src/ast/")
-    os.system("mv -f tokens/*.c tokens/*.h ../../src/tokens/")
-
 if __name__ == '__main__':
     
     print("Before you run this, know that it will destroy the parser")
@@ -380,6 +375,8 @@ if __name__ == '__main__':
     gen_ast()
     gen_parse()
     gen_token_defs()
-    install_everything()
 
+    os.system("mv -f parser/*.c parser/*.h ../../src/parser/")
+    os.system("mv -f ast/*.c ast/*.h ../../src/ast/")
+    os.system("mv -f tokens/*.c tokens/*.h ../../src/tokens/")
     os.system("rm -rf parser ast tokens")
