@@ -3,7 +3,14 @@
 /*
     Production being parsed:
 
- */
+ literal_value
+    : LITERAL_FLOAT
+    | LITERAL_INTEGER
+    | LITERAL_BOOL
+    | string_literal
+    ;
+
+*/
 #include "common.h"
 #include "trace.h"
 #include "errors.h"

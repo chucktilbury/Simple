@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+module
+    : ( module_item )+
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

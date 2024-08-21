@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+compound_name_list
+    : '(' ( compound_name (',' compound_name )* )? ')'
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

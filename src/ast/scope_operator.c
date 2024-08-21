@@ -3,7 +3,13 @@
 /*
     Production being parsed:
 
- */
+ scope_operator
+    : 'private'
+    | 'public'
+    | 'protected'
+    ;
+
+*/
 #include "common.h"
 #include "trace.h"
 #include "errors.h"

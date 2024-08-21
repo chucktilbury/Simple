@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+final_else_clause
+    : 'else' ( '(' ')' )? function_body
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

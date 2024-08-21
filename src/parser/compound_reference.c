@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+compound_reference
+    : compound_ref_item ( '.' compound_ref_item )*
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

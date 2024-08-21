@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+while_clause
+    : while_definition function_body
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

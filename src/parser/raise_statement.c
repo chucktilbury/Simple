@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+raise_statement
+    : 'raise' '(' IDENT ',' string_literal ')'
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

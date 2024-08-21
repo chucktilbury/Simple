@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+compound_name
+    : IDENT ( '.' IDENT )*
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+try_clause
+    : 'try' function_body ( except_clause )* ( final_clause )?
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

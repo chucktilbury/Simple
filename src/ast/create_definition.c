@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+create_definition
+    : ('virtual' )? create_name var_decl_list function_body
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

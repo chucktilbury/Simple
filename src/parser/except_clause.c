@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+except_clause
+    : 'except' '(' IDENT ',' IDENT ')' function_body
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+cast_statement
+    : type_name ':' expression
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

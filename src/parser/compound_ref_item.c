@@ -3,6 +3,11 @@
 /*
     Production being parsed:
 
+compound_ref_item
+    : IDENT
+    | array_reference
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

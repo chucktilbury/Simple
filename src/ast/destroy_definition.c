@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+destroy_definition
+    : ('virtual' )? destroy_name function_body
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

@@ -3,7 +3,12 @@
 /*
     Production being parsed:
 
- */
+ string_literal
+    : LITERAL_SSTR
+    | formatted_strg
+    ;
+
+*/
 #include "common.h"
 #include "trace.h"
 #include "errors.h"

@@ -3,7 +3,11 @@
 /*
     Production being parsed:
 
- */
+ import_statement
+    : 'import' formatted_strg 'as' IDENT
+    ;
+
+*/
 #include "common.h"
 #include "trace.h"
 #include "errors.h"

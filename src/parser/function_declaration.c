@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+function_declaration
+    : ('virtual' )? IDENT type_name_list type_name_list
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

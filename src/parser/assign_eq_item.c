@@ -3,6 +3,11 @@
 /*
     Production being parsed:
 
+assign_eq_item
+    : assignment_item
+    | compound_reference
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

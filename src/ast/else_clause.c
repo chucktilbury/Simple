@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+else_clause
+    : 'else' '(' expression ')' function_body
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

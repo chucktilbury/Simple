@@ -3,6 +3,11 @@
 /*
     Production being parsed:
 
+assign_inc_item
+    : expression
+    | string_literal
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

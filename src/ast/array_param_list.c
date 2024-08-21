@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+array_param_list
+    : array_param (array_param)*
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

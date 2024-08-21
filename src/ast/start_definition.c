@@ -3,7 +3,11 @@
 /*
     Production being parsed:
 
- */
+ start_definition
+    : 'start' function_body
+    ;
+
+*/
 #include "common.h"
 #include "trace.h"
 #include "errors.h"

@@ -3,7 +3,12 @@
 /*
     Production being parsed:
 
- */
+ type_name
+    : literal_type_name
+    | compound_name
+    ;
+
+*/
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"

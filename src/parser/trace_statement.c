@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+trace_statement
+    : 'trace' '(' string_literal ')'
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

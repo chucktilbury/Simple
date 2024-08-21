@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+array_param
+    : '[' array_param_item ']'
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

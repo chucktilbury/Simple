@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+return_statement
+    : 'return'
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

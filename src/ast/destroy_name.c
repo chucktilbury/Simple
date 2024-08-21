@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+destroy_name
+    : IDENT ('.' IDENT)? '.' 'destroy'
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

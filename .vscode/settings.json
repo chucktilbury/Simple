@@ -12,5 +12,8 @@
         "OPBRACE",
         "OSBRACE",
         "squote"
-    ]
+    ],
+    "files.associations": {
+        "common.h": "c"
+    }
 }

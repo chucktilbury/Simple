@@ -3,6 +3,11 @@
 /*
     Production being parsed:
 
+expr_unary
+    : '-' expr_primary
+    | '!' expr_primary
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

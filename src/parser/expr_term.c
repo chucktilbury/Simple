@@ -3,6 +3,11 @@
 /*
     Production being parsed:
 
+expr_term
+    : expr_factor '+' expr_factor
+    | expr_factor '-' expr_factor
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

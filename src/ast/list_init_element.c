@@ -3,6 +3,11 @@
 /*
     Production being parsed:
 
+list_init_element
+    : list_init_str ':' assignment_item
+    | assignment_item
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

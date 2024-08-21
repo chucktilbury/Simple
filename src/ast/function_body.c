@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+function_body
+    : '{' ( function_body_element )* '}'
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

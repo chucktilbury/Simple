@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+array_reference
+    : IDENT array_param_list
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

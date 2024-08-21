@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+yield_statement
+    : 'yield' '(' compound_reference ')'
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

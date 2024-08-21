@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+create_declaration
+    : ('virtual' )? 'create' type_name_list
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

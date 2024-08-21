@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+expression_list
+    : '(' (expression ( ',' expression )*)? ')'
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

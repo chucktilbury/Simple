@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+expression
+    : expr_or
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

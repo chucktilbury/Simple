@@ -3,7 +3,17 @@
 /*
     Production being parsed:
 
- */
+ literal_type_name
+    : 'float'
+    | 'integer'
+    | 'string'
+    | 'boolean'
+    | 'nothing'
+    | 'list'
+    | 'dict'
+    ;
+
+*/
 #include "common.h"
 #include "trace.h"
 #include "errors.h"

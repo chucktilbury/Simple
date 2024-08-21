@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+print_statement
+    : 'print' ( expression_list )?
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

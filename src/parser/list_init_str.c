@@ -3,7 +3,12 @@
 /*
     Production being parsed:
 
- */
+ list_init_str
+    : LITERAL_DSTR
+    | LITERAL_SSTR
+    ;
+
+*/
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"

@@ -3,7 +3,17 @@
 /*
     Production being parsed:
 
- */
+ namespace_item
+    : scope_operator
+    | namespace_definition
+    | class_definition
+    | function_definition
+    | create_definition
+    | destroy_definition
+    | var_definition
+    ;
+
+*/
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"

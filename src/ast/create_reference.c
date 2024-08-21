@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+create_reference
+    : create_name expression_list
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

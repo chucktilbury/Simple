@@ -3,7 +3,11 @@
 /*
     Production being parsed:
 
- */
+ var_definition
+    : ( 'const' )? var_decl ( '=' assignment_item )?
+    ;
+
+*/
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"

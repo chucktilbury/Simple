@@ -3,6 +3,11 @@
 /*
     Production being parsed:
 
+list_init_str
+    : LITERAL_DSTR
+    | LITERAL_SSTR
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

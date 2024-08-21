@@ -3,6 +3,13 @@
 /*
     Production being parsed:
 
+module_item
+    : namespace_item
+    | import_statement
+    | include_statement
+    | start_definition
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

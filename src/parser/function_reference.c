@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+function_reference
+    : compound_reference expression_list compound_name_list
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

@@ -3,6 +3,12 @@
 /*
     Production being parsed:
 
+expr_factor
+    : expr_unary '*' expr_unary
+    | expr_unary '/' expr_unary
+    | expr_unary '%' expr_unary
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

@@ -3,7 +3,11 @@
 /*
     Production being parsed:
 
- */
+ function_assignment
+    : compound_reference type_name_list type_name_list
+    ;
+
+*/
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"

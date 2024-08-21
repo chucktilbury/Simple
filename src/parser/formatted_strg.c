@@ -3,7 +3,11 @@
 /*
     Production being parsed:
 
- */
+ formatted_strg
+    : LITERAL_DSTR ( expression_list )?
+    ;
+
+*/
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"

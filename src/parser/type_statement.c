@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+type_statement
+    : 'type' '(' compound_reference ')'
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

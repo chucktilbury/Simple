@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+continue_statement
+    : 'continue'
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

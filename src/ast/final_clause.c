@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+final_clause
+    : 'final' '(' IDENT ')' function_body
+    ;
+    
  */
 #include "common.h"
 #include "trace.h"

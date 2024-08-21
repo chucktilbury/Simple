@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+create_name
+    : IDENT ('.' IDENT)? '.' 'create'
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

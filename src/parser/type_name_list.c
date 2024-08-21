@@ -3,7 +3,11 @@
 /*
     Production being parsed:
 
- */
+ type_name_list
+    : '(' ( type_name (',' type_name )* )? ')'
+    ;
+
+*/
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"

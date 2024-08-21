@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+list_init
+    : '[' list_init_element ( ',' list_init_element )* ']'
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

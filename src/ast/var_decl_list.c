@@ -3,7 +3,11 @@
 /*
     Production being parsed:
 
- */
+ var_decl_list
+    : '(' ( var_decl ( ',' var_decl )* )? ')'
+    ;
+
+*/
 #include "common.h"
 #include "trace.h"
 #include "errors.h"

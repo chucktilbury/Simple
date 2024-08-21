@@ -3,7 +3,11 @@
 /*
     Production being parsed:
 
- */
+ var_decl
+    : type_name IDENT
+    ;
+
+*/
 #include "common.h"
 #include "trace.h"
 #include "errors.h"

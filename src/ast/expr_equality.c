@@ -3,6 +3,11 @@
 /*
     Production being parsed:
 
+expr_equality
+    : expr_compare '==' expr_compare
+    | expr_compare '!=' expr_compare
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

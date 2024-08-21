@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+destroy_reference
+    : destroy_name
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

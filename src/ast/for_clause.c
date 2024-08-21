@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+for_clause
+    : 'for' ( '(' ( (type_name)? IDENT 'in' expression )? ')' )? function_body
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

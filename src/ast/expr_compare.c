@@ -3,6 +3,13 @@
 /*
     Production being parsed:
 
+expr_compare
+    : expr_term '<' expr_term
+    | expr_term '>' expr_term
+    | expr_term '<=' expr_term
+    | expr_term '>=' expr_term
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

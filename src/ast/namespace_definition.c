@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+namespace_definition
+    : 'namespace' IDENT '{' ( namespace_item )+ '}'
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

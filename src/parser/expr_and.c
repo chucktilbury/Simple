@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+expr_and
+    : expr_equality 'and' expr_equality
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

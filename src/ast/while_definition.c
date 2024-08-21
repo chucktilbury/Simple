@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+while_definition
+    : 'while' ( '(' ( expression )? ')' )?
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

@@ -3,6 +3,15 @@
 /*
     Production being parsed:
 
+assignment
+    : compound_reference '=' assign_eq_item
+    | compound_reference '+=' assign_inc_item
+    | compound_reference '-=' expression
+    | compound_reference '*=' expression
+    | compound_reference '/=' expression
+    | compound_reference '%=' expression
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

@@ -3,6 +3,13 @@
 /*
     Production being parsed:
 
+expr_primary
+    : literal_value
+    | compound_reference
+    | cast_statement
+    | '(' expression ')'
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

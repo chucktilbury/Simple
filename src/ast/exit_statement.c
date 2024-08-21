@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+exit_statement
+    : 'exit' '(' expression ')'
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

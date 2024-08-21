@@ -3,7 +3,13 @@
 /*
     Production being parsed:
 
- */
+ assignment_item
+    : expression
+    | list_init
+    | function_assignment
+    ;
+
+*/
 #include "common.h"
 #include "trace.h"
 #include "errors.h"

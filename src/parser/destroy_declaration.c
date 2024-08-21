@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+destroy_declaration
+    : ('virtual' )? 'destroy'
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"

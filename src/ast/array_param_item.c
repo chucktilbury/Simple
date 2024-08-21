@@ -3,6 +3,11 @@
 /*
     Production being parsed:
 
+array_param_item
+    : expression
+    | string_literal
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

@@ -3,6 +3,14 @@
 /*
     Production being parsed:
 
+class_item
+    : scope_operator
+    | var_decl
+    | function_declaration
+    | create_declaration
+    | destroy_declaration
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

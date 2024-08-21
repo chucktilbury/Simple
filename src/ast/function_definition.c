@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+function_definition
+    : ('virtual' )? compound_name var_decl_list var_decl_list function_body
+    ;
+
  */
 #include "common.h"
 #include "trace.h"

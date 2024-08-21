@@ -3,6 +3,10 @@
 /*
     Production being parsed:
 
+class_definition
+    : 'class' IDENT ( '(' ( type_name )? ')' )? '{' ( class_item )+ '}'
+    ;
+
  */
 #include "common.h"
 #include "tokens.h"
