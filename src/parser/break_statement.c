@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-break_statement
-    : 'break'
-    ;
-
+/**
+ *
+ * @file break_statement.c
+ *
+ * @brief Parse grammar production break_statement.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_break_statement_t* parse_break_statement(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * break_statement
+ *     : 'break'
+ *     ;
+ */
+ast_break_statement_t* parse_break_statement(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_break_statement_t* node = NULL;

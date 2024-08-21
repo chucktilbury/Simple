@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-expr_and
-    : expr_equality 'and' expr_equality
-    ;
-
+/**
+ *
+ * @file expr_and.c
+ *
+ * @brief Parse grammar production expr_and.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_expr_and_t* parse_expr_and(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * expr_and
+ *     : expr_equality 'and' expr_equality
+ *     ;
+ */
+ast_expr_and_t* parse_expr_and(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_expr_and_t* node = NULL;

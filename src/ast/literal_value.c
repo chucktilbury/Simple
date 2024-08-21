@@ -1,21 +1,27 @@
-
-
-/*
-    Production being parsed:
-
- literal_value
-    : LITERAL_FLOAT
-    | LITERAL_INTEGER
-    | LITERAL_BOOL
-    | string_literal
-    ;
-
-*/
+/**
+ *
+ * @file literal_value.c
+ *
+ * @brief Traverse AST for node literal_value.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "trace.h"
 #include "errors.h"
 #include "ast.h"
 
+/**
+ *
+ * Grammar production:
+ *
+ * literal_value
+ *     : LITERAL_FLOAT
+ *     | LITERAL_INTEGER
+ *     | LITERAL_BOOL
+ *     | string_literal
+ *     ;
+ */
 void traverse_literal_value(ast_literal_value_t* node, AstFuncPtr pre, AstFuncPtr post) {
 
     ENTER;

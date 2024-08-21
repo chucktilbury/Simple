@@ -1,22 +1,29 @@
-
-
-/*
-    Production being parsed:
-
-expr_factor
-    : expr_unary '*' expr_unary
-    | expr_unary '/' expr_unary
-    | expr_unary '%' expr_unary
-    ;
-
+/**
+ *
+ * @file expr_factor.c
+ *
+ * @brief Parse grammar production expr_factor.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_expr_factor_t* parse_expr_factor(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * expr_factor
+ *     : expr_unary '*' expr_unary
+ *     | expr_unary '/' expr_unary
+ *     | expr_unary '%' expr_unary
+ *     ;
+ */
+ast_expr_factor_t* parse_expr_factor(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_expr_factor_t* node = NULL;

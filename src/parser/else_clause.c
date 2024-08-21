@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-else_clause
-    : 'else' '(' expression ')' function_body
-    ;
-
+/**
+ *
+ * @file else_clause.c
+ *
+ * @brief Parse grammar production else_clause.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_else_clause_t* parse_else_clause(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * else_clause
+ *     : 'else' '(' expression ')' function_body
+ *     ;
+ */
+ast_else_clause_t* parse_else_clause(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_else_clause_t* node = NULL;

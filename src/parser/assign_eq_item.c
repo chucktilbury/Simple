@@ -1,21 +1,28 @@
-
-
-/*
-    Production being parsed:
-
-assign_eq_item
-    : assignment_item
-    | compound_reference
-    ;
-
+/**
+ *
+ * @file assign_eq_item.c
+ *
+ * @brief Parse grammar production assign_eq_item.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_assign_eq_item_t* parse_assign_eq_item(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * assign_eq_item
+ *     : assignment_item
+ *     | compound_reference
+ *     ;
+ */
+ast_assign_eq_item_t* parse_assign_eq_item(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_assign_eq_item_t* node = NULL;

@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-class_definition
-    : 'class' IDENT ( '(' ( type_name )? ')' )? '{' ( class_item )+ '}'
-    ;
-
+/**
+ *
+ * @file class_definition.c
+ *
+ * @brief Parse grammar production class_definition.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_class_definition_t* parse_class_definition(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * class_definition
+ *     : 'class' IDENT ( '(' ( type_name )? ')' )? '{' ( class_item )+ '}'
+ *     ;
+ */
+ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_class_definition_t* node = NULL;

@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-if_clause
-    : 'if' '(' expression ')' function_body ( else_clause )* ( final_else_clause )?
-    ;
-
+/**
+ *
+ * @file if_clause.c
+ *
+ * @brief Parse grammar production if_clause.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_if_clause_t* parse_if_clause(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * if_clause
+ *     : 'if' '(' expression ')' function_body ( else_clause )* ( final_else_clause )?
+ *     ;
+ */
+ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_if_clause_t* node = NULL;

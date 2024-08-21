@@ -1,21 +1,28 @@
-
-
-/*
-    Production being parsed:
-
-compound_ref_item
-    : IDENT
-    | array_reference
-    ;
-
+/**
+ *
+ * @file compound_ref_item.c
+ *
+ * @brief Parse grammar production compound_ref_item.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_compound_ref_item_t* parse_compound_ref_item(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * compound_ref_item
+ *     : IDENT
+ *     | array_reference
+ *     ;
+ */
+ast_compound_ref_item_t* parse_compound_ref_item(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_compound_ref_item_t* node = NULL;

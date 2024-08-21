@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-compound_reference
-    : compound_ref_item ( '.' compound_ref_item )*
-    ;
-
+/**
+ *
+ * @file compound_reference.c
+ *
+ * @brief Parse grammar production compound_reference.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_compound_reference_t* parse_compound_reference(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * compound_reference
+ *     : compound_ref_item ( '.' compound_ref_item )*
+ *     ;
+ */
+ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_compound_reference_t* node = NULL;

@@ -27,8 +27,9 @@
     (type == TOK_OSBRACE)? "[" :
     (type == TOK_CSBRACE)? "]" :
     (type == TOK_DOT)? "." :
-    (type == TOK_OR)? "OR" :
-    (type == TOK_AND)? "AND" :
+    (type == TOK_OR)? "or" :
+    (type == TOK_AND)? "and" :
+    (type == TOK_EQUAL_EQUAL)? "==" :
     (type == TOK_BANG_EQUAL)? "!=" :
     (type == TOK_OPBRACE)? "<" :
     (type == TOK_CPBRACE)? ">" :

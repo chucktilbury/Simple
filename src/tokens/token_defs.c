@@ -1,13 +1,18 @@
-
+/**
+ *
+ * @file token_defs.c
+ *
+ * @brief Token definition implementation.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include <stdio.h>
-
-
 #include <strings.h>
 
 #include "token_defs.h"
 
 token_database_t keywords[] = {
-    { "and", TOK_AND },    
+    { "and", TOK_AND },
     { "as", TOK_AS },
     { "boolean", TOK_BOOLEAN },
     { "break", TOK_BREAK },
@@ -31,7 +36,6 @@ token_database_t keywords[] = {
     { "integer", TOK_INTEGER },
     { "list", TOK_LIST },
     { "namespace", TOK_NAMESPACE },
-    { "not", TOK_NOT },
     { "nothing", TOK_NOTHING },
     { "or", TOK_OR },
     { "print", TOK_PRINT },
@@ -95,7 +99,6 @@ const char* token_type_to_str(TokenType type) {
         (type == TOK_STAR)? "*" :
         (type == TOK_SLASH)? "/" :
         (type == TOK_PERCENT)? "%" :
-        (type == TOK_NOT)? "not" :
         (type == TOK_BANG)? "!" :
         (type == TOK_NAMESPACE)? "namespace" :
         (type == TOK_OCBRACE)? "{" :
@@ -128,32 +131,31 @@ const char* token_type_to_str(TokenType type) {
         (type == TOK_TRY)? "try" :
         (type == TOK_EXCEPT)? "except" :
         (type == TOK_FINAL)? "final" :
-        // manual changes
-        (type == TOK_CARAT)? "^" :
-        (type == TOK_END_OF_INPUT)? "END OF INPUT" :
-        (type == TOK_END_OF_FILE)? "END OF FILE" :
-        (type == TOK_ERROR)? "ERROR" :
+    (type == TOK_CARAT)? "^" :
+    (type == TOK_END_OF_INPUT)? "END OF INPUT" :
+    (type == TOK_END_OF_FILE)? "END OF FILE" :
+    (type == TOK_ERROR)? "ERROR" :
         "UNKNOWN";
 }
 
 token_database_t* find_keyword(const char* str) {
 
-    int l = 0, r = NUM_KEYWORDS - 1, m, x;
+        int l = 0, r = NUM_KEYWORDS - 1, m, x;
 
-    while(l <= r) {
-        m = l + (r - l) / 2;
-        x = strcasecmp(keywords[m].str, str);
+        while(l <= r) {
+            m = l + (r - l) / 2;
+            x = strcasecmp(keywords[m].str, str);
 
-        if(x == 0) {
-            return &keywords[m];
+            if(x == 0) {
+                return &keywords[m];
+            }
+            if(x < 0) {
+                l = m + 1;
+            }
+            else {
+                r = m - 1;
+            }
         }
-        if(x < 0) {
-            l = m + 1;
-        }
-        else {
-            r = m - 1;
-        }
-    }
-    return NULL;
+        return NULL;
 }
 

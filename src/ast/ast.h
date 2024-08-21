@@ -1,3 +1,11 @@
+/**
+ *
+ * @file ast.h
+ *
+ * @brief AST traverse public interface.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 
 #ifndef _AST_H_
 #define _AST_H_
@@ -87,702 +95,1084 @@ typedef struct _ast_node_ {
     AstNodeType type;
 } AstNode;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * module
+ *     : ( module_item )+
+ *     ;
  */
 typedef struct _ast_module_ {
     AstNode node;
 
 } ast_module_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * module_item
+ *     : namespace_item
+ *     | import_statement
+ *     | include_statement
+ *     | start_definition
+ *     ;
  */
 typedef struct _ast_module_item_ {
     AstNode node;
 
 } ast_module_item_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * start_definition
+ *     : 'start' function_body
+ *     ;
  */
 typedef struct _ast_start_definition_ {
     AstNode node;
 
 } ast_start_definition_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * import_statement
+ *     : 'import' formatted_strg 'as' IDENT
+ *     ;
  */
 typedef struct _ast_import_statement_ {
     AstNode node;
 
 } ast_import_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * include_statement
+ *     : 'include' formatted_strg
+ *     ;
  */
 typedef struct _ast_include_statement_ {
     AstNode node;
 
 } ast_include_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * namespace_item
+ *     : scope_operator
+ *     | namespace_definition
+ *     | class_definition
+ *     | function_definition
+ *     | create_definition
+ *     | destroy_definition
+ *     | var_definition
+ *     ;
  */
 typedef struct _ast_namespace_item_ {
     AstNode node;
 
 } ast_namespace_item_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * scope_operator
+ *     : 'private'
+ *     | 'public'
+ *     | 'protected'
+ *     ;
  */
 typedef struct _ast_scope_operator_ {
     AstNode node;
 
 } ast_scope_operator_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * literal_type_name
+ *     : 'float'
+ *     | 'integer'
+ *     | 'string'
+ *     | 'boolean'
+ *     | 'nothing'
+ *     | 'list'
+ *     | 'dict'
+ *     ;
  */
 typedef struct _ast_literal_type_name_ {
     AstNode node;
 
 } ast_literal_type_name_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * type_name
+ *     : literal_type_name
+ *     | compound_name
+ *     ;
  */
 typedef struct _ast_type_name_ {
     AstNode node;
 
 } ast_type_name_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * type_name_list
+ *     : '(' ( type_name (',' type_name )* )? ')'
+ *     ;
  */
 typedef struct _ast_type_name_list_ {
     AstNode node;
 
 } ast_type_name_list_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * formatted_strg
+ *     : LITERAL_DSTR ( expression_list )?
+ *     ;
  */
 typedef struct _ast_formatted_strg_ {
     AstNode node;
 
 } ast_formatted_strg_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * string_literal
+ *     : LITERAL_SSTR
+ *     | formatted_strg
+ *     ;
  */
 typedef struct _ast_string_literal_ {
     AstNode node;
 
 } ast_string_literal_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * literal_value
+ *     : LITERAL_FLOAT
+ *     | LITERAL_INTEGER
+ *     | LITERAL_BOOL
+ *     | string_literal
+ *     ;
  */
 typedef struct _ast_literal_value_ {
     AstNode node;
 
 } ast_literal_value_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * var_decl
+ *     : type_name IDENT
+ *     ;
  */
 typedef struct _ast_var_decl_ {
     AstNode node;
 
 } ast_var_decl_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * var_decl_list
+ *     : '(' ( var_decl ( ',' var_decl )* )? ')'
+ *     ;
  */
 typedef struct _ast_var_decl_list_ {
     AstNode node;
 
 } ast_var_decl_list_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * function_assignment
+ *     : compound_reference type_name_list type_name_list
+ *     ;
  */
 typedef struct _ast_function_assignment_ {
     AstNode node;
 
 } ast_function_assignment_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * assignment_item
+ *     : expression
+ *     | list_init
+ *     | function_assignment
+ *     ;
  */
 typedef struct _ast_assignment_item_ {
     AstNode node;
 
 } ast_assignment_item_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * var_definition
+ *     : ( 'const' )? var_decl ( '=' assignment_item )?
+ *     ;
  */
 typedef struct _ast_var_definition_ {
     AstNode node;
 
 } ast_var_definition_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * list_init_str
+ *     : LITERAL_DSTR
+ *     | LITERAL_SSTR
+ *     ;
  */
 typedef struct _ast_list_init_str_ {
     AstNode node;
 
 } ast_list_init_str_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * list_init_element
+ *     : list_init_str ':' assignment_item
+ *     | assignment_item
+ *     ;
  */
 typedef struct _ast_list_init_element_ {
     AstNode node;
 
 } ast_list_init_element_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * list_init
+ *     : '[' list_init_element ( ',' list_init_element )* ']'
+ *     ;
  */
 typedef struct _ast_list_init_ {
     AstNode node;
 
 } ast_list_init_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * array_param_item
+ *     : expression
+ *     | string_literal
+ *     ;
  */
 typedef struct _ast_array_param_item_ {
     AstNode node;
 
 } ast_array_param_item_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * array_param
+ *     : '[' array_param_item ']'
+ *     ;
  */
 typedef struct _ast_array_param_ {
     AstNode node;
 
 } ast_array_param_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * array_param_list
+ *     : array_param (array_param)*
+ *     ;
  */
 typedef struct _ast_array_param_list_ {
     AstNode node;
 
 } ast_array_param_list_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * array_reference
+ *     : IDENT array_param_list
+ *     ;
  */
 typedef struct _ast_array_reference_ {
     AstNode node;
 
 } ast_array_reference_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * function_reference
+ *     : compound_reference expression_list compound_name_list
+ *     ;
  */
 typedef struct _ast_function_reference_ {
     AstNode node;
 
 } ast_function_reference_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * create_reference
+ *     : create_name expression_list
+ *     ;
  */
 typedef struct _ast_create_reference_ {
     AstNode node;
 
 } ast_create_reference_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * destroy_reference
+ *     : destroy_name
+ *     ;
  */
 typedef struct _ast_destroy_reference_ {
     AstNode node;
 
 } ast_destroy_reference_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * compound_name
+ *     : IDENT ( '.' IDENT )*
+ *     ;
  */
 typedef struct _ast_compound_name_ {
     AstNode node;
 
 } ast_compound_name_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * compound_name_list
+ *     : '(' ( compound_name (',' compound_name )* )? ')'
+ *     ;
  */
 typedef struct _ast_compound_name_list_ {
     AstNode node;
 
 } ast_compound_name_list_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * compound_ref_item
+ *     : IDENT
+ *     | array_reference
+ *     ;
  */
 typedef struct _ast_compound_ref_item_ {
     AstNode node;
 
 } ast_compound_ref_item_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * compound_reference
+ *     : compound_ref_item ( '.' compound_ref_item )*
+ *     ;
  */
 typedef struct _ast_compound_reference_ {
     AstNode node;
 
 } ast_compound_reference_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * cast_statement
+ *     : type_name ':' expression
+ *     ;
  */
 typedef struct _ast_cast_statement_ {
     AstNode node;
 
 } ast_cast_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expression
+ *     : expr_or
+ *     ;
  */
 typedef struct _ast_expression_ {
     AstNode node;
 
 } ast_expression_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expr_or
+ *     : expr_and 'or' expr_and
+ *     ;
  */
 typedef struct _ast_expr_or_ {
     AstNode node;
 
 } ast_expr_or_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expr_and
+ *     : expr_equality 'and' expr_equality
+ *     ;
  */
 typedef struct _ast_expr_and_ {
     AstNode node;
 
 } ast_expr_and_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expr_equality
+ *     : expr_compare '==' expr_compare
+ *     | expr_compare '!=' expr_compare
+ *     ;
  */
 typedef struct _ast_expr_equality_ {
     AstNode node;
 
 } ast_expr_equality_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expr_compare
+ *     : expr_term '<' expr_term
+ *     | expr_term '>' expr_term
+ *     | expr_term '<=' expr_term
+ *     | expr_term '>=' expr_term
+ *     ;
  */
 typedef struct _ast_expr_compare_ {
     AstNode node;
 
 } ast_expr_compare_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expr_term
+ *     : expr_factor '+' expr_factor
+ *     | expr_factor '-' expr_factor
+ *     ;
  */
 typedef struct _ast_expr_term_ {
     AstNode node;
 
 } ast_expr_term_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expr_factor
+ *     : expr_unary '*' expr_unary
+ *     | expr_unary '/' expr_unary
+ *     | expr_unary '%' expr_unary
+ *     ;
  */
 typedef struct _ast_expr_factor_ {
     AstNode node;
 
 } ast_expr_factor_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expr_unary
+ *     : '-' expr_primary
+ *     | '!' expr_primary
+ *     ;
  */
 typedef struct _ast_expr_unary_ {
     AstNode node;
 
 } ast_expr_unary_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expr_primary
+ *     : literal_value
+ *     | compound_reference
+ *     | cast_statement
+ *     | '(' expression ')'
+ *     ;
  */
 typedef struct _ast_expr_primary_ {
     AstNode node;
 
 } ast_expr_primary_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * expression_list
+ *     : '(' (expression ( ',' expression )*)? ')'
+ *     ;
  */
 typedef struct _ast_expression_list_ {
     AstNode node;
 
 } ast_expression_list_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * namespace_definition
+ *     : 'namespace' IDENT '{' ( namespace_item )+ '}'
+ *     ;
  */
 typedef struct _ast_namespace_definition_ {
     AstNode node;
 
 } ast_namespace_definition_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * class_definition
+ *     : 'class' IDENT ( '(' ( type_name )? ')' )? '{' ( class_item )+ '}'
+ *     ;
  */
 typedef struct _ast_class_definition_ {
     AstNode node;
 
 } ast_class_definition_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * class_item
+ *     : scope_operator
+ *     | var_decl
+ *     | function_declaration
+ *     | create_declaration
+ *     | destroy_declaration
+ *     ;
  */
 typedef struct _ast_class_item_ {
     AstNode node;
 
 } ast_class_item_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * function_declaration
+ *     : ('virtual' )? IDENT type_name_list type_name_list
+ *     ;
  */
 typedef struct _ast_function_declaration_ {
     AstNode node;
 
 } ast_function_declaration_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * create_declaration
+ *     : ('virtual' )? 'create' type_name_list
+ *     ;
  */
 typedef struct _ast_create_declaration_ {
     AstNode node;
 
 } ast_create_declaration_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * destroy_declaration
+ *     : ('virtual' )? 'destroy'
+ *     ;
  */
 typedef struct _ast_destroy_declaration_ {
     AstNode node;
 
 } ast_destroy_declaration_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * function_definition
+ *     : ('virtual' )? compound_name var_decl_list var_decl_list function_body
+ *     ;
  */
 typedef struct _ast_function_definition_ {
     AstNode node;
 
 } ast_function_definition_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * create_name
+ *     : IDENT ('.' IDENT)? '.' 'create'
+ *     ;
  */
 typedef struct _ast_create_name_ {
     AstNode node;
 
 } ast_create_name_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * create_definition
+ *     : ('virtual' )? create_name var_decl_list function_body
+ *     ;
  */
 typedef struct _ast_create_definition_ {
     AstNode node;
 
 } ast_create_definition_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * destroy_name
+ *     : IDENT ('.' IDENT)? '.' 'destroy'
+ *     ;
  */
 typedef struct _ast_destroy_name_ {
     AstNode node;
 
 } ast_destroy_name_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * destroy_definition
+ *     : ('virtual' )? destroy_name function_body
+ *     ;
  */
 typedef struct _ast_destroy_definition_ {
     AstNode node;
 
 } ast_destroy_definition_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * function_body
+ *     : '{' ( function_body_element )* '}'
+ *     ;
  */
 typedef struct _ast_function_body_ {
     AstNode node;
 
 } ast_function_body_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * assign_eq_item
+ *     : assignment_item
+ *     | compound_reference
+ *     ;
  */
 typedef struct _ast_assign_eq_item_ {
     AstNode node;
 
 } ast_assign_eq_item_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * assign_inc_item
+ *     : expression
+ *     | string_literal
+ *     ;
  */
 typedef struct _ast_assign_inc_item_ {
     AstNode node;
 
 } ast_assign_inc_item_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * assignment
+ *     : compound_reference '=' assign_eq_item
+ *     | compound_reference '+=' assign_inc_item
+ *     | compound_reference '-=' expression
+ *     | compound_reference '*=' expression
+ *     | compound_reference '/=' expression
+ *     | compound_reference '%=' expression
+ *     ;
  */
 typedef struct _ast_assignment_ {
     AstNode node;
 
 } ast_assignment_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * function_body_element
+ *     : var_definition
+ *     | function_reference
+ *     | create_reference
+ *     | destroy_reference
+ *     | assignment
+ *     | while_clause
+ *     | do_clause
+ *     | for_clause
+ *     | if_clause
+ *     | try_clause
+ *     | switch_clause
+ *     | break_statement
+ *     | continue_statement
+ *     | INLINE
+ *     | yield_statement
+ *     | type_statement
+ *     | return_statement
+ *     | raise_statement
+ *     | trace_statement
+ *     | print_statement
+ *     | function_body
+ *     ;
  */
 typedef struct _ast_function_body_element_ {
     AstNode node;
 
 } ast_function_body_element_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * break_statement
+ *     : 'break'
+ *     ;
  */
 typedef struct _ast_break_statement_ {
     AstNode node;
 
 } ast_break_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * continue_statement
+ *     : 'continue'
+ *     ;
  */
 typedef struct _ast_continue_statement_ {
     AstNode node;
 
 } ast_continue_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * yield_statement
+ *     : 'yield' '(' compound_reference ')'
+ *     ;
  */
 typedef struct _ast_yield_statement_ {
     AstNode node;
 
 } ast_yield_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * type_statement
+ *     : 'type' '(' compound_reference ')'
+ *     ;
  */
 typedef struct _ast_type_statement_ {
     AstNode node;
 
 } ast_type_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * return_statement
+ *     : 'return'
+ *     ;
  */
 typedef struct _ast_return_statement_ {
     AstNode node;
 
 } ast_return_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * raise_statement
+ *     : 'raise' '(' IDENT ',' string_literal ')'
+ *     ;
  */
 typedef struct _ast_raise_statement_ {
     AstNode node;
 
 } ast_raise_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * trace_statement
+ *     : 'trace' '(' string_literal ')'
+ *     ;
  */
 typedef struct _ast_trace_statement_ {
     AstNode node;
 
 } ast_trace_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * print_statement
+ *     : 'print' ( expression_list )?
+ *     ;
  */
 typedef struct _ast_print_statement_ {
     AstNode node;
 
 } ast_print_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * exit_statement
+ *     : 'exit' '(' expression ')'
+ *     ;
  */
 typedef struct _ast_exit_statement_ {
     AstNode node;
 
 } ast_exit_statement_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * while_definition
+ *     : 'while' ( '(' ( expression )? ')' )?
+ *     ;
  */
 typedef struct _ast_while_definition_ {
     AstNode node;
 
 } ast_while_definition_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * while_clause
+ *     : while_definition function_body
+ *     ;
  */
 typedef struct _ast_while_clause_ {
     AstNode node;
 
 } ast_while_clause_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * do_clause
+ *     : 'do' function_body while_definition
+ *     ;
  */
 typedef struct _ast_do_clause_ {
     AstNode node;
 
 } ast_do_clause_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * for_clause
+ *     : 'for' ( '(' ( (type_name)? IDENT 'in' expression )? ')' )? function_body
+ *     ;
  */
 typedef struct _ast_for_clause_ {
     AstNode node;
 
 } ast_for_clause_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * if_clause
+ *     : 'if' '(' expression ')' function_body ( else_clause )* ( final_else_clause )?
+ *     ;
  */
 typedef struct _ast_if_clause_ {
     AstNode node;
 
 } ast_if_clause_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * else_clause
+ *     : 'else' '(' expression ')' function_body
+ *     ;
  */
 typedef struct _ast_else_clause_ {
     AstNode node;
 
 } ast_else_clause_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * final_else_clause
+ *     : 'else' ( '(' ')' )? function_body
+ *     ;
  */
 typedef struct _ast_final_else_clause_ {
     AstNode node;
 
 } ast_final_else_clause_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * try_clause
+ *     : 'try' function_body ( except_clause )* ( final_clause )?
+ *     ;
  */
 typedef struct _ast_try_clause_ {
     AstNode node;
 
 } ast_try_clause_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * except_clause
+ *     : 'except' '(' IDENT ',' IDENT ')' function_body
+ *     ;
  */
 typedef struct _ast_except_clause_ {
     AstNode node;
 
 } ast_except_clause_t;
 
-/*
-    Production being parsed:
-
+/**
+ *
+ * Grammar production:
+ *
+ * final_clause
+ *     : 'final' '(' IDENT ')' function_body
+ *     ;
  */
 typedef struct _ast_final_clause_ {
     AstNode node;

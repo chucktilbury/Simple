@@ -1,3 +1,11 @@
+/**
+ *
+ * @file token_defs.h
+ *
+ * @brief Token definitions public interface.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #ifndef _TOKEN_DEFS_H_
 #define _TOKEN_DEFS_H_
 
@@ -44,7 +52,6 @@ typedef enum {
     TOK_STAR,
     TOK_SLASH,
     TOK_PERCENT,
-    TOK_NOT,
     TOK_BANG,
     TOK_NAMESPACE,
     TOK_OCBRACE,
@@ -77,9 +84,8 @@ typedef enum {
     TOK_TRY,
     TOK_EXCEPT,
     TOK_FINAL,
-
-    // manual changes
     TOK_CARAT,
+
     TOK_END_OF_INPUT,
     TOK_END_OF_FILE,
     TOK_ERROR,

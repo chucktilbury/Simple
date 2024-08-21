@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-namespace_definition
-    : 'namespace' IDENT '{' ( namespace_item )+ '}'
-    ;
-
+/**
+ *
+ * @file namespace_definition.c
+ *
+ * @brief Parse grammar production namespace_definition.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_namespace_definition_t* parse_namespace_definition(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * namespace_definition
+ *     : 'namespace' IDENT '{' ( namespace_item )+ '}'
+ *     ;
+ */
+ast_namespace_definition_t* parse_namespace_definition(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_namespace_definition_t* node = NULL;

@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
- type_name_list
-    : '(' ( type_name (',' type_name )* )? ')'
-    ;
-
-*/
+/**
+ *
+ * @file type_name_list.c
+ *
+ * @brief Parse grammar production type_name_list.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_type_name_list_t* parse_type_name_list(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * type_name_list
+ *     : '(' ( type_name (',' type_name )* )? ')'
+ *     ;
+ */
+ast_type_name_list_t* parse_type_name_list(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_type_name_list_t* node = NULL;

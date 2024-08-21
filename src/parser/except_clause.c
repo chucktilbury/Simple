@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-except_clause
-    : 'except' '(' IDENT ',' IDENT ')' function_body
-    ;
-
+/**
+ *
+ * @file except_clause.c
+ *
+ * @brief Parse grammar production except_clause.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_except_clause_t* parse_except_clause(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * except_clause
+ *     : 'except' '(' IDENT ',' IDENT ')' function_body
+ *     ;
+ */
+ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_except_clause_t* node = NULL;

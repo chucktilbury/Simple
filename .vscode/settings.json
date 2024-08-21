@@ -1,6 +1,7 @@
 {
     "cmake.configureOnOpen": true,
     "cSpell.words": [
+        "BSLASH",
         "CCBRACE",
         "CPAREN",
         "CPBRACE",
@@ -11,7 +12,10 @@
         "OPAREN",
         "OPBRACE",
         "OSBRACE",
-        "squote"
+        "pstate",
+        "squote",
+        "strcasecmp",
+        "strg"
     ],
     "files.associations": {
         "common.h": "c"

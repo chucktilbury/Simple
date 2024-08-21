@@ -1,25 +1,32 @@
-
-
-/*
-    Production being parsed:
-
-assignment
-    : compound_reference '=' assign_eq_item
-    | compound_reference '+=' assign_inc_item
-    | compound_reference '-=' expression
-    | compound_reference '*=' expression
-    | compound_reference '/=' expression
-    | compound_reference '%=' expression
-    ;
-
+/**
+ *
+ * @file assignment.c
+ *
+ * @brief Parse grammar production assignment.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_assignment_t* parse_assignment(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * assignment
+ *     : compound_reference '=' assign_eq_item
+ *     | compound_reference '+=' assign_inc_item
+ *     | compound_reference '-=' expression
+ *     | compound_reference '*=' expression
+ *     | compound_reference '/=' expression
+ *     | compound_reference '%=' expression
+ *     ;
+ */
+ast_assignment_t* parse_assignment(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_assignment_t* node = NULL;

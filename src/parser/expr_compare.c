@@ -1,23 +1,30 @@
-
-
-/*
-    Production being parsed:
-
-expr_compare
-    : expr_term '<' expr_term
-    | expr_term '>' expr_term
-    | expr_term '<=' expr_term
-    | expr_term '>=' expr_term
-    ;
-
+/**
+ *
+ * @file expr_compare.c
+ *
+ * @brief Parse grammar production expr_compare.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_expr_compare_t* parse_expr_compare(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * expr_compare
+ *     : expr_term '<' expr_term
+ *     | expr_term '>' expr_term
+ *     | expr_term '<=' expr_term
+ *     | expr_term '>=' expr_term
+ *     ;
+ */
+ast_expr_compare_t* parse_expr_compare(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_expr_compare_t* node = NULL;

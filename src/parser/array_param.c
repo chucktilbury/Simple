@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-array_param
-    : '[' array_param_item ']'
-    ;
-
+/**
+ *
+ * @file array_param.c
+ *
+ * @brief Parse grammar production array_param.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_array_param_t* parse_array_param(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * array_param
+ *     : '[' array_param_item ']'
+ *     ;
+ */
+ast_array_param_t* parse_array_param(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_array_param_t* node = NULL;

@@ -1,23 +1,30 @@
-
-
-/*
-    Production being parsed:
-
-expr_primary
-    : literal_value
-    | compound_reference
-    | cast_statement
-    | '(' expression ')'
-    ;
-
+/**
+ *
+ * @file expr_primary.c
+ *
+ * @brief Parse grammar production expr_primary.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_expr_primary_t* parse_expr_primary(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * expr_primary
+ *     : literal_value
+ *     | compound_reference
+ *     | cast_statement
+ *     | '(' expression ')'
+ *     ;
+ */
+ast_expr_primary_t* parse_expr_primary(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_expr_primary_t* node = NULL;

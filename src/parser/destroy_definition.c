@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-destroy_definition
-    : ('virtual' )? destroy_name function_body
-    ;
-
+/**
+ *
+ * @file destroy_definition.c
+ *
+ * @brief Parse grammar production destroy_definition.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_destroy_definition_t* parse_destroy_definition(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * destroy_definition
+ *     : ('virtual' )? destroy_name function_body
+ *     ;
+ */
+ast_destroy_definition_t* parse_destroy_definition(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_destroy_definition_t* node = NULL;

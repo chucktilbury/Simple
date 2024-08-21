@@ -1,22 +1,29 @@
-
-
-/*
-    Production being parsed:
-
- scope_operator
-    : 'private'
-    | 'public'
-    | 'protected'
-    ;
- 
+/**
+ *
+ * @file scope_operator.c
+ *
+ * @brief Parse grammar production scope_operator.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_scope_operator_t* parse_scope_operator(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * scope_operator
+ *     : 'private'
+ *     | 'public'
+ *     | 'protected'
+ *     ;
+ */
+ast_scope_operator_t* parse_scope_operator(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_scope_operator_t* node = NULL;

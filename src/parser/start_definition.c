@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
- start_definition
-    : 'start' function_body
-    ;
-
-*/
+/**
+ *
+ * @file start_definition.c
+ *
+ * @brief Parse grammar production start_definition.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_start_definition_t* parse_start_definition(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * start_definition
+ *     : 'start' function_body
+ *     ;
+ */
+ast_start_definition_t* parse_start_definition(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_start_definition_t* node = NULL;

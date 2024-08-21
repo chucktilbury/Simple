@@ -1,26 +1,33 @@
-
-
-/*
-    Production being parsed:
-
- namespace_item
-    : scope_operator
-    | namespace_definition
-    | class_definition
-    | function_definition
-    | create_definition
-    | destroy_definition
-    | var_definition
-    ;
-
-*/
+/**
+ *
+ * @file namespace_item.c
+ *
+ * @brief Parse grammar production namespace_item.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_namespace_item_t* parse_namespace_item(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * namespace_item
+ *     : scope_operator
+ *     | namespace_definition
+ *     | class_definition
+ *     | function_definition
+ *     | create_definition
+ *     | destroy_definition
+ *     | var_definition
+ *     ;
+ */
+ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_namespace_item_t* node = NULL;

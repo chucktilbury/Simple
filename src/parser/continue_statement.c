@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-continue_statement
-    : 'continue'
-    ;
-
+/**
+ *
+ * @file continue_statement.c
+ *
+ * @brief Parse grammar production continue_statement.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_continue_statement_t* parse_continue_statement(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * continue_statement
+ *     : 'continue'
+ *     ;
+ */
+ast_continue_statement_t* parse_continue_statement(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_continue_statement_t* node = NULL;

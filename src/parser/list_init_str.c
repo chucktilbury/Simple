@@ -1,21 +1,28 @@
-
-
-/*
-    Production being parsed:
-
- list_init_str
-    : LITERAL_DSTR
-    | LITERAL_SSTR
-    ;
-
-*/
+/**
+ *
+ * @file list_init_str.c
+ *
+ * @brief Parse grammar production list_init_str.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_list_init_str_t* parse_list_init_str(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * list_init_str
+ *     : LITERAL_DSTR
+ *     | LITERAL_SSTR
+ *     ;
+ */
+ast_list_init_str_t* parse_list_init_str(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_list_init_str_t* node = NULL;

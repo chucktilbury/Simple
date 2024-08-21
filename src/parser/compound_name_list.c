@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-compound_name_list
-    : '(' ( compound_name (',' compound_name )* )? ')'
-    ;
-
+/**
+ *
+ * @file compound_name_list.c
+ *
+ * @brief Parse grammar production compound_name_list.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_compound_name_list_t* parse_compound_name_list(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * compound_name_list
+ *     : '(' ( compound_name (',' compound_name )* )? ')'
+ *     ;
+ */
+ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_compound_name_list_t* node = NULL;

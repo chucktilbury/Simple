@@ -1,21 +1,28 @@
-
-
-/*
-    Production being parsed:
-
-expr_term
-    : expr_factor '+' expr_factor
-    | expr_factor '-' expr_factor
-    ;
-
+/**
+ *
+ * @file expr_term.c
+ *
+ * @brief Parse grammar production expr_term.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_expr_term_t* parse_expr_term(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * expr_term
+ *     : expr_factor '+' expr_factor
+ *     | expr_factor '-' expr_factor
+ *     ;
+ */
+ast_expr_term_t* parse_expr_term(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_expr_term_t* node = NULL;

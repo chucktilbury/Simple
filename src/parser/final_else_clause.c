@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-final_else_clause
-    : 'else' ( '(' ')' )? function_body
-    ;
-
+/**
+ *
+ * @file final_else_clause.c
+ *
+ * @brief Parse grammar production final_else_clause.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_final_else_clause_t* parse_final_else_clause(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * final_else_clause
+ *     : 'else' ( '(' ')' )? function_body
+ *     ;
+ */
+ast_final_else_clause_t* parse_final_else_clause(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_final_else_clause_t* node = NULL;

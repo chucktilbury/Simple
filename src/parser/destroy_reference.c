@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-destroy_reference
-    : destroy_name
-    ;
-
+/**
+ *
+ * @file destroy_reference.c
+ *
+ * @brief Parse grammar production destroy_reference.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_destroy_reference_t* parse_destroy_reference(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * destroy_reference
+ *     : destroy_name
+ *     ;
+ */
+ast_destroy_reference_t* parse_destroy_reference(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_destroy_reference_t* node = NULL;

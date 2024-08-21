@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
- function_assignment
-    : compound_reference type_name_list type_name_list
-    ;
-
-*/
+/**
+ *
+ * @file function_assignment.c
+ *
+ * @brief Parse grammar production function_assignment.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_function_assignment_t* parse_function_assignment(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * function_assignment
+ *     : compound_reference type_name_list type_name_list
+ *     ;
+ */
+ast_function_assignment_t* parse_function_assignment(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_function_assignment_t* node = NULL;

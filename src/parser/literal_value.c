@@ -1,23 +1,30 @@
-
-
-/*
-    Production being parsed:
-
- literal_value
-    : LITERAL_FLOAT
-    | LITERAL_INTEGER
-    | LITERAL_BOOL
-    | string_literal
-    ;
-
-*/
+/**
+ *
+ * @file literal_value.c
+ *
+ * @brief Parse grammar production literal_value.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_literal_value_t* parse_literal_value(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * literal_value
+ *     : LITERAL_FLOAT
+ *     | LITERAL_INTEGER
+ *     | LITERAL_BOOL
+ *     | string_literal
+ *     ;
+ */
+ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_literal_value_t* node = NULL;

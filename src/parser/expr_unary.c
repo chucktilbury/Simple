@@ -1,21 +1,28 @@
-
-
-/*
-    Production being parsed:
-
-expr_unary
-    : '-' expr_primary
-    | '!' expr_primary
-    ;
-
+/**
+ *
+ * @file expr_unary.c
+ *
+ * @brief Parse grammar production expr_unary.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_expr_unary_t* parse_expr_unary(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * expr_unary
+ *     : '-' expr_primary
+ *     | '!' expr_primary
+ *     ;
+ */
+ast_expr_unary_t* parse_expr_unary(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_expr_unary_t* node = NULL;

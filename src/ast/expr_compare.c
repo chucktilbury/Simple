@@ -1,21 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-expr_compare
-    : expr_term '<' expr_term
-    | expr_term '>' expr_term
-    | expr_term '<=' expr_term
-    | expr_term '>=' expr_term
-    ;
-
+/**
+ *
+ * @file expr_compare.c
+ *
+ * @brief Traverse AST for node expr_compare.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "trace.h"
 #include "errors.h"
 #include "ast.h"
 
+/**
+ *
+ * Grammar production:
+ *
+ * expr_compare
+ *     : expr_term '<' expr_term
+ *     | expr_term '>' expr_term
+ *     | expr_term '<=' expr_term
+ *     | expr_term '>=' expr_term
+ *     ;
+ */
 void traverse_expr_compare(ast_expr_compare_t* node, AstFuncPtr pre, AstFuncPtr post) {
 
     ENTER;

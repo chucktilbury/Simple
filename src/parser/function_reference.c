@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-function_reference
-    : compound_reference expression_list compound_name_list
-    ;
-
+/**
+ *
+ * @file function_reference.c
+ *
+ * @brief Parse grammar production function_reference.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_function_reference_t* parse_function_reference(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * function_reference
+ *     : compound_reference expression_list compound_name_list
+ *     ;
+ */
+ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_function_reference_t* node = NULL;

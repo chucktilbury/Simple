@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-create_name
-    : IDENT ('.' IDENT)? '.' 'create'
-    ;
-
+/**
+ *
+ * @file create_name.c
+ *
+ * @brief Parse grammar production create_name.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_create_name_t* parse_create_name(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * create_name
+ *     : IDENT ('.' IDENT)? '.' 'create'
+ *     ;
+ */
+ast_create_name_t* parse_create_name(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_create_name_t* node = NULL;

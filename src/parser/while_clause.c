@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-while_clause
-    : while_definition function_body
-    ;
-
+/**
+ *
+ * @file while_clause.c
+ *
+ * @brief Parse grammar production while_clause.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_while_clause_t* parse_while_clause(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * while_clause
+ *     : while_definition function_body
+ *     ;
+ */
+ast_while_clause_t* parse_while_clause(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_while_clause_t* node = NULL;

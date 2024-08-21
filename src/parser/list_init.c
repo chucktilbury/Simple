@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-list_init
-    : '[' list_init_element ( ',' list_init_element )* ']'
-    ;
-
+/**
+ *
+ * @file list_init.c
+ *
+ * @brief Parse grammar production list_init.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_list_init_t* parse_list_init(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * list_init
+ *     : '[' list_init_element ( ',' list_init_element )* ']'
+ *     ;
+ */
+ast_list_init_t* parse_list_init(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_list_init_t* node = NULL;

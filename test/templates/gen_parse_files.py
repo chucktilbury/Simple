@@ -7,8 +7,11 @@ with open("non_terminals.txt", "r") as fp:
 with open("parser.h", "w") as fp:
     fp.write("\n#ifndef _PARSER_H_\n#define _PARSER_H_\n\n")
     fp.write("#include \"ast.h\"\n\n")
+    fp.write("typedef struct {\n")
+    fp.write("    int num;\n")
+    fp.write("} parser_state_t;\n\n")
     for str in str_list:
-        fp.write("ast_%s_t* parse_%s(void);\n"%(str, str))
+        fp.write("ast_%s_t* parse_%s(parser_state_t* pstate);\n"%(str, str))
     fp.write("\nvoid recover_error(void);\n")
     fp.write("AstNode* parse(void);\n\n")
     fp.write("\n#endif /* _PARSER_H_ */\n\n")
@@ -20,7 +23,8 @@ for str in str_list:
         fp.write("#include \"tokens.h\"\n")
         fp.write("#include \"errors.h\"\n")
         fp.write("#include \"parser.h\"\n\n")
-        fp.write("ast_%s_t* parse_%s(void) {\n\n"%(str, str))
+        fp.write("ast_%s_t* parse_%s(parser_state_t* pstate) {\n\n"%(str, str))
+        fp.write("    ASSERT(pstate != NULL);\n")
         fp.write("    ENTER;\n\n")
         fp.write("    ast_%s_t* node = NULL;\n"%(str))
         fp.write("    int state = 0;\n")

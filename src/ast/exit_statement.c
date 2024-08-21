@@ -1,18 +1,24 @@
-
-
-/*
-    Production being parsed:
-
-exit_statement
-    : 'exit' '(' expression ')'
-    ;
-
+/**
+ *
+ * @file exit_statement.c
+ *
+ * @brief Traverse AST for node exit_statement.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "trace.h"
 #include "errors.h"
 #include "ast.h"
 
+/**
+ *
+ * Grammar production:
+ *
+ * exit_statement
+ *     : 'exit' '(' expression ')'
+ *     ;
+ */
 void traverse_exit_statement(ast_exit_statement_t* node, AstFuncPtr pre, AstFuncPtr post) {
 
     ENTER;

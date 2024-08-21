@@ -1,18 +1,24 @@
-
-
-/*
-    Production being parsed:
-
-trace_statement
-    : 'trace' '(' string_literal ')'
-    ;
-
+/**
+ *
+ * @file trace_statement.c
+ *
+ * @brief Traverse AST for node trace_statement.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "trace.h"
 #include "errors.h"
 #include "ast.h"
 
+/**
+ *
+ * Grammar production:
+ *
+ * trace_statement
+ *     : 'trace' '(' string_literal ')'
+ *     ;
+ */
 void traverse_trace_statement(ast_trace_statement_t* node, AstFuncPtr pre, AstFuncPtr post) {
 
     ENTER;

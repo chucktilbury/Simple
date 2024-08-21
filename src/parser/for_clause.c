@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-for_clause
-    : 'for' ( '(' ( (type_name)? IDENT 'in' expression )? ')' )? function_body
-    ;
-
+/**
+ *
+ * @file for_clause.c
+ *
+ * @brief Parse grammar production for_clause.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_for_clause_t* parse_for_clause(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * for_clause
+ *     : 'for' ( '(' ( (type_name)? IDENT 'in' expression )? ')' )? function_body
+ *     ;
+ */
+ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_for_clause_t* node = NULL;

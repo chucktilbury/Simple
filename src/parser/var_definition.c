@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
- var_definition
-    : ( 'const' )? var_decl ( '=' assignment_item )?
-    ;
-
-*/
+/**
+ *
+ * @file var_definition.c
+ *
+ * @brief Parse grammar production var_definition.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_var_definition_t* parse_var_definition(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * var_definition
+ *     : ( 'const' )? var_decl ( '=' assignment_item )?
+ *     ;
+ */
+ast_var_definition_t* parse_var_definition(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_var_definition_t* node = NULL;

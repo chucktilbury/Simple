@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-do_clause
-    : 'do' function_body while_definition
-    ;
-
+/**
+ *
+ * @file do_clause.c
+ *
+ * @brief Parse grammar production do_clause.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_do_clause_t* parse_do_clause(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * do_clause
+ *     : 'do' function_body while_definition
+ *     ;
+ */
+ast_do_clause_t* parse_do_clause(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_do_clause_t* node = NULL;

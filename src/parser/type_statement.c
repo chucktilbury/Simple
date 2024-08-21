@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-type_statement
-    : 'type' '(' compound_reference ')'
-    ;
-
+/**
+ *
+ * @file type_statement.c
+ *
+ * @brief Parse grammar production type_statement.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_type_statement_t* parse_type_statement(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * type_statement
+ *     : 'type' '(' compound_reference ')'
+ *     ;
+ */
+ast_type_statement_t* parse_type_statement(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_type_statement_t* node = NULL;

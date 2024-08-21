@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-expr_or
-    : expr_and 'or' expr_and
-    ;
-
+/**
+ *
+ * @file expr_or.c
+ *
+ * @brief Parse grammar production expr_or.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_expr_or_t* parse_expr_or(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * expr_or
+ *     : expr_and 'or' expr_and
+ *     ;
+ */
+ast_expr_or_t* parse_expr_or(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_expr_or_t* node = NULL;

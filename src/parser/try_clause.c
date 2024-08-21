@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-try_clause
-    : 'try' function_body ( except_clause )* ( final_clause )?
-    ;
-
+/**
+ *
+ * @file try_clause.c
+ *
+ * @brief Parse grammar production try_clause.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_try_clause_t* parse_try_clause(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * try_clause
+ *     : 'try' function_body ( except_clause )* ( final_clause )?
+ *     ;
+ */
+ast_try_clause_t* parse_try_clause(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_try_clause_t* node = NULL;

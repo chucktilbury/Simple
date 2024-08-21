@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-create_reference
-    : create_name expression_list
-    ;
-
+/**
+ *
+ * @file create_reference.c
+ *
+ * @brief Parse grammar production create_reference.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_create_reference_t* parse_create_reference(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * create_reference
+ *     : create_name expression_list
+ *     ;
+ */
+ast_create_reference_t* parse_create_reference(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_create_reference_t* node = NULL;

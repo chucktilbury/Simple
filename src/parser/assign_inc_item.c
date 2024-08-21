@@ -1,21 +1,28 @@
-
-
-/*
-    Production being parsed:
-
-assign_inc_item
-    : expression
-    | string_literal
-    ;
-
+/**
+ *
+ * @file assign_inc_item.c
+ *
+ * @brief Parse grammar production assign_inc_item.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_assign_inc_item_t* parse_assign_inc_item(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * assign_inc_item
+ *     : expression
+ *     | string_literal
+ *     ;
+ */
+ast_assign_inc_item_t* parse_assign_inc_item(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_assign_inc_item_t* node = NULL;

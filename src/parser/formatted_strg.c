@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
- formatted_strg
-    : LITERAL_DSTR ( expression_list )?
-    ;
-
-*/
+/**
+ *
+ * @file formatted_strg.c
+ *
+ * @brief Parse grammar production formatted_strg.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_formatted_strg_t* parse_formatted_strg(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * formatted_strg
+ *     : LITERAL_DSTR ( expression_list )?
+ *     ;
+ */
+ast_formatted_strg_t* parse_formatted_strg(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_formatted_strg_t* node = NULL;

@@ -1,24 +1,31 @@
-
-
-/*
-    Production being parsed:
-
-class_item
-    : scope_operator
-    | var_decl
-    | function_declaration
-    | create_declaration
-    | destroy_declaration
-    ;
-
+/**
+ *
+ * @file class_item.c
+ *
+ * @brief Parse grammar production class_item.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_class_item_t* parse_class_item(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * class_item
+ *     : scope_operator
+ *     | var_decl
+ *     | function_declaration
+ *     | create_declaration
+ *     | destroy_declaration
+ *     ;
+ */
+ast_class_item_t* parse_class_item(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_class_item_t* node = NULL;

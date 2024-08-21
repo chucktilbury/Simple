@@ -1,21 +1,28 @@
-
-
-/*
-    Production being parsed:
-
- type_name
-    : literal_type_name
-    | compound_name
-    ;
-
-*/
+/**
+ *
+ * @file type_name.c
+ *
+ * @brief Parse grammar production type_name.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_type_name_t* parse_type_name(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * type_name
+ *     : literal_type_name
+ *     | compound_name
+ *     ;
+ */
+ast_type_name_t* parse_type_name(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_type_name_t* node = NULL;

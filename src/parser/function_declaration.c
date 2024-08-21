@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-function_declaration
-    : ('virtual' )? IDENT type_name_list type_name_list
-    ;
-
+/**
+ *
+ * @file function_declaration.c
+ *
+ * @brief Parse grammar production function_declaration.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_function_declaration_t* parse_function_declaration(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * function_declaration
+ *     : ('virtual' )? IDENT type_name_list type_name_list
+ *     ;
+ */
+ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_function_declaration_t* node = NULL;

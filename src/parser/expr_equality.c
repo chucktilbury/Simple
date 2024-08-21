@@ -1,21 +1,28 @@
-
-
-/*
-    Production being parsed:
-
-expr_equality
-    : expr_compare '==' expr_compare
-    | expr_compare '!=' expr_compare
-    ;
-
+/**
+ *
+ * @file expr_equality.c
+ *
+ * @brief Parse grammar production expr_equality.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_expr_equality_t* parse_expr_equality(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * expr_equality
+ *     : expr_compare '==' expr_compare
+ *     | expr_compare '!=' expr_compare
+ *     ;
+ */
+ast_expr_equality_t* parse_expr_equality(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_expr_equality_t* node = NULL;

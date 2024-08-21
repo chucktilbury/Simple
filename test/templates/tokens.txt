@@ -1,3 +1,4 @@
+    { "and", TOK_AND },
     { "as", TOK_AS },
     { "boolean", TOK_BOOLEAN },
     { "break", TOK_BREAK },
@@ -22,6 +23,7 @@
     { "list", TOK_LIST },
     { "namespace", TOK_NAMESPACE },
     { "nothing", TOK_NOTHING },
+    { "or", TOK_OR },
     { "print", TOK_PRINT },
     { "private", TOK_PRIVATE },
     { "protected", TOK_PROTECTED },

@@ -1,23 +1,30 @@
-
-
-/*
-    Production being parsed:
-
-module_item
-    : namespace_item
-    | import_statement
-    | include_statement
-    | start_definition
-    ;
-
+/**
+ *
+ * @file module_item.c
+ *
+ * @brief Parse grammar production module_item.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_module_item_t* parse_module_item(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * module_item
+ *     : namespace_item
+ *     | import_statement
+ *     | include_statement
+ *     | start_definition
+ *     ;
+ */
+ast_module_item_t* parse_module_item(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_module_item_t* node = NULL;

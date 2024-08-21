@@ -1,18 +1,24 @@
-
-
-/*
-    Production being parsed:
-
-yield_statement
-    : 'yield' '(' compound_reference ')'
-    ;
-
+/**
+ *
+ * @file yield_statement.c
+ *
+ * @brief Traverse AST for node yield_statement.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "trace.h"
 #include "errors.h"
 #include "ast.h"
 
+/**
+ *
+ * Grammar production:
+ *
+ * yield_statement
+ *     : 'yield' '(' compound_reference ')'
+ *     ;
+ */
 void traverse_yield_statement(ast_yield_statement_t* node, AstFuncPtr pre, AstFuncPtr post) {
 
     ENTER;

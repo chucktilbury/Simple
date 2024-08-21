@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-exit_statement
-    : 'exit' '(' expression ')'
-    ;
-
+/**
+ *
+ * @file exit_statement.c
+ *
+ * @brief Parse grammar production exit_statement.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_exit_statement_t* parse_exit_statement(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * exit_statement
+ *     : 'exit' '(' expression ')'
+ *     ;
+ */
+ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_exit_statement_t* node = NULL;

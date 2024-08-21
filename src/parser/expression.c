@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-expression
-    : expr_or
-    ;
-
+/**
+ *
+ * @file expression.c
+ *
+ * @brief Parse grammar production expression.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_expression_t* parse_expression(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * expression
+ *     : expr_or
+ *     ;
+ */
+ast_expression_t* parse_expression(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_expression_t* node = NULL;

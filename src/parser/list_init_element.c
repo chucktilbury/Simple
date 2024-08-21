@@ -1,21 +1,28 @@
-
-
-/*
-    Production being parsed:
-
-list_init_element
-    : list_init_str ':' assignment_item
-    | assignment_item
-    ;
-
+/**
+ *
+ * @file list_init_element.c
+ *
+ * @brief Parse grammar production list_init_element.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_list_init_element_t* parse_list_init_element(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * list_init_element
+ *     : list_init_str ':' assignment_item
+ *     | assignment_item
+ *     ;
+ */
+ast_list_init_element_t* parse_list_init_element(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_list_init_element_t* node = NULL;

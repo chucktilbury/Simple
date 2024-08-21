@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-function_definition
-    : ('virtual' )? compound_name var_decl_list var_decl_list function_body
-    ;
-
+/**
+ *
+ * @file function_definition.c
+ *
+ * @brief Parse grammar production function_definition.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_function_definition_t* parse_function_definition(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * function_definition
+ *     : ('virtual' )? compound_name var_decl_list var_decl_list function_body
+ *     ;
+ */
+ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_function_definition_t* node = NULL;

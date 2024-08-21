@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-compound_name
-    : IDENT ( '.' IDENT )*
-    ;
-
+/**
+ *
+ * @file compound_name.c
+ *
+ * @brief Parse grammar production compound_name.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_compound_name_t* parse_compound_name(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * compound_name
+ *     : IDENT ( '.' IDENT )*
+ *     ;
+ */
+ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_compound_name_t* node = NULL;

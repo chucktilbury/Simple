@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
- var_decl_list
-    : '(' ( var_decl ( ',' var_decl )* )? ')'
-    ;
-
-*/
+/**
+ *
+ * @file var_decl_list.c
+ *
+ * @brief Parse grammar production var_decl_list.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_var_decl_list_t* parse_var_decl_list(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * var_decl_list
+ *     : '(' ( var_decl ( ',' var_decl )* )? ')'
+ *     ;
+ */
+ast_var_decl_list_t* parse_var_decl_list(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_var_decl_list_t* node = NULL;

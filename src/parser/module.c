@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-module
-    : ( module_item )+
-    ;
-
+/**
+ *
+ * @file module.c
+ *
+ * @brief Parse grammar production module.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_module_t* parse_module(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * module
+ *     : ( module_item )+
+ *     ;
+ */
+ast_module_t* parse_module(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_module_t* node = NULL;

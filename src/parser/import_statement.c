@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
- import_statement
-    : 'import' formatted_strg 'as' IDENT
-    ;
-
-*/
+/**
+ *
+ * @file import_statement.c
+ *
+ * @brief Parse grammar production import_statement.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_import_statement_t* parse_import_statement(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * import_statement
+ *     : 'import' formatted_strg 'as' IDENT
+ *     ;
+ */
+ast_import_statement_t* parse_import_statement(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_import_statement_t* node = NULL;

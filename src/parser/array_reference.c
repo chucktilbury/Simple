@@ -1,20 +1,27 @@
-
-
-/*
-    Production being parsed:
-
-array_reference
-    : IDENT array_param_list
-    ;
-
+/**
+ *
+ * @file array_reference.c
+ *
+ * @brief Parse grammar production array_reference.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
  */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_array_reference_t* parse_array_reference(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * array_reference
+ *     : IDENT array_param_list
+ *     ;
+ */
+ast_array_reference_t* parse_array_reference(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_array_reference_t* node = NULL;

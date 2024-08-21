@@ -1,22 +1,29 @@
-
-
-/*
-    Production being parsed:
-
- assignment_item
-    : expression
-    | list_init
-    | function_assignment
-    ;
-
-*/
+/**
+ *
+ * @file assignment_item.c
+ *
+ * @brief Parse grammar production assignment_item.
+ * This file was generated on Wed Aug 21 09:35:58 2024.
+ *
+ */
 #include "common.h"
 #include "tokens.h"
 #include "errors.h"
 #include "parser.h"
 
-ast_assignment_item_t* parse_assignment_item(void) {
+/**
+ *
+ * Grammar production:
+ *
+ * assignment_item
+ *     : expression
+ *     | list_init
+ *     | function_assignment
+ *     ;
+ */
+ast_assignment_item_t* parse_assignment_item(parser_state_t* pstate) {
 
+    ASSERT(pstate != NULL);
     ENTER;
 
     ast_assignment_item_t* node = NULL;
