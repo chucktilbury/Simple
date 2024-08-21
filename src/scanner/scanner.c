@@ -52,34 +52,6 @@ static void eat_comment(void) {
 }
 
 /**
- * @brief Scan a number in hex format. When this is called, the 'x' is the
- * current character.
- */
-static void scan_unsigned(void) {
-
-    int ch = get_char();
-
-    // add the 'x' to the string
-    append_string_char(token.str, ch);
-    ch = consume_char();
-
-    while(true) {
-        if(isxdigit(ch)) {
-            append_string_char(token.str, ch);
-            ch = consume_char();
-        }
-        else if(isspace(ch) || ispunct(ch) || ch == EOF)
-            return;
-        else {
-            token.type = TOK_ERROR;
-            clear_string(token.str);
-            append_string_str(token.str, ": malformed hex number, expected hex digit, space or operator");
-            return;
-        }
-    }
-}
-
-/**
  * @brief Scan the exponent of a floating point number. When this is
  * entered, the 'e' has already been seen but not consumed.
  */
@@ -167,17 +139,10 @@ static void scan_number(void) {
                 token.type = TOK_LITERAL_FLOAT;
                 scan_mantissa();
                 return;
-            case 'x':
-            case 'X':
-                // scan for a hex number
-                // do not consume the 'x'
-                token.type = TOK_LITERAL_UNSIGNED;
-                scan_unsigned();
-                return;
             default:
                 if(isspace(ch) || ispunct(ch)) {
                     // single zero with no other chars
-                    token.type = TOK_LITERAL_SIGNED;
+                    token.type = TOK_LITERAL_INTEGER;
                     return;
                 }
                 else if(isdigit(ch)) {
@@ -213,7 +178,7 @@ static void scan_number(void) {
                         consume_char();
                     }
                     else if(isspace(ch) || ispunct(ch) || ch == EOF) {
-                        token.type = TOK_LITERAL_SIGNED;
+                        token.type = TOK_LITERAL_INTEGER;
                         finished   = true;
                     }
                     else {
@@ -281,7 +246,7 @@ static void scan_operator(void) {
             consume_char();
             return;
         case '@':
-            token.type = TOK_AMPER;
+            token.type = TOK_AND;
             append_string_char(token.str, ch);
             consume_char();
             return;
@@ -308,10 +273,10 @@ static void scan_operator(void) {
             if(ch == '=') {
                 append_string_char(token.str, ch);
                 consume_char();
-                token.type = TOK_LORE;
+                token.type = TOK_OPBRACE_EQUAL;
             }
             else
-                token.type = TOK_OPAREN;
+                token.type = TOK_OPBRACE;
         }
             return;
         case '>': {
@@ -320,10 +285,10 @@ static void scan_operator(void) {
             if(ch == '=') {
                 append_string_char(token.str, ch);
                 consume_char();
-                token.type = TOK_GORE;
+                token.type = TOK_CPBRACE_EQUAL;
             }
             else
-                token.type = TOK_CPAREN;
+                token.type = TOK_CPBRACE;
         }
             return;
         case '=': {
@@ -332,10 +297,10 @@ static void scan_operator(void) {
             if(ch == '=') {
                 append_string_char(token.str, ch);
                 consume_char();
-                token.type = TOK_EQU;
+                token.type = TOK_EQUAL_EQUAL;
             }
             else
-                token.type = TOK_ASSIGN;
+                token.type = TOK_EQUAL;
         }
             return;
         case '+': {
@@ -344,10 +309,10 @@ static void scan_operator(void) {
             if(ch == '=') {
                 append_string_char(token.str, ch);
                 consume_char();
-                token.type = TOK_ADD_ASSIGN;
+                token.type = TOK_PLUS_EQUAL;
             }
             else
-                token.type = TOK_ADD;
+                token.type = TOK_PLUS;
         }
             return;
         case '-': {
@@ -356,10 +321,10 @@ static void scan_operator(void) {
             if(ch == '=') {
                 append_string_char(token.str, ch);
                 consume_char();
-                token.type = TOK_SUB_ASSIGN;
+                token.type = TOK_MINUS_EQUAL;
             }
             else
-                token.type = TOK_SUB;
+                token.type = TOK_MINUS;
         }
             return;
         case '*': {
@@ -368,10 +333,10 @@ static void scan_operator(void) {
             if(ch == '=') {
                 append_string_char(token.str, ch);
                 consume_char();
-                token.type = TOK_MUL_ASSIGN;
+                token.type = TOK_STAR_EQUAL;
             }
             else
-                token.type = TOK_MUL;
+                token.type = TOK_STAR;
         }
             return;
         case '/': {
@@ -380,10 +345,10 @@ static void scan_operator(void) {
             if(ch == '=') {
                 append_string_char(token.str, ch);
                 consume_char();
-                token.type = TOK_DIV_ASSIGN;
+                token.type = TOK_SLASH_EQUAL;
             }
             else
-                token.type = TOK_DIV;
+                token.type = TOK_SLASH;
         }
             return;
         case '%': {
@@ -392,10 +357,10 @@ static void scan_operator(void) {
             if(ch == '=') {
                 append_string_char(token.str, ch);
                 consume_char();
-                token.type = TOK_MOD_ASSIGN;
+                token.type = TOK_PERCENT_EQUAL;
             }
             else
-                token.type = TOK_MOD;
+                token.type = TOK_PERCENT;
         }
             return;
         case '!': {
@@ -404,53 +369,13 @@ static void scan_operator(void) {
             if(ch == '=') {
                 append_string_char(token.str, ch);
                 consume_char();
-                token.type = TOK_NEQU;
+                token.type = TOK_BANG_EQUAL;
             }
             else
-                token.type = TOK_NOT;
+                token.type = TOK_BANG;
         }
             return;
     }
-}
-
-/**
- * @brief Check to see if the word is a keyword using a binary search of
- * the keyword list that is generated by the parser generator. Note that
- * the keyword list is sorted by the parser generator.
- */
-static void check_keyword(void) {
-
-    const char* s = raw_string(token.str);
-    int l = 0, r = num_keywords - 1, m, x;
-
-    // setup the token. If the string is not found, then this is not changed.
-    token.type = TOK_SYMBOL;
-
-    // the loop will run till there are elements in the
-    // sub-array as l > r means that there are no elements to
-    // consider in the given sub-array
-    while(l <= r) {
-        // calculating mid point
-        m = l + (r - l) / 2;
-        // see how the string compares.
-        x = strcasecmp(keyword_list[m].str, s);
-
-        // Check if x is present at mid
-        if(x == 0) {
-            token.type = keyword_list[m].type;
-            break;
-        }
-        // If x greater than zero ignore left half
-        if(x < 0) {
-            l = m + 1;
-        }
-        // If x is smaller than m, ignore right half
-        else {
-            r = m - 1;
-        }
-    }
-    // if we reach here, then element was not present so return it as
-    // a SYMBOL.
 }
 
 /**
@@ -527,7 +452,11 @@ static void scan_word(void) {
     }
 
     // look for a keyword, or else a SYMBOL
-    check_keyword();
+    token_database_t* tok = find_keyword(raw_string(token.str));
+    if(tok == NULL)
+        token.type = TOK_IDENT;
+    else
+        token.type = tok->type;
 
     // This scanner supports an "inline" keyword as a separate entity. When
     // it is located, then all characters between the following {} pair are

@@ -84,7 +84,7 @@ void finalize_token_queue(void);
  *
  * @param tok
  */
-void reset_token_queue(void* crnt);
+void reset_token_queue(void* post);
 
 /**
  * @brief Grab the current queue pointer so that it can be reset when the

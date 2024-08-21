@@ -30,17 +30,16 @@ void error(ErrorType type, Token* tok, const char* func, const char* fmt, ...) {
     switch(type) {
         case ET_SYNTAX:
             fprintf(stderr, "ERROR: %s: %d: %d: ", 
-                    get_scanner_fn(), get_scanner_line(), get_scanner_col());
+                    tok->fname, tok->line_no, tok->col_no);
             errors++;            
             break;
         case ET_WARNING:
             fprintf(stderr, "WARNING: %s: %d: %d: ", 
-                    get_scanner_fn(), get_scanner_line(), get_scanner_col());
+                    tok->fname, tok->line_no, tok->col_no);
             warnings++;            
             break;
         case ET_SCANNER:
-            fprintf(stderr, "SCAN ERROR: %s: %d: %d: ", 
-                    get_scanner_fn(), get_scanner_line(), get_scanner_col());
+            fprintf(stderr, "SCAN ERROR: "); 
             errors++;            
             break;
         case ET_OTHER:

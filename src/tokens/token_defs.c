@@ -7,6 +7,7 @@
 #include "token_defs.h"
 
 token_database_t keywords[] = {
+    { "and", TOK_AND },    
     { "as", TOK_AS },
     { "boolean", TOK_BOOLEAN },
     { "break", TOK_BREAK },
@@ -30,7 +31,9 @@ token_database_t keywords[] = {
     { "integer", TOK_INTEGER },
     { "list", TOK_LIST },
     { "namespace", TOK_NAMESPACE },
+    { "not", TOK_NOT },
     { "nothing", TOK_NOTHING },
+    { "or", TOK_OR },
     { "print", TOK_PRINT },
     { "private", TOK_PRIVATE },
     { "protected", TOK_PROTECTED },
@@ -79,8 +82,9 @@ const char* token_type_to_str(TokenType type) {
         (type == TOK_OSBRACE)? "[" :
         (type == TOK_CSBRACE)? "]" :
         (type == TOK_DOT)? "." :
-        (type == TOK_OR)? "OR" :
-        (type == TOK_AND)? "AND" :
+        (type == TOK_OR)? "or" :
+        (type == TOK_AND)? "and" :
+        (type == TOK_EQUAL_EQUAL)? "==" :
         (type == TOK_BANG_EQUAL)? "!=" :
         (type == TOK_OPBRACE)? "<" :
         (type == TOK_CPBRACE)? ">" :
@@ -91,6 +95,7 @@ const char* token_type_to_str(TokenType type) {
         (type == TOK_STAR)? "*" :
         (type == TOK_SLASH)? "/" :
         (type == TOK_PERCENT)? "%" :
+        (type == TOK_NOT)? "not" :
         (type == TOK_BANG)? "!" :
         (type == TOK_NAMESPACE)? "namespace" :
         (type == TOK_OCBRACE)? "{" :
@@ -123,6 +128,11 @@ const char* token_type_to_str(TokenType type) {
         (type == TOK_TRY)? "try" :
         (type == TOK_EXCEPT)? "except" :
         (type == TOK_FINAL)? "final" :
+        // manual changes
+        (type == TOK_CARAT)? "^" :
+        (type == TOK_END_OF_INPUT)? "END OF INPUT" :
+        (type == TOK_END_OF_FILE)? "END OF FILE" :
+        (type == TOK_ERROR)? "ERROR" :
         "UNKNOWN";
 }
 

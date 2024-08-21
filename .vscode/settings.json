@@ -1,3 +1,16 @@
 {
-    "cmake.configureOnOpen": true
+    "cmake.configureOnOpen": true,
+    "cSpell.words": [
+        "CCBRACE",
+        "CPAREN",
+        "CPBRACE",
+        "CSBRACE",
+        "dquote",
+        "DSTR",
+        "OCBRACE",
+        "OPAREN",
+        "OPBRACE",
+        "OSBRACE",
+        "squote"
+    ]
 }

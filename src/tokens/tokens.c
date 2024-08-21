@@ -234,27 +234,27 @@ void* post_token_queue(void) {
     RETURN((void*)tqueue->crnt);
 }
 
-// /**
-//  * @brief Reset the token stream to the beginning. This is used when a rule
-//  * could not be matched and the token stream needs to be rewound to test
-//  * the next rule in a list of alternatives. Call this when a parser
-//  * alternative fails in order to reset the crnt pointer.
-//  *
-//  * @return Token*
-//  */
-// void reset_token_queue(void* post) {
+/**
+ * @brief Reset the token stream to the beginning. This is used when a rule
+ * could not be matched and the token stream needs to be rewound to test
+ * the next rule in a list of alternatives. Call this when a parser
+ * alternative fails in order to reset the crnt pointer.
+ *
+ * @return Token*
+ */
+void reset_token_queue(void* post) {
 
-//     ENTER;
+    ENTER;
 
-//     if(!get_recovery_state()) {
-//         TRACE("recover the queue");
-//         TokQueue* tqueue = peek_link_list(tqueue_stack);
-//         ASSERT(tqueue != NULL);
+    // if(!get_recovery_state()) {
+        TRACE("recover the queue");
+        TokQueue* tqueue = peek_link_list(tqueue_stack);
+        ASSERT(tqueue != NULL);
 
-//         tqueue->crnt = (TokQueueItem*)post;
-//     }
-//     RET;
-// }
+        tqueue->crnt = (TokQueueItem*)post;
+    // }
+    RET;
+}
 
 // void dump_token_queue(void) {
 

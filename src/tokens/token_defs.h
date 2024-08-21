@@ -33,6 +33,7 @@ typedef enum {
     TOK_DOT,
     TOK_OR,
     TOK_AND,
+    TOK_EQUAL_EQUAL,
     TOK_BANG_EQUAL,
     TOK_OPBRACE,
     TOK_CPBRACE,
@@ -43,6 +44,7 @@ typedef enum {
     TOK_STAR,
     TOK_SLASH,
     TOK_PERCENT,
+    TOK_NOT,
     TOK_BANG,
     TOK_NAMESPACE,
     TOK_OCBRACE,
@@ -76,6 +78,8 @@ typedef enum {
     TOK_EXCEPT,
     TOK_FINAL,
 
+    // manual changes
+    TOK_CARAT,
     TOK_END_OF_INPUT,
     TOK_END_OF_FILE,
     TOK_ERROR,
@@ -89,5 +93,5 @@ typedef struct {
 const char* token_type_to_str(TokenType type);
 token_database_t* find_keyword(const char* str);
 
-#endif /* _TOKEN_DEFS_H_ */
+#endif  /* _TOKEN_DEFS_H_ */
 
