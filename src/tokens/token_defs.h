@@ -75,6 +75,10 @@ typedef enum {
     TOK_TRY,
     TOK_EXCEPT,
     TOK_FINAL,
+
+    TOK_END_OF_INPUT,
+    TOK_END_OF_FILE,
+    TOK_ERROR,
 } TokenType;
 
 typedef struct {

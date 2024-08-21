@@ -10,6 +10,9 @@ with open("token_defs.h", "w") as fp:
     fp.write("typedef enum {\n")
     for item in terms:
         fp.write("    %s,\n"%(item))
+    fp.write("\n    TOK_END_OF_INPUT,\n")
+    fp.write("    TOK_END_OF_FILE,\n")
+    fp.write("    TOK_ERROR,\n")
     fp.write("} TokenType;\n\n")
 
     fp.write("typedef struct {\n")

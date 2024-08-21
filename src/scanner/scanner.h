@@ -10,8 +10,8 @@
  * @date 01-07-2024
  * @copyright Copyright (c) 2024
  */
-#ifndef __SCANNER_H__
-#define __SCANNER_H__
+#ifndef _SCANNER_H_
+#define _SCANNER_H_
 
 #include "tokens.h"
 
@@ -42,4 +42,4 @@ void init_scanner(const char* fname);
  */
 Token* scan_token(void);
 
-#endif /* __SCANNER_H__ */
+#endif  /* _SCANNER_H_ */

@@ -15,16 +15,7 @@
  * This header contains a sorted list of the actual keywords that are
  * scanned in the scanner.
  */
-#include "token_symbols.h"
-
-//#include "util.h"
-/**
- * @brief The parser expects a token to look like this.
- */
-typedef struct {
-    const char* str;
-    TokenType type;
-} KeywordList;
+#include "token_defs.h"
 
 /**
  * @brief The parser expects a token to look like this.
@@ -104,16 +95,10 @@ void reset_token_queue(void* crnt);
  */
 void* post_token_queue(void);
 
-// void print_token(Token* tok);
 void dump_token_queue(void);
 void append_token(Token* tok);
 void push_token_queue(void);
 void pop_token_queue(void);
 
-extern KeywordList keyword_list[];
-extern const int num_keywords;
-
-const char* tok_to_str(Token* tok);
-
-#endif /* _TOKENS_H_ */
+#endif  /* _TOKENS_H_ */
 
