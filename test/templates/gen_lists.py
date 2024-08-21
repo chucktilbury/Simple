@@ -35,11 +35,13 @@ def convert(str):
         elif c == '~': s += "_TILDE"
     return s
 
-with open("simple-grammar.txt", "r") as fp:
+with open("../../docs/simple-grammar.txt", "r") as fp:
     grammar = [ s.strip() for s in fp.readlines() ]
 
 terminals = []
 non_terminals = []
+tokens = {}
+translate = []
 
 for line in grammar:
     if len(line) > 0:
@@ -50,17 +52,22 @@ for line in grammar:
                     s = "TOK_%s"%(mat.upper())
                     if not s in terminals:
                         terminals.append(s)
+                        tokens[s] = mat
+                        translate.append("(type == %s)? \"%s\" :"%(s, mat))
                 else:
                     #print(mat)
                     s = convert(mat)
                     if not s in terminals:
                         terminals.append(s)
+                        translate.append("(type == %s)? \"%s\" :"%(s, mat))
+
             res = re.findall(r"([A-Z_]+)", line)
             for mat in res:
                 if mat != "_":
                     s = "TOK_"+mat
                     if not s in terminals:
                         terminals.append(s)
+                        translate.append("(type == %s)? \"%s\" :"%(s, mat))
         elif line[0] == ';':
             #print("end:", line)
             pass
@@ -79,3 +86,11 @@ with open("non_terminals.txt", "w") as fp:
 with open("terminals.txt", "w") as fp:
     for item in terminals:
         fp.write("%s\n"%(item))
+
+with open("tokens.txt", "w") as fp:
+    for item in sorted(tokens.items(), key=lambda item: item[1]):
+        fp.write("    { \"%s\", %s },\n"%(item[1], item[0]))
+
+with open("translate.txt", "w") as fp:
+    for item in translate:
+        fp.write("    %s\n"%(item))
