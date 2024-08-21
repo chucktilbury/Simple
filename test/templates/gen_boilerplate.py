@@ -370,9 +370,9 @@ def install_everything():
 
 if __name__ == '__main__':
     
-    # print("Before you run this, know that it will destroy the parser")
-    # print("and all of the manual changes that were made to it.")
-    # exit(1)
+    print("Before you run this, know that it will destroy the parser")
+    print("and all of the manual changes that were made to it.")
+    exit(1)
 
     os.system("mkdir parser ast tokens")
 
