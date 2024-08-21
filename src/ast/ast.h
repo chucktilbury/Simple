@@ -3,7 +3,7 @@
  * @file ast.h
  *
  * @brief AST traverse public interface.
- * This file was generated on Wed Aug 21 09:35:58 2024.
+ * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
 
@@ -1187,6 +1187,7 @@ typedef struct _ast_final_clause_ {
 
 typedef void (*AstFuncPtr)(AstNode* node);
 AstNode* create_ast_node(AstNodeType type);
+void traverse_ast(ast_module_t* node, AstFuncPtr pre, AstFuncPtr post);
 
 void traverse_module(ast_module_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_module_item(ast_module_item_t* node, AstFuncPtr pre, AstFuncPtr post);

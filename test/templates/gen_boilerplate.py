@@ -4,7 +4,7 @@ import os
 
 terminals = []
 non_terminals = []
-tokens = {}
+keywords = {}
 translate = []
 rules = {}
 rule_name = ""
@@ -59,7 +59,7 @@ def gen_lists():
                         s = "TOK_%s"%(mat.upper())
                         if not s in terminals:
                             terminals.append(s)
-                            tokens[s] = mat
+                            keywords[s] = mat
                             translate.append("(type == %s)? \"%s\" :"%(s, mat))
                     else:
                         #print(mat)
@@ -125,10 +125,36 @@ def gen_ast():
         fp.write("    } while(0)\n\n")
 
         fp.write("typedef void (*AstFuncPtr)(AstNode* node);\n")
-        fp.write("AstNode* create_ast_node(AstNodeType type);\n\n")
+        fp.write("AstNode* create_ast_node(AstNodeType type);\n")
+        fp.write("void traverse_ast(ast_%s_t* node, AstFuncPtr pre, AstFuncPtr post);\n\n"%(non_terminals[0]))
         for str in rules:
             fp.write("void traverse_%s(ast_%s_t* node, AstFuncPtr pre, AstFuncPtr post);\n"%(str, str))
         fp.write("\n#endif /* _AST_H_ */\n\n")
+
+    with open("ast/ast.c", "w") as fp:
+            fp.write("/**\n *\n")
+            fp.write(" * @file %s.c\n *\n"%(str))
+            fp.write(" * @brief AST implementation.\n")
+            fp.write(" * This file was generated on %s.\n"%(time.asctime()))
+            fp.write(" *\n */\n")
+            fp.write("#include \"common.h\"\n")
+            fp.write("#include \"trace.h\"\n")
+            fp.write("#include \"errors.h\"\n")
+            fp.write("#include \"ast.h\"\n\n")
+            fp.write("static size_t node_size(AstNodeType type) {\n\n")
+            fp.write("    return\n")
+            for str in rules:
+                fp.write("    (type == AST_%s)? sizeof(ast_%s_t) : \n"%(str.upper(), str))
+            fp.write("    0; // error if we reach here\n")
+            fp.write("}\n\n")
+            fp.write("AstNode* create_ast_node(AstNodeType type) {\n\n")
+            fp.write("    AstNode* node = _ALLOC(node_size(type));\n")
+            fp.write("    node->type = type;\n")
+            fp.write("    return node;\n")
+            fp.write("}\n\n")
+            fp.write("void traverse_ast(ast_%s_t* node, AstFuncPtr pre, AstFuncPtr post) {\n\n"%(non_terminals[0]))
+            fp.write("    traverse_%s(node, pre, post);\n"%(non_terminals[0]))
+            fp.write("}\n\n")
 
     for str in rules:
         with open("ast/%s.c"%(str), "w") as fp:
@@ -161,16 +187,44 @@ def gen_parse():
         fp.write(" * @brief Parse grammar public interface.\n")
         fp.write(" * This file was generated on %s.\n"%(time.asctime()))
         fp.write(" *\n */\n")
-        fp.write("\n#ifndef _PARSER_H_\n#define _PARSER_H_\n\n")
+        fp.write("#ifndef _PARSER_H_\n#define _PARSER_H_\n\n")
         fp.write("#include \"ast.h\"\n\n")
         fp.write("typedef struct {\n")
-        fp.write("    int num;\n")
+        fp.write("    int mode;\n")
         fp.write("} parser_state_t;\n\n")
+        fp.write("#include \"parser_prototypes.h\"\n\n")
+        fp.write("void recover_error(void);\n")
+        fp.write("ast_%s_t* parse(void);\n\n"%(non_terminals[0]))
+        fp.write("#endif /* _PARSER_H_ */\n\n")
+
+    with open("parser/parser_prototypes.h", "w") as fp:
+        fp.write("/**\n *\n")
+        fp.write(" * @file parser_prototypes.h\n *\n")
+        fp.write(" * @brief Internal prototypes for parser.\n")
+        fp.write(" * This file was generated on %s.\n"%(time.asctime()))
+        fp.write(" *\n */\n")
+        fp.write("#ifndef _PARSER_PROTOTYPES_H_\n#define _PARSER_PROTOTYPES_H_\n\n")
         for str in rules:
             fp.write("ast_%s_t* parse_%s(parser_state_t* pstate);\n"%(str, str))
-        fp.write("\nvoid recover_error(void);\n")
-        fp.write("AstNode* parse(void);\n\n")
-        fp.write("\n#endif /* _PARSER_H_ */\n\n")
+        fp.write("\n#endif /* _PARSER_PROTOTYPES_H_ */\n\n")
+
+    with open("parser/parser.c", "w") as fp:
+        fp.write("/**\n *\n")
+        fp.write(" * @file parser.c\n *\n")
+        fp.write(" * @brief Parser external interface implementation.\n")
+        fp.write(" * This file was generated on %s.\n"%(time.asctime()))
+        fp.write(" *\n */\n")
+        fp.write("#include \"common.h\"\n")
+        fp.write("#include \"ast.h\"\n")
+        fp.write("#include \"parser.h\"\n\n")
+        fp.write("void recover_error(void) {\n\n")
+        fp.write("}\n\n")
+        fp.write("ast_%s_t* parse(void) {\n\n"%(non_terminals[0]))
+        fp.write("    parser_state_t* pstate = _ALLOC_DS(parser_state_t);\n")
+        fp.write("    pstate->mode = 0;\n")
+        fp.write("    ast_%s_t* %s = parse_%s(pstate);\n"%(non_terminals[0], non_terminals[0], non_terminals[0]))
+        fp.write("    return %s;\n"%(non_terminals[0]))
+        fp.write("}\n\n")
 
     for str in rules:
         with open("parser/%s.c"%(str), "w") as fp:
@@ -266,21 +320,17 @@ def gen_token_defs():
         fp.write("#include <strings.h>\n\n")
         fp.write("#include \"token_defs.h\"\n\n")
 
-        fp.write("token_database_t keywords[] = {\n")
-        with open("tokens.txt", "r") as fp1:
-            items = [s.strip() for s in fp1.readlines()]
-        for item in items:
-            fp.write("    %s\n"%(item))
+        fp.write("static token_database_t keywords[] = {\n")
+        for item in dict(sorted(keywords.items(), key=lambda item: item[1])):
+            fp.write("    {\"%s\", %s},\n"%(keywords[item], item))
         fp.write("};\n")
         fp.write("#define NUM_KEYWORDS (sizeof(keywords)/sizeof(token_database_t))\n\n")
 
         fp.write("const char* token_type_to_str(TokenType type) {\n\n")
         fp.write("    return ")
-        with open("translate.txt", "r") as fp1:
-            items = [s.strip() for s in fp1.readlines()]
 
-        fp.write("%s\n"%(items[0]))
-        for item in items[1:]:
+        fp.write("%s\n"%(translate[0]))
+        for item in translate[1:]:
             fp.write("        %s\n"%(item))
         fp.write("    (type == TOK_CARAT)? \"^\" :\n")
         fp.write("    (type == TOK_END_OF_INPUT)? \"END OF INPUT\" :\n")

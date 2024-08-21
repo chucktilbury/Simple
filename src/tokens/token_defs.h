@@ -3,7 +3,7 @@
  * @file token_defs.h
  *
  * @brief Token definitions public interface.
- * This file was generated on Wed Aug 21 09:35:58 2024.
+ * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
 #ifndef _TOKEN_DEFS_H_
@@ -99,5 +99,5 @@ typedef struct {
 const char* token_type_to_str(TokenType type);
 token_database_t* find_keyword(const char* str);
 
-#endif  /* _TOKEN_DEFS_H_ */
+#endif /* _TOKEN_DEFS_H_ */
 

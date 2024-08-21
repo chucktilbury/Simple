@@ -3,7 +3,7 @@
  * @file compound_name_list.c
  *
  * @brief Parse grammar production compound_name_list.
- * This file was generated on Wed Aug 21 09:35:58 2024.
+ * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
 #include "common.h"

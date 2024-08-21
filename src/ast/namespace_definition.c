@@ -3,7 +3,7 @@
  * @file namespace_definition.c
  *
  * @brief Traverse AST for node namespace_definition.
- * This file was generated on Wed Aug 21 09:35:58 2024.
+ * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
 #include "common.h"

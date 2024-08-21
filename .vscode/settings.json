@@ -1,6 +1,7 @@
 {
     "cmake.configureOnOpen": true,
     "cSpell.words": [
+        "ALLOC",
         "BSLASH",
         "CCBRACE",
         "CPAREN",
