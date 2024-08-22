@@ -15,28 +15,38 @@
 #define INDENT 2
 static int indent = 0;
 
+static void pad() {
+
+    for(int i = 0; i < indent; i++)
+        fputc(' ', stdout);
+}
+
 void trace_enter(const char* func) {
 
-    printf("%*cENTER: %s\n", indent, ' ', func);
+    pad();
+    printf("ENTER: %s\n", func);
     indent += INDENT;
 }
 
 void trace_return(const char* func, size_t val) {
 
-    indent += INDENT;
-    printf("%*cRETURN: %s: 0x%016lX\n", indent, ' ', func, val);
+    indent -= INDENT;
+    pad();
+    printf("RETURN: %s: 0x%08lX\n", func, val);
 }
 
 void trace_state(const char* func, int state) {
 
-    printf("%*cSTATE: %s: %d\n", indent, ' ', func, state);
+    pad();
+    printf("STATE: %s: %d\n", func, state);
 }
 
 void trace(const char* func, const char* fmt, ...) {
 
     va_list args;
 
-    printf("%*cTRACE: %s: ", indent, ' ', func);
+    pad();
+    printf("TRACE: %s: ", func);
     va_start(args, fmt);
     vprintf(fmt, args);
     va_end(args);

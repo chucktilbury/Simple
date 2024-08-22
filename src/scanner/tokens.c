@@ -163,6 +163,7 @@ Token* copy_token(const Token* tok) {
     return ntok;
 }
 
+static Token end_tok;
 /**
  * @brief Make the next token in the stream the current token. If the token
  * before this one was the end of the input, then nothing happens and the
@@ -174,9 +175,13 @@ Token* copy_token(const Token* tok) {
 Token* consume_token(void) {
 
     ENTER;
-    // avoid stupid programmer tricks
+    
     TokQueue* tqueue = peek_link_list(tqueue_stack);
-    ASSERT(tqueue != NULL);
+    if(tqueue == NULL) {
+        end_tok.type = TOK_END_OF_INPUT;
+        RETURN(&end_tok);
+    }
+
     ASSERT(tqueue->crnt != NULL);
 
     if(tqueue->crnt->tok->type != TOK_END_OF_INPUT) {

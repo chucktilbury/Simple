@@ -1,2 +1,4 @@
-
-some_name namespace {}
+; this is just a simple sanity check.
+some_name namespace {} ; this is a comment
+0.123e-12
+peace 1234
