@@ -19,19 +19,9 @@
  * @date 01-07-2024
  * @copyright Copyright (c) 2024
  */
-// #include <assert.h>
-// #include <ctype.h>
-// #include <stdbool.h>
-// #include <stdlib.h>
-// #include <string.h>
-// #include <strings.h>
-
 #include "common.h"
 #include "fileio.h"
 #include "scanner.h"
-// #include "memory.h"
-// #include "trace.h"
-// #include "strings.h"
 
 static Token token;
 

@@ -12,17 +12,12 @@
  * @date 01-07-2024
  * @copyright Copyright (c) 2024
  */
-// #include <assert.h>
-
 #include "common.h"
 #include "fileio.h"
-// #include "link_list.h"
-// #include "memory.h"
-// #include "parse_state.h"
 #include "scanner.h"
-// #include "trace.h"
 
 static unsigned serial = 0;
+static Token end_tok;
 
 typedef struct _tok_queue_item_ {
     Token* tok;      // the actual token pointer.
@@ -122,6 +117,20 @@ void close_file(void) {
 }
 
 /**
+ * @brief Return the token type safely.
+ * 
+ * @param tok 
+ * @return TokenType 
+ */
+TokenType token_type(Token* tok) {
+
+    if(tok != NULL)
+        return tok->type;
+    else
+        return TOK_END_OF_INPUT;
+} 
+
+/**
  * @brief Get the token object. This returns the current token, which is a
  * global in the scanner. If the value of this token needs to be preserved,
  * then the token should be copied.
@@ -131,7 +140,10 @@ void close_file(void) {
 Token* get_token(void) {
 
     TokQueue* tqueue = peek_link_list(tqueue_stack);
-    ASSERT(tqueue != NULL);
+    if(tqueue == NULL) {
+        end_tok.type = TOK_END_OF_INPUT;
+        RETURN(&end_tok);
+    }
 
     if(tqueue->crnt != NULL) {
         return tqueue->crnt->tok;
@@ -163,7 +175,6 @@ Token* copy_token(const Token* tok) {
     return ntok;
 }
 
-static Token end_tok;
 /**
  * @brief Make the next token in the stream the current token. If the token
  * before this one was the end of the input, then nothing happens and the
