@@ -43,14 +43,8 @@ ast_compound_ref_item_t* parse_compound_ref_item(parser_state_t* pstate);
 ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate);
 ast_cast_statement_t* parse_cast_statement(parser_state_t* pstate);
 ast_expression_t* parse_expression(parser_state_t* pstate);
-ast_expr_or_t* parse_expr_or(parser_state_t* pstate);
-ast_expr_and_t* parse_expr_and(parser_state_t* pstate);
-ast_expr_equality_t* parse_expr_equality(parser_state_t* pstate);
-ast_expr_compare_t* parse_expr_compare(parser_state_t* pstate);
-ast_expr_term_t* parse_expr_term(parser_state_t* pstate);
-ast_expr_factor_t* parse_expr_factor(parser_state_t* pstate);
-ast_expr_unary_t* parse_expr_unary(parser_state_t* pstate);
-ast_expr_primary_t* parse_expr_primary(parser_state_t* pstate);
+ast_expr_operator_t* parse_expr_operator(parser_state_t* pstate);
+ast_expr_operand_t* parse_expr_operand(parser_state_t* pstate);
 ast_expression_list_t* parse_expression_list(parser_state_t* pstate);
 ast_namespace_definition_t* parse_namespace_definition(parser_state_t* pstate);
 ast_class_definition_t* parse_class_definition(parser_state_t* pstate);
@@ -88,5 +82,5 @@ ast_try_clause_t* parse_try_clause(parser_state_t* pstate);
 ast_except_clause_t* parse_except_clause(parser_state_t* pstate);
 ast_final_clause_t* parse_final_clause(parser_state_t* pstate);
 
-#endif /* _PARSER_PROTOTYPES_H_ */
+#endif  /* _PARSER_PROTOTYPES_H_ */
 

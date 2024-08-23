@@ -41,6 +41,13 @@ typedef enum {
     TOK_DOT,
     TOK_OR,
     TOK_AND,
+    TOK_EQU,
+    TOK_NEQU,
+    TOK_LT,
+    TOK_GT,
+    TOK_LTE,
+    TOK_GTE,
+    TOK_NOT,
     TOK_EQUAL_EQUAL,
     TOK_BANG_EQUAL,
     TOK_OPBRACE,
@@ -85,6 +92,8 @@ typedef enum {
     TOK_EXCEPT,
     TOK_FINAL,
     TOK_CARAT,
+    TOK_PIPE,
+    TOK_AMPERSAND,
 
     TOK_END_OF_INPUT,
     TOK_END_OF_FILE,
@@ -99,5 +108,5 @@ typedef struct {
 const char* token_type_to_str(TokenType type);
 token_database_t* find_keyword(const char* str);
 
-#endif /* _TOKEN_DEFS_H_ */
+#endif  /* _TOKEN_DEFS_H_ */
 

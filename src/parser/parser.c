@@ -9,9 +9,13 @@
 #include "common.h"
 #include "ast.h"
 #include "parser.h"
+#include "errors.h"
 
 void recover_error(void) {
 
+    //SYNTAX("Syntax error");
+    fprintf(stderr, "Syntax Error\n");
+    exit(1);
 }
 
 ast_module_t* parse(void) {

@@ -6,9 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-
 #ifndef _AST_H_
 #define _AST_H_
+
+#include "tokens.h"
 
 typedef enum {
     AST_MODULE,
@@ -45,14 +46,8 @@ typedef enum {
     AST_COMPOUND_REFERENCE,
     AST_CAST_STATEMENT,
     AST_EXPRESSION,
-    AST_EXPR_OR,
-    AST_EXPR_AND,
-    AST_EXPR_EQUALITY,
-    AST_EXPR_COMPARE,
-    AST_EXPR_TERM,
-    AST_EXPR_FACTOR,
-    AST_EXPR_UNARY,
-    AST_EXPR_PRIMARY,
+    AST_EXPR_OPERATOR,
+    AST_EXPR_OPERAND,
     AST_EXPRESSION_LIST,
     AST_NAMESPACE_DEFINITION,
     AST_CLASS_DEFINITION,
@@ -105,7 +100,7 @@ typedef struct _ast_node_ {
  */
 typedef struct _ast_module_ {
     AstNode node;
-
+    PtrLst* list;
 } ast_module_t;
 
 /**
@@ -121,7 +116,7 @@ typedef struct _ast_module_ {
  */
 typedef struct _ast_module_item_ {
     AstNode node;
-
+    AstNode* ptr;
 } ast_module_item_t;
 
 /**
@@ -134,7 +129,7 @@ typedef struct _ast_module_item_ {
  */
 typedef struct _ast_start_definition_ {
     AstNode node;
-
+    struct _ast_function_body_* func;
 } ast_start_definition_t;
 
 /**
@@ -147,7 +142,8 @@ typedef struct _ast_start_definition_ {
  */
 typedef struct _ast_import_statement_ {
     AstNode node;
-
+    struct _formatted_strg_* str;
+    Token* ident;
 } ast_import_statement_t;
 
 /**
@@ -160,7 +156,7 @@ typedef struct _ast_import_statement_ {
  */
 typedef struct _ast_include_statement_ {
     AstNode node;
-
+    struct _formatted_strg_* str;
 } ast_include_statement_t;
 
 /**
@@ -179,7 +175,7 @@ typedef struct _ast_include_statement_ {
  */
 typedef struct _ast_namespace_item_ {
     AstNode node;
-
+    AstNode* ptr;
 } ast_namespace_item_t;
 
 /**
@@ -194,7 +190,7 @@ typedef struct _ast_namespace_item_ {
  */
 typedef struct _ast_scope_operator_ {
     AstNode node;
-
+    Token* tok;
 } ast_scope_operator_t;
 
 /**
@@ -213,7 +209,7 @@ typedef struct _ast_scope_operator_ {
  */
 typedef struct _ast_literal_type_name_ {
     AstNode node;
-
+    Token* tok;
 } ast_literal_type_name_t;
 
 /**
@@ -227,7 +223,7 @@ typedef struct _ast_literal_type_name_ {
  */
 typedef struct _ast_type_name_ {
     AstNode node;
-
+    AstNode* ptr;
 } ast_type_name_t;
 
 /**
@@ -240,7 +236,7 @@ typedef struct _ast_type_name_ {
  */
 typedef struct _ast_type_name_list_ {
     AstNode node;
-
+    PtrLst* list;
 } ast_type_name_list_t;
 
 /**
@@ -253,7 +249,8 @@ typedef struct _ast_type_name_list_ {
  */
 typedef struct _ast_formatted_strg_ {
     AstNode node;
-
+    Token* str;
+    struct _expression_list_* exprs;
 } ast_formatted_strg_t;
 
 /**
@@ -267,7 +264,9 @@ typedef struct _ast_formatted_strg_ {
  */
 typedef struct _ast_string_literal_ {
     AstNode node;
-
+    // One of these must be NULL
+    Token* lstr;
+    struct _ast_formatted_strg_* fstr;
 } ast_string_literal_t;
 
 /**
@@ -283,7 +282,9 @@ typedef struct _ast_string_literal_ {
  */
 typedef struct _ast_literal_value_ {
     AstNode node;
-
+    // one of these must be NULL;
+    Token* literal;
+    struct _string_literal_* str;
 } ast_literal_value_t;
 
 /**
@@ -296,7 +297,8 @@ typedef struct _ast_literal_value_ {
  */
 typedef struct _ast_var_decl_ {
     AstNode node;
-
+    struct _type_name_* type;
+    Token* ident;
 } ast_var_decl_t;
 
 /**
@@ -309,7 +311,8 @@ typedef struct _ast_var_decl_ {
  */
 typedef struct _ast_var_decl_list_ {
     AstNode node;
-
+    // list of struct ast_var_decl_t
+    PtrLst* list;
 } ast_var_decl_list_t;
 
 /**
@@ -322,7 +325,9 @@ typedef struct _ast_var_decl_list_ {
  */
 typedef struct _ast_function_assignment_ {
     AstNode node;
-
+    struct _compound_name_* name;
+    struct _type_name_list_* inp;
+    struct _type_name_list_* outp;
 } ast_function_assignment_t;
 
 /**
@@ -337,7 +342,7 @@ typedef struct _ast_function_assignment_ {
  */
 typedef struct _ast_assignment_item_ {
     AstNode node;
-
+    AstNode* ptr;
 } ast_assignment_item_t;
 
 /**
@@ -350,7 +355,10 @@ typedef struct _ast_assignment_item_ {
  */
 typedef struct _ast_var_definition_ {
     AstNode node;
-
+    bool is_const;
+    struct _var_decl_* decl;
+    // NULL if there is no assignment
+    struct _assignment_item_* item;
 } ast_var_definition_t;
 
 /**
@@ -364,7 +372,7 @@ typedef struct _ast_var_definition_ {
  */
 typedef struct _ast_list_init_str_ {
     AstNode node;
-
+    Token* str;
 } ast_list_init_str_t;
 
 /**
@@ -378,7 +386,9 @@ typedef struct _ast_list_init_str_ {
  */
 typedef struct _ast_list_init_element_ {
     AstNode node;
-
+    struct _assignment_item_* item;
+    // this is NULL if there is no str
+    struct _list_init_str_* str;
 } ast_list_init_element_t;
 
 /**
@@ -391,7 +401,8 @@ typedef struct _ast_list_init_element_ {
  */
 typedef struct _ast_list_init_ {
     AstNode node;
-
+    // list of ast_list_init_element_t
+    PtrLst* list;
 } ast_list_init_t;
 
 /**
@@ -405,7 +416,7 @@ typedef struct _ast_list_init_ {
  */
 typedef struct _ast_array_param_item_ {
     AstNode node;
-
+    AstNode* ptr;
 } ast_array_param_item_t;
 
 /**
@@ -418,7 +429,7 @@ typedef struct _ast_array_param_item_ {
  */
 typedef struct _ast_array_param_ {
     AstNode node;
-
+    struct _array_param_item_* item;
 } ast_array_param_t;
 
 /**
@@ -431,7 +442,8 @@ typedef struct _ast_array_param_ {
  */
 typedef struct _ast_array_param_list_ {
     AstNode node;
-
+    // list of ast_array_param_t
+    PtrLst* ptr;
 } ast_array_param_list_t;
 
 /**
@@ -444,7 +456,8 @@ typedef struct _ast_array_param_list_ {
  */
 typedef struct _ast_array_reference_ {
     AstNode node;
-
+    Token* ident;
+    struct _array_param_list_* list;
 } ast_array_reference_t;
 
 /**
@@ -457,7 +470,9 @@ typedef struct _ast_array_reference_ {
  */
 typedef struct _ast_function_reference_ {
     AstNode node;
-
+    struct _compound_reference_* name;
+    struct _expression_list_* inp;
+    struct _compound_name_list_* outp;
 } ast_function_reference_t;
 
 /**
@@ -470,7 +485,8 @@ typedef struct _ast_function_reference_ {
  */
 typedef struct _ast_create_reference_ {
     AstNode node;
-
+    struct _create_name_* name;
+    struct _expression_list_* inp;
 } ast_create_reference_t;
 
 /**
@@ -483,7 +499,7 @@ typedef struct _ast_create_reference_ {
  */
 typedef struct _ast_destroy_reference_ {
     AstNode node;
-
+    struct _destroy_name_* name;
 } ast_destroy_reference_t;
 
 /**
@@ -496,7 +512,8 @@ typedef struct _ast_destroy_reference_ {
  */
 typedef struct _ast_compound_name_ {
     AstNode node;
-
+    // list of Tokens
+    PtrLst* list;
 } ast_compound_name_t;
 
 /**
@@ -509,7 +526,8 @@ typedef struct _ast_compound_name_ {
  */
 typedef struct _ast_compound_name_list_ {
     AstNode node;
-
+    // list of ast_compound_name_t
+    PtrLst* list;
 } ast_compound_name_list_t;
 
 /**
@@ -523,7 +541,9 @@ typedef struct _ast_compound_name_list_ {
  */
 typedef struct _ast_compound_ref_item_ {
     AstNode node;
-
+    // one of these elements must be NULL
+    Token* name;
+    struct _array_reference_* ref;
 } ast_compound_ref_item_t;
 
 /**
@@ -536,7 +556,8 @@ typedef struct _ast_compound_ref_item_ {
  */
 typedef struct _ast_compound_reference_ {
     AstNode node;
-
+    // list of ast_compound_ref_item_t
+    PtrLst* list;
 } ast_compound_reference_t;
 
 /**
@@ -549,136 +570,59 @@ typedef struct _ast_compound_reference_ {
  */
 typedef struct _ast_cast_statement_ {
     AstNode node;
-
+    struct _type_name_* type;
+    struct _expresion_* expr;
 } ast_cast_statement_t;
 
 /**
  *
  * Grammar production:
+ * Note that the expressions are parsed separately using the shunting
+ * yard algorithm. The result is a list of operations.
  *
  * expression
- *     : expr_or
+ *     : EXPRESSION
  *     ;
  */
 typedef struct _ast_expression_ {
     AstNode node;
-
+    // list contains ast_ext_operand_t and ast_ast_operator_t
+    PtrLst* list;
+    // type information here as well.
+    int result_type;
 } ast_expression_t;
 
 /**
  *
  * Grammar production:
  *
- * expr_or
- *     : expr_and 'or' expr_and
+ * expr_operator
+ *     : '+' | '-' | '*' | '/' | '%' | '|' | '&' | '!'
+ *     | '==' | '!=' | '<' | '>' | '<=' | '>='
+ *     | 'or' | 'and' | 'not' | 'equ' | 'nequ'
+ *     | 'lt' | 'gt' | 'lte' | 'gte'
  *     ;
+ *
  */
-typedef struct _ast_expr_or_ {
+typedef struct _ast_expr_operator_ {
     AstNode node;
-
-} ast_expr_or_t;
+    Token* oper;
+} ast_expr_operator_t;
 
 /**
  *
  * Grammar production:
  *
- * expr_and
- *     : expr_equality 'and' expr_equality
- *     ;
- */
-typedef struct _ast_expr_and_ {
-    AstNode node;
-
-} ast_expr_and_t;
-
-/**
- *
- * Grammar production:
- *
- * expr_equality
- *     : expr_compare '==' expr_compare
- *     | expr_compare '!=' expr_compare
- *     ;
- */
-typedef struct _ast_expr_equality_ {
-    AstNode node;
-
-} ast_expr_equality_t;
-
-/**
- *
- * Grammar production:
- *
- * expr_compare
- *     : expr_term '<' expr_term
- *     | expr_term '>' expr_term
- *     | expr_term '<=' expr_term
- *     | expr_term '>=' expr_term
- *     ;
- */
-typedef struct _ast_expr_compare_ {
-    AstNode node;
-
-} ast_expr_compare_t;
-
-/**
- *
- * Grammar production:
- *
- * expr_term
- *     : expr_factor '+' expr_factor
- *     | expr_factor '-' expr_factor
- *     ;
- */
-typedef struct _ast_expr_term_ {
-    AstNode node;
-
-} ast_expr_term_t;
-
-/**
- *
- * Grammar production:
- *
- * expr_factor
- *     : expr_unary '*' expr_unary
- *     | expr_unary '/' expr_unary
- *     | expr_unary '%' expr_unary
- *     ;
- */
-typedef struct _ast_expr_factor_ {
-    AstNode node;
-
-} ast_expr_factor_t;
-
-/**
- *
- * Grammar production:
- *
- * expr_unary
- *     : '-' expr_primary
- *     | '!' expr_primary
- *     ;
- */
-typedef struct _ast_expr_unary_ {
-    AstNode node;
-
-} ast_expr_unary_t;
-
-/**
- *
- * Grammar production:
- *
- * expr_primary
+ * expr_operand
  *     : literal_value
  *     | compound_reference
  *     | cast_statement
- *     | '(' expression ')'
  *     ;
  */
-typedef struct _ast_expr_primary_ {
+typedef struct _ast_expr_operand_ {
     AstNode node;
-
-} ast_expr_primary_t;
+    AstNode* ptr;
+} ast_expr_operand_t;
 
 /**
  *
@@ -690,7 +634,8 @@ typedef struct _ast_expr_primary_ {
  */
 typedef struct _ast_expression_list_ {
     AstNode node;
-
+    // list of expressions
+    PtrLst* list;
 } ast_expression_list_t;
 
 /**
@@ -703,7 +648,9 @@ typedef struct _ast_expression_list_ {
  */
 typedef struct _ast_namespace_definition_ {
     AstNode node;
-
+    Token* name;
+    // list of namespace items
+    PtrLst* items;
 } ast_namespace_definition_t;
 
 /**
@@ -716,7 +663,11 @@ typedef struct _ast_namespace_definition_ {
  */
 typedef struct _ast_class_definition_ {
     AstNode node;
-
+    Token* name;
+    // could be NULL
+    struct _type_name_* inher;
+    // list of class items
+    PtrLst* list;
 } ast_class_definition_t;
 
 /**
@@ -733,7 +684,7 @@ typedef struct _ast_class_definition_ {
  */
 typedef struct _ast_class_item_ {
     AstNode node;
-
+    AstNode* ptr;
 } ast_class_item_t;
 
 /**
@@ -746,7 +697,10 @@ typedef struct _ast_class_item_ {
  */
 typedef struct _ast_function_declaration_ {
     AstNode node;
-
+    bool is_virtual;
+    Token* name;
+    struct _type_name_list_* inp;
+    struct _type_name_list_* outp;
 } ast_function_declaration_t;
 
 /**
@@ -759,7 +713,8 @@ typedef struct _ast_function_declaration_ {
  */
 typedef struct _ast_create_declaration_ {
     AstNode node;
-
+    bool is_virtual;
+    struct _type_name_list_* inp;
 } ast_create_declaration_t;
 
 /**
@@ -772,7 +727,7 @@ typedef struct _ast_create_declaration_ {
  */
 typedef struct _ast_destroy_declaration_ {
     AstNode node;
-
+    bool is_virtual;
 } ast_destroy_declaration_t;
 
 /**
@@ -785,7 +740,11 @@ typedef struct _ast_destroy_declaration_ {
  */
 typedef struct _ast_function_definition_ {
     AstNode node;
-
+    bool is_virtual;
+    struct _compound_name_* name;
+    struct _var_decl_list_* inp;
+    struct _var_decl_list_* outp;
+    struct _function_body_* body;
 } ast_function_definition_t;
 
 /**
@@ -798,7 +757,10 @@ typedef struct _ast_function_definition_ {
  */
 typedef struct _ast_create_name_ {
     AstNode node;
-
+    // actual name, including the 'create'
+    String* name;
+    // list of identifiers
+    PtrLst* ident;
 } ast_create_name_t;
 
 /**
@@ -811,7 +773,10 @@ typedef struct _ast_create_name_ {
  */
 typedef struct _ast_create_definition_ {
     AstNode node;
-
+    bool is_virtual;
+    struct _create_name_* name;
+    struct _var_decl_list_* inp;
+    struct _function_body_* body;
 } ast_create_definition_t;
 
 /**
@@ -824,7 +789,10 @@ typedef struct _ast_create_definition_ {
  */
 typedef struct _ast_destroy_name_ {
     AstNode node;
-
+    // actual name, including the 'destroy'
+    String* name;
+    // list of identifiers
+    PtrLst* ident;
 } ast_destroy_name_t;
 
 /**
@@ -837,7 +805,9 @@ typedef struct _ast_destroy_name_ {
  */
 typedef struct _ast_destroy_definition_ {
     AstNode node;
-
+    bool is_virtual;
+    struct _destroy_name_* name;
+    struct _function_body_* body;
 } ast_destroy_definition_t;
 
 /**
@@ -850,7 +820,8 @@ typedef struct _ast_destroy_definition_ {
  */
 typedef struct _ast_function_body_ {
     AstNode node;
-
+    // list of function body elements
+    PtrLst* list;
 } ast_function_body_t;
 
 /**
@@ -864,7 +835,7 @@ typedef struct _ast_function_body_ {
  */
 typedef struct _ast_assign_eq_item_ {
     AstNode node;
-
+    AstNode* ptr;
 } ast_assign_eq_item_t;
 
 /**
@@ -878,7 +849,7 @@ typedef struct _ast_assign_eq_item_ {
  */
 typedef struct _ast_assign_inc_item_ {
     AstNode node;
-
+    AstNode* ptr;
 } ast_assign_inc_item_t;
 
 /**
@@ -896,7 +867,9 @@ typedef struct _ast_assign_inc_item_ {
  */
 typedef struct _ast_assignment_ {
     AstNode node;
-
+    Token* oper;
+    struct _compound_reference_* lhs;
+    AstNode* rhs;
 } ast_assignment_t;
 
 /**
@@ -929,7 +902,7 @@ typedef struct _ast_assignment_ {
  */
 typedef struct _ast_function_body_element_ {
     AstNode node;
-
+    AstNode* ptr;
 } ast_function_body_element_t;
 
 /**
@@ -942,7 +915,6 @@ typedef struct _ast_function_body_element_ {
  */
 typedef struct _ast_break_statement_ {
     AstNode node;
-
 } ast_break_statement_t;
 
 /**
@@ -955,7 +927,6 @@ typedef struct _ast_break_statement_ {
  */
 typedef struct _ast_continue_statement_ {
     AstNode node;
-
 } ast_continue_statement_t;
 
 /**
@@ -968,7 +939,7 @@ typedef struct _ast_continue_statement_ {
  */
 typedef struct _ast_yield_statement_ {
     AstNode node;
-
+    struct _compound_reference_* arg;
 } ast_yield_statement_t;
 
 /**
@@ -981,7 +952,7 @@ typedef struct _ast_yield_statement_ {
  */
 typedef struct _ast_type_statement_ {
     AstNode node;
-
+    struct _compound_reference_* arg;
 } ast_type_statement_t;
 
 /**
@@ -994,7 +965,6 @@ typedef struct _ast_type_statement_ {
  */
 typedef struct _ast_return_statement_ {
     AstNode node;
-
 } ast_return_statement_t;
 
 /**
@@ -1007,7 +977,8 @@ typedef struct _ast_return_statement_ {
  */
 typedef struct _ast_raise_statement_ {
     AstNode node;
-
+    Token* id;
+    struct _string_literal_* str;
 } ast_raise_statement_t;
 
 /**
@@ -1020,7 +991,7 @@ typedef struct _ast_raise_statement_ {
  */
 typedef struct _ast_trace_statement_ {
     AstNode node;
-
+    struct _string_literal_* str;
 } ast_trace_statement_t;
 
 /**
@@ -1033,7 +1004,8 @@ typedef struct _ast_trace_statement_ {
  */
 typedef struct _ast_print_statement_ {
     AstNode node;
-
+    // list of expressions.
+    PtrLst* ptr;
 } ast_print_statement_t;
 
 /**
@@ -1046,7 +1018,7 @@ typedef struct _ast_print_statement_ {
  */
 typedef struct _ast_exit_statement_ {
     AstNode node;
-
+    struct _expression_* expr;
 } ast_exit_statement_t;
 
 /**
@@ -1059,7 +1031,8 @@ typedef struct _ast_exit_statement_ {
  */
 typedef struct _ast_while_definition_ {
     AstNode node;
-
+    // a NULL expression equates to 'true'
+    struct _expression_* expr;
 } ast_while_definition_t;
 
 /**
@@ -1072,7 +1045,8 @@ typedef struct _ast_while_definition_ {
  */
 typedef struct _ast_while_clause_ {
     AstNode node;
-
+    struct _while_definition_* expr;
+    struct _function_body_* body;
 } ast_while_clause_t;
 
 /**
@@ -1085,7 +1059,8 @@ typedef struct _ast_while_clause_ {
  */
 typedef struct _ast_do_clause_ {
     AstNode node;
-
+    struct _while_definition_* expr;
+    struct _function_body_* body;
 } ast_do_clause_t;
 
 /**
@@ -1098,7 +1073,10 @@ typedef struct _ast_do_clause_ {
  */
 typedef struct _ast_for_clause_ {
     AstNode node;
-
+    struct _type_name_* type;
+    Token* ident;
+    struct _expression_* expr;
+    struct _function_body_* body;
 } ast_for_clause_t;
 
 /**
@@ -1111,7 +1089,12 @@ typedef struct _ast_for_clause_ {
  */
 typedef struct _ast_if_clause_ {
     AstNode node;
-
+    struct _expression_* expr;
+    struct _function_body_* body;
+    // list of else clauses
+    PtrLst* ecl;
+    // this could be NULL
+    struct _final_else_clause_* fecl;
 } ast_if_clause_t;
 
 /**
@@ -1124,7 +1107,8 @@ typedef struct _ast_if_clause_ {
  */
 typedef struct _ast_else_clause_ {
     AstNode node;
-
+    struct _expression_* expr;
+    struct _function_body_* body;
 } ast_else_clause_t;
 
 /**
@@ -1137,7 +1121,7 @@ typedef struct _ast_else_clause_ {
  */
 typedef struct _ast_final_else_clause_ {
     AstNode node;
-
+    struct _function_body_* body;
 } ast_final_else_clause_t;
 
 /**
@@ -1145,12 +1129,16 @@ typedef struct _ast_final_else_clause_ {
  * Grammar production:
  *
  * try_clause
- *     : 'try' function_body ( except_clause )* ( final_clause )?
+ *     : 'try' function_body ( except_clause )+ ( final_clause )?
  *     ;
  */
 typedef struct _ast_try_clause_ {
     AstNode node;
-
+    struct _function_body_* body;
+    // list of except clauses
+    PtrLst* list;
+    // zero or more final clauses
+    struct _final_clause_* fin;
 } ast_try_clause_t;
 
 /**
@@ -1163,7 +1151,9 @@ typedef struct _ast_try_clause_ {
  */
 typedef struct _ast_except_clause_ {
     AstNode node;
-
+    Token* id1;
+    Token* id2;
+    struct _function_body_* body;
 } ast_except_clause_t;
 
 /**
@@ -1176,7 +1166,8 @@ typedef struct _ast_except_clause_ {
  */
 typedef struct _ast_final_clause_ {
     AstNode node;
-
+    Token* id1;
+    struct _function_body_* body;
 } ast_final_clause_t;
 
 #define CALL_NODE_FUNC(f) do { \
@@ -1223,14 +1214,8 @@ void traverse_compound_ref_item(ast_compound_ref_item_t* node, AstFuncPtr pre, A
 void traverse_compound_reference(ast_compound_reference_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_cast_statement(ast_cast_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_expression(ast_expression_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_expr_or(ast_expr_or_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_expr_and(ast_expr_and_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_expr_equality(ast_expr_equality_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_expr_compare(ast_expr_compare_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_expr_term(ast_expr_term_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_expr_factor(ast_expr_factor_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_expr_unary(ast_expr_unary_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_expr_primary(ast_expr_primary_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_operand(ast_expr_operand_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_expr_operator(ast_expr_operator_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_expression_list(ast_expression_list_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_namespace_definition(ast_namespace_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_class_definition(ast_class_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
@@ -1268,5 +1253,5 @@ void traverse_try_clause(ast_try_clause_t* node, AstFuncPtr pre, AstFuncPtr post
 void traverse_except_clause(ast_except_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_final_clause(ast_final_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
 
-#endif /* _AST_H_ */
+#endif  /* _AST_H_ */
 

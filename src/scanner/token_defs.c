@@ -24,18 +24,25 @@ static token_database_t keywords[] = {
     {"dict", TOK_DICT},
     {"do", TOK_DO},
     {"else", TOK_ELSE},
+    {"equ", TOK_EQU},
     {"except", TOK_EXCEPT},
     {"exit", TOK_EXIT},
     {"final", TOK_FINAL},
     {"float", TOK_FLOAT},
     {"for", TOK_FOR},
+    {"gt", TOK_GT},
+    {"gte", TOK_GTE},
     {"if", TOK_IF},
     {"import", TOK_IMPORT},
     {"in", TOK_IN},
     {"include", TOK_INCLUDE},
     {"integer", TOK_INTEGER},
     {"list", TOK_LIST},
+    {"lt", TOK_LT},
+    {"lte", TOK_LTE},
     {"namespace", TOK_NAMESPACE},
+    {"nequ", TOK_NEQU},
+    {"not", TOK_NOT},
     {"nothing", TOK_NOTHING},
     {"or", TOK_OR},
     {"print", TOK_PRINT},
@@ -88,6 +95,13 @@ const char* token_type_to_str(TokenType type) {
         (type == TOK_DOT)? "." :
         (type == TOK_OR)? "or" :
         (type == TOK_AND)? "and" :
+        (type == TOK_NOT)? "not" :
+        (type == TOK_EQU)? "equ" :
+        (type == TOK_NEQU)? "nequ" :
+        (type == TOK_LT)? "lt" :
+        (type == TOK_GT)? "gt" :
+        (type == TOK_LTE)? "lte" :
+        (type == TOK_GTE)? "gte" :
         (type == TOK_EQUAL_EQUAL)? "==" :
         (type == TOK_BANG_EQUAL)? "!=" :
         (type == TOK_OPBRACE)? "<" :
@@ -131,11 +145,12 @@ const char* token_type_to_str(TokenType type) {
         (type == TOK_TRY)? "try" :
         (type == TOK_EXCEPT)? "except" :
         (type == TOK_FINAL)? "final" :
-    (type == TOK_CARAT)? "^" :
-    (type == TOK_END_OF_INPUT)? "END OF INPUT" :
-    (type == TOK_END_OF_FILE)? "END OF FILE" :
-    (type == TOK_ERROR)? "ERROR" :
-        "UNKNOWN";
+        (type == TOK_CARAT)? "^" :
+        (type == TOK_PIPE)? "|" :
+        (type == TOK_AMPERSAND)? "&" :
+        (type == TOK_END_OF_INPUT)? "END OF INPUT" :
+        (type == TOK_END_OF_FILE)? "END OF FILE" :
+        (type == TOK_ERROR)? "ERROR" : "UNKNOWN";
 }
 
 token_database_t* find_keyword(const char* str) {

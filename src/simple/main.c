@@ -7,13 +7,7 @@
 
 void init(int argc, char** argv) {
 
-    init_cmdline("Simple Parser Generator", "", "Parser Generator", "0.0.0");
-
-    // set the optional file names
-    add_cmdline('a', "ast", "ast_name", "name of the ast files, possibly a full path",
-                "_ast", NULL, CMD_STR|CMD_RARG);
-    add_cmdline('p', "parser", "parse_name", "name of the parser files, possibly a full path",
-                "_parser", NULL, CMD_STR|CMD_RARG);
+    init_cmdline("Simple Language Compiler", "", "Simple", "0.0.0");
 
     // verbosity level, values 0-10
     add_cmdline('v', "verbosity", "verbo", "control how much text is displayed during execution",

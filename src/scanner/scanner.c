@@ -235,23 +235,18 @@ static void scan_operator(void) {
             append_string_char(token.str, ch);
             consume_char();
             return;
-        case '@':
-            token.type = TOK_AND;
-            append_string_char(token.str, ch);
-            consume_char();
-            return;
         case ':':
             token.type = TOK_COLON;
             append_string_char(token.str, ch);
             consume_char();
             return;
         case '&':
-            token.type = TOK_AND;
+            token.type = TOK_AMPERSAND;
             append_string_char(token.str, ch);
             consume_char();
             return;
         case '|':
-            token.type = TOK_OR;
+            token.type = TOK_PIPE;
             append_string_char(token.str, ch);
             consume_char();
             return;

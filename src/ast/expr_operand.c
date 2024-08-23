@@ -15,14 +15,14 @@
  *
  * Grammar production:
  *
- * expr_primary
+ * expr_operand
  *     : literal_value
  *     | compound_reference
  *     | cast_statement
  *     | '(' expression ')'
  *     ;
  */
-void traverse_expr_primary(ast_expr_primary_t* node, AstFuncPtr pre, AstFuncPtr post) {
+void traverse_expr_operand(ast_expr_operand_t* node, AstFuncPtr pre, AstFuncPtr post) {
 
     ENTER;
     CALL_NODE_FUNC(pre);

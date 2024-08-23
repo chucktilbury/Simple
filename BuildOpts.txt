@@ -7,7 +7,6 @@ include_directories(
     "${PROJECT_SOURCE_DIR}/../tokens"
     "${PROJECT_SOURCE_DIR}/../parser"
     "${PROJECT_SOURCE_DIR}/../errors"
-    "${PROJECT_BINARY_DIR}/../tokens"
 )
 
 add_definitions(

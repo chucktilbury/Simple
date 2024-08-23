@@ -20,5 +20,5 @@ typedef struct {
 void recover_error(void);
 ast_module_t* parse(void);
 
-#endif /* _PARSER_H_ */
+#endif  /* _PARSER_H_ */
 
