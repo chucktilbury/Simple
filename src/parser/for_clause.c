@@ -58,20 +58,72 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
             case 2:
                 TRACE_STATE(state);
-                type = parse_type_name(pstate); 
-                state = 3;
+                if(NULL != (type = parse_type_name(pstate)))
+                    state = 3; // ident is required
+                else 
+                    state = 4; // ident is optional
                 break;
 
             case 3:
+                // required ident
                 TRACE_STATE(state);
                 if(TOK_IDENT == TTYPE) {
                     ident = copy_token(get_token());
                     consume_token();
-                    state = 4;
+                    state = 5;
+                }
+                else {
+                    EXPECTED("an identifier");
+                    state = 102;
+                } 
+                break;
+
+            case 4:
+                // optional ident
+                if(TOK_IDENT == TTYPE) {
+                    ident = copy_token(get_token());
+                    consume_token();
+                    state = 5;
                 }
                 else 
-                
-                
+                    state = 7;
+                break;
+
+            case 5:
+                // required 'in'
+                TRACE_STATE(state);
+                if(TOK_IN == TTYPE) {
+                    consume_token();
+                    state = 6;
+                }
+                else {
+                    EXPECTED("the 'in' keyword");
+                    state = 102;
+                }
+                break;
+
+            case 6:
+                // required expression
+                TRACE_STATE(state);
+                if(NULL != (expr = parse_expression(pstate))) 
+                    state = 7;
+                else {
+                    EXPECTED("an expression");
+                    state = 102;
+                }
+                break;
+
+            case 7:
+                // required ')'
+                TRACE_STATE(state);
+                if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 10;
+                }
+                else {
+                    EXPECTED("a ')'");
+                    state = 102;
+                }
                 break;
 
             case 10:

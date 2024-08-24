@@ -29,17 +29,40 @@ ast_function_body_t* parse_function_body(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    PtrLst* list = create_ptr_lst();
+    ast_function_body_element_t* ptr;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_OCBRACE == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(NULL != (ptr = parse_function_body_element(pstate)))
+                    append_ptr_lst(list, ptr);
+                else if(TOK_CCBRACE == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else {
+                    EXPECTED("a statement or a '}'");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_function_body_t*)create_ast_node(AST_FUNCTION_BODY);
+                node->list = list;
                 finished = true;
                 break;
 

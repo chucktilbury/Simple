@@ -49,17 +49,66 @@ ast_function_body_element_t* parse_function_body_element(parser_state_t* pstate)
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_node_t* ptr;
+    Token* inl = NULL;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(NULL != (ptr = (ast_node_t*)parse_var_definition(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_function_reference(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_create_reference(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_destroy_reference(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_assignment(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_while_clause(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_do_clause(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_for_clause(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_if_clause(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_try_clause(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_break_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_continue_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_yield_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_type_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_return_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_raise_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_trace_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_print_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_function_body(pstate)))
+                    state = 100;
+                else if(TOK_INLINE == TTYPE) {
+                    inl = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else
+                    state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_function_body_element_t*)create_ast_node(AST_FUNCTION_BODY_ELEMENT);
+                node->ptr = ptr;
+                node->inl = inl;
                 finished = true;
                 break;
 

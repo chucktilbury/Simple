@@ -29,17 +29,34 @@ ast_formatted_strg_t* parse_formatted_strg(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    Token* str;
+    ast_expression_list_t* exprs = NULL;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_LITERAL_DSTR == TTYPE) {
+                    str = copy_token(get_token());
+                    consume_token();
+                    state = 1;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                exprs = parse_expression_list(pstate);
+                state = 100;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_formatted_strg_t*)create_ast_node(AST_FORMATTED_STRG);
+                node->str = str;
+                node->exprs = exprs;
                 finished = true;
                 break;
 

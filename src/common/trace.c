@@ -15,7 +15,7 @@
 #define INDENT 2
 static int indent = 0;
 
-static void pad() {
+static void pad(void) {
 
     for(int i = 0; i < indent; i++)
         fputc(' ', stdout);

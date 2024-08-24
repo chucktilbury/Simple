@@ -901,6 +901,7 @@ typedef struct _ast_assignment_ {
 typedef struct _ast_function_body_element_ {
     ast_node_t node;
     ast_node_t* ptr;
+    Token* inl;
 } ast_function_body_element_t;
 
 /**
