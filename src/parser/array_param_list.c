@@ -29,17 +29,37 @@ ast_array_param_list_t* parse_array_param_list(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    PtrLst* list = create_ptr_lst();
+    ast_array_param_t* ptr;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
+                // zero or more array_param
                 TRACE_STATE(state);
+                if(NULL != (ptr = parse_array_param(pstate))) {
+                    append_ptr_lst(list, ptr);
+                    state = 1;
+                }
+                else
+                    state = 101;
+                break;
+
+            case 1:
+                // get more of them
+                TRACE_STATE(state);
+                if(NULL != (ptr = parse_array_param(pstate))) {
+                    append_ptr_lst(list, ptr);
+                }
+                else
+                    state = 100; // finished
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_array_param_list_t*)create_ast_node(AST_ARRAY_PARAM_LIST);
+                node->ptr = list;
                 finished = true;
                 break;
 

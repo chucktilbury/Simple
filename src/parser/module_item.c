@@ -32,22 +32,22 @@ ast_module_item_t* parse_module_item(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    AstNode* ptr;
+    ast_node_t* ptr;
 
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
-                if(NULL != (ptr = (AstNode*)parse_namespace_item(pstate))) 
-                    state = 100;    
-                else if(NULL != (ptr = (AstNode*)parse_import_statement(pstate))) 
-                    state = 100;    
-                else if(NULL != (ptr = (AstNode*)parse_include_statement(pstate))) 
-                    state = 100;    
-                else if(NULL != (ptr = (AstNode*)parse_start_definition(pstate))) 
-                    state = 100;    
-                else 
+                if(NULL != (ptr = (ast_node_t*)parse_namespace_item(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_import_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_include_statement(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_start_definition(pstate)))
+                    state = 100;
+                else
                     state = 101;
                 break;
 

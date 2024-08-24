@@ -29,17 +29,37 @@ ast_array_reference_t* parse_array_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    Token* name;
+    ast_array_param_list_t* list;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(TOK_IDENT == TTYPE) {
+                    name = copy_token(get_token());
+                    consume_token();
+                    state = 1;
+                }
+                else
+                    state = 101;
+                break;
+
+            case 1:
+                // get the param list
+                if(NULL != (list = parse_array_param_list(pstate)))
+                    state = 100;
+                else
+                    state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_array_reference_t*)create_ast_node(AST_ARRAY_REFERENCE);
+                node->ident = name;
+                node->list = list;
                 finished = true;
                 break;
 

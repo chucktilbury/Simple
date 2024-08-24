@@ -10,6 +10,7 @@
 #define _TOKEN_DEFS_H_
 
 typedef enum {
+    // tokens recognized by the scanner
     TOK_START,
     TOK_IMPORT,
     TOK_AS,
@@ -95,8 +96,15 @@ typedef enum {
     TOK_PIPE,
     TOK_AMPERSAND,
 
+    // determined by the parser
+    TOK_UNARY_MINUS,
+    TOK_UNARY_NOT,
+
+    // determined by the fileio module
     TOK_END_OF_INPUT,
     TOK_END_OF_FILE,
+
+    // returned when the scanner detects an error, such as a malformed number.
     TOK_ERROR,
 } TokenType;
 

@@ -33,11 +33,25 @@ ast_class_item_t* parse_class_item(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_node_t* ptr;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(NULL != (ptr = (ast_node_t*)parse_scope_operator(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_var_decl(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_function_declaration(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_create_declaration(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_destroy_declaration(pstate)))
+                    state = 100;
+                else
+                    state = 101;
                 break;
 
             case 100:

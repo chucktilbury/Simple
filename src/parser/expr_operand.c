@@ -19,7 +19,6 @@
  *     : literal_value
  *     | compound_reference
  *     | cast_statement
- *     | '(' expression ')'
  *     ;
  */
 ast_expr_operand_t* parse_expr_operand(parser_state_t* pstate) {
@@ -32,17 +31,28 @@ ast_expr_operand_t* parse_expr_operand(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_node_t* ptr = NULL;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(NULL != (ptr = (ast_node_t*)parse_literal_value(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_compound_reference(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_cast_statement(pstate)))
+                    state = 100;
+                else
+                    state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_expr_operand_t*)create_ast_node(AST_EXPR_OPERAND);
+                node->ptr = ptr;
                 finished = true;
                 break;
 

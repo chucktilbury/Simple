@@ -1,12 +1,12 @@
 /**
  * @file errors.c
  * @author your name (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-08-19
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #include <stdarg.h>
 #include "common.h"
@@ -17,11 +17,11 @@ static int warnings = 0;
 
 /**
  * @brief Publish an error.
- * 
- * @param type 
- * @param func 
- * @param fmt 
- * @param ... 
+ *
+ * @param type
+ * @param func
+ * @param fmt
+ * @param ...
  */
 void error(ErrorType type, Token* tok, const char* func, const char* fmt, ...) {
 
@@ -29,18 +29,18 @@ void error(ErrorType type, Token* tok, const char* func, const char* fmt, ...) {
 
     switch(type) {
         case ET_SYNTAX:
-            fprintf(stderr, "ERROR: %s: %d: %d: ", 
+            fprintf(stderr, "ERROR: %s: %d: %d: ",
                     tok->fname, tok->line_no, tok->col_no);
-            errors++;            
+            errors++;
             break;
         case ET_WARNING:
-            fprintf(stderr, "WARNING: %s: %d: %d: ", 
+            fprintf(stderr, "WARNING: %s: %d: %d: ",
                     tok->fname, tok->line_no, tok->col_no);
-            warnings++;            
+            warnings++;
             break;
         case ET_SCANNER:
-            fprintf(stderr, "SCAN ERROR: "); 
-            errors++;            
+            fprintf(stderr, "SCAN ERROR: ");
+            errors++;
             break;
         case ET_OTHER:
             fprintf(stderr, "OTHER: %s: ", func);
@@ -51,22 +51,34 @@ void error(ErrorType type, Token* tok, const char* func, const char* fmt, ...) {
             fprintf(stderr, "FATAL: %s: ", func);
             errors++;
             break;
-        
+
     }
 
     va_start(args, fmt);
     vfprintf(stderr, fmt, args);
     va_end(args);
+    fputc('\n', stderr);
 
     if(type == ET_FATAL || type == ET_OTHER)
         exit(1);
 }
 
+void expected(const char* str) {
+
+    Token* tok = get_token();
+
+    fprintf(stderr, "ERROR: %s: %d: %d: expected %s but got '%s'",
+            tok->fname, tok->line_no, tok->col_no, str,
+            token_type_to_str(tok->type));
+    errors++;
+
+    fputc('\n', stderr);
+}
 
 /**
  * @brief Get the errors object
- * 
- * @return int 
+ *
+ * @return int
  */
 int get_errors(void) {
 
@@ -75,8 +87,8 @@ int get_errors(void) {
 
 /**
  * @brief Get the warnings object
- * 
- * @return int 
+ *
+ * @return int
  */
 int get_warnings(void) {
 

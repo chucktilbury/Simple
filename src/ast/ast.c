@@ -89,9 +89,9 @@ static size_t node_size(AstNodeType type) {
     0; // error if we reach here
 }
 
-AstNode* create_ast_node(AstNodeType type) {
+ast_node_t* create_ast_node(AstNodeType type) {
 
-    AstNode* node = _ALLOC(node_size(type));
+    ast_node_t* node = _ALLOC(node_size(type));
     node->type = type;
     return node;
 }

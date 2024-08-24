@@ -30,17 +30,26 @@ ast_assign_eq_item_t* parse_assign_eq_item(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_node_t* ptr;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(NULL != (ptr = (ast_node_t*)parse_assignment_item(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_compound_reference(pstate)))
+                    state = 100;
+                else
+                    state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_assign_eq_item_t*)create_ast_node(AST_ASSIGN_EQ_ITEM);
+                node->ptr = ptr;
                 finished = true;
                 break;
 

@@ -29,17 +29,47 @@ ast_cast_statement_t* parse_cast_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_type_name_t* type;
+    ast_expression_t* expr;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(NULL != (type = parse_type_name(pstate)))
+                    state = 1;
+                else
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(TOK_COLON == TTYPE) {
+                    consume_token();
+                    state = 2;
+                }
+                else
+                    state = 101;
+                break;
+
+            case 2:
+                // initial state
+                TRACE_STATE(state);
+                if(NULL != (expr = parse_expression(pstate)))
+                    state = 100;
+                else {
+                    EXPECTED("an expression");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_cast_statement_t*)create_ast_node(AST_CAST_STATEMENT);
+                node->type = type;
+                node->expr = expr;
                 finished = true;
                 break;
 

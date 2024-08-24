@@ -19,7 +19,7 @@
  *     : '+' | '-' | '*' | '/' | '%' | '|' | '&' | '!'
  *     | '==' | '!=' | '<' | '>' | '<=' | '>='
  *     | 'or' | 'and' | 'not' | 'equ' | 'nequ'
- *     | 'lt' | 'gt' | 'lte' | 'gte'
+ *     | 'lt' | 'gt' | 'lte' | 'gte' | '(' | ')'
  *     ;
  *
  */
@@ -64,6 +64,8 @@ ast_expr_operator_t* parse_expr_operator(parser_state_t* pstate) {
                     case TOK_GT:
                     case TOK_LTE:
                     case TOK_GTE:
+                    case TOK_OPAREN:
+                    case TOK_CPAREN:
                         tok = copy_token(get_token());
                         state = 100;
                         break;

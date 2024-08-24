@@ -34,6 +34,12 @@ ast_break_statement_t* parse_break_statement(parser_state_t* pstate) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(TOK_BREAK == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else
+                    state = 101;
                 break;
 
             case 100:
