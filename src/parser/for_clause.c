@@ -29,17 +29,69 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    Token* ident = NULL;
+    ast_type_name_t* type = NULL;
+    ast_expression_t* expr = NULL;
+    ast_function_body_t* body = NULL;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_FOR == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(TOK_OPAREN == TTYPE) {
+                    consume_token();
+                    state = 2;
+                }
+                else 
+                    state = 10;
+                break;
+
+            case 2:
+                TRACE_STATE(state);
+                type = parse_type_name(pstate); 
+                state = 3;
+                break;
+
+            case 3:
+                TRACE_STATE(state);
+                if(TOK_IDENT == TTYPE) {
+                    ident = copy_token(get_token());
+                    consume_token();
+                    state = 4;
+                }
+                else 
+                
+                
+                break;
+
+            case 10:
+                TRACE_STATE(state);
+                if(NULL != (body = parse_function_body(pstate))) 
+                    state = 100;
+                else {
+                    EXPECTED("a function body");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_for_clause_t*)create_ast_node(AST_FOR_CLAUSE);
+                node->ident = ident;
+                node->type = type;
+                node->expr = expr;
+                node->body = body;
                 finished = true;
                 break;
 
