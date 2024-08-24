@@ -29,17 +29,47 @@ ast_do_clause_t* parse_do_clause(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_while_definition_t* expr;
+    ast_function_body_t* body;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_DO == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(NULL != (body = parse_function_body(pstate)))
+                    state = 2;
+                else {
+                    EXPECTED("a function body");
+                    state = 102;
+                }
+                break;
+
+            case 2:
+                TRACE_STATE(state);
+                if(NULL != (expr = parse_while_definition(pstate)))
+                    state = 100;
+                else {
+                    EXPECTED("a while clause");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_do_clause_t*)create_ast_node(AST_DO_CLAUSE);
+                node->expr = expr;
+                node->body = body;
                 finished = true;
                 break;
 

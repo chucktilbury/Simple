@@ -29,11 +29,52 @@ ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_expression_t* expr;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_EXIT == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(TOK_OPAREN == TTYPE) {
+                    consume_token();
+                    state = 2;
+                }
+                else {
+                    EXPECTED("a '('");
+                    state = 102;
+                }
+                break;
+
+            case 2:
+                TRACE_STATE(state);
+                if(NULL != (expr = parse_expression(pstate))) 
+                    state = 5;
+                else {
+                    EXPECTED("an expression");
+                    state = 102;
+                }
+                break;
+
+            case 3:
+                TRACE_STATE(state);
+                if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 6;
+                }
+                else {
+                    EXPECTED("a ')'");
+                    state = 102;
+                }
                 break;
 
             case 100:
