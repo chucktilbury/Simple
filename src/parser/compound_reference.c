@@ -29,11 +29,43 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    PtrLst* list = create_ptr_lst();
+    ast_compound_ref_item_t* item;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(NULL != (item = parse_compound_ref_item(pstate))) {
+                    append_ptr_lst(list, item);
+                    state = 1;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 1:
+                // if a '.' then another follows, else finished
+                TRACE_STATE(state);
+                if(TOK_DOT == TTYPE) {
+                    consume_token();
+                    state = 2;
+                }
+                else
+                    state = 100; // finished 
+                break;
+
+            case 2:
+                TRACE_STATE(state);
+                if(NULL != (item = parse_compound_ref_item(pstate))) {
+                    append_ptr_lst(list, item);
+                    state = 1;
+                }
+                else {
+                    EXPECTED("a compound reference item");
+                    state = 102;
+                }
                 break;
 
             case 100:

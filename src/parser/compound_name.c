@@ -29,17 +29,55 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    Token* tok;
+    PtrLst* list;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(TOK_IDENT == TTYPE) {
+                    tok = copy_token(get_token());
+                    append_ptr_lst(list, tok);
+                    consume_token();
+                    state = 1;
+                }
+                else
+                    state = 101; // not a match
+                break;
+
+            case 1:
+                // optional '.'
+                TRACE_STATE(state);
+                if(TOK_DOT == TTYPE) {
+                    consume_token();
+                    state = 2;
+                }
+                else
+                    state = 100; // finished
+                break;
+
+            case 2:
+                // required identifier
+                TRACE_STATE(state);
+                if(TOK_IDENT == TTYPE) {
+                    tok = copy_token(get_token());
+                    append_ptr_lst(list, tok);
+                    consume_token();
+                    state = 1;
+                }
+                else {
+                    EXPECTED("a valid identifier");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_compound_name_t*)create_ast_node(AST_COMPOUND_NAME);
+                node->list = list;
                 finished = true;
                 break;
 

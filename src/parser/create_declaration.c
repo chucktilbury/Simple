@@ -29,17 +29,50 @@ ast_create_declaration_t* parse_create_declaration(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_type_name_list_t* inp;
+    bool is_virtual;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(TOK_VIRTUAL == TTYPE) { 
+                    consume_token();
+                    is_virtual = true;
+                }
+                else
+                    is_virtual = false;
+                state = 1;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(TOK_CREATE == TTYPE) { 
+                    consume_token();
+                    state = 2;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 2:
+                TRACE_STATE(state);
+                if(NULL != (inp = parse_type_name_list(pstate))) {
+                    state = 100;
+                }
+                else {
+                    EXPECTED("a parameter list");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_create_declaration_t*)create_ast_node(AST_CREATE_DECLARATION);
+                node->inp = inp;
+                node->is_virtual = is_virtual;
                 finished = true;
                 break;
 

@@ -33,6 +33,12 @@ ast_continue_statement_t* parse_continue_statement(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
+                if(TOK_CONTINUE == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else
+                    state = 101;
                 TRACE_STATE(state);
                 break;
 

@@ -29,17 +29,81 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    PtrLst* list = create_ptr_lst();
+    ast_compound_name_t* ptr;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
+                // required OPAREN or not a match
                 TRACE_STATE(state);
+                if(TOK_OPAREN == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else
+                    state = 101;
                 break;
 
+            case 1:
+                // optional first compound name
+                TRACE_STATE(state);
+                if(NULL != (ptr = parse_compound_name(pstate))) {
+                    append_ptr_lst(list, ptr);
+                    state = 2;
+                }
+                else
+                    state = 4;
+                break;
+
+            case 2:
+                // comma or close paren
+                TRACE_STATE(state);
+                if(TOK_COMMA == TTYPE) {
+                    consume_token();
+                    state = 3;
+                }
+                else if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else {
+                    EXPECTED("a ',' or a ')'");
+                    state = 102;
+                }
+                break;
+
+            case 3:
+                // required compound name
+                TRACE_STATE(state);
+                if(NULL != (ptr = parse_compound_name(pstate))) {
+                    append_ptr_lst(list, ptr);
+                    state = 2;
+                }
+                else {
+                    EXPECTED("a compound name");
+                    state = 102;
+                }   
+                break;
+
+            case 4:
+                // required CPAREN
+                TRACE_STATE(state);
+                if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else {
+                    EXPECTED("a ')'");
+                    state = 102;
+                }
+                break;
+           
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_compound_name_list_t*)create_ast_node(AST_COMPOUND_NAME_LIST);
+                node->list = list;
                 finished = true;
                 break;
 

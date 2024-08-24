@@ -30,17 +30,31 @@ ast_compound_ref_item_t* parse_compound_ref_item(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    Token* name = NULL;
+    ast_array_reference_t* ref = NULL;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(TOK_IDENT == TTYPE) {
+                    name = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else if(NULL != (ref = parse_array_reference(pstate))) 
+                    state = 100;
+                else
+                    state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_compound_ref_item_t*)create_ast_node(AST_COMPOUND_REF_ITEM);
+                node->name = name;
+                node->ref = ref;
                 finished = true;
                 break;
 
