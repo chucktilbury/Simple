@@ -29,17 +29,34 @@ ast_create_reference_t* parse_create_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_create_name_t* name;
+    ast_expression_list_t* inp;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(NULL != (name = parse_create_name(pstate)))
+                    state = 1;
+                else
+                    state = 101;
                 break;
+
+            case 1:
+                if(NULL != (inp = parse_expression_list(pstate)))
+                    state = 100;
+                else {
+                    EXPECTED("an expression list");
+                    state = 102;
+                }
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_create_reference_t*)create_ast_node(AST_CREATE_REFERENCE);
+                node->name = name;
+                node->inp = inp;
                 finished = true;
                 break;
 

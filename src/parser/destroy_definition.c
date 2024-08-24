@@ -29,17 +29,48 @@ ast_destroy_definition_t* parse_destroy_definition(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    bool is_virtual;
+    ast_destroy_name_t* name;
+    ast_function_body_t* body;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_VIRTUAL == TTYPE) { 
+                    consume_token();
+                    is_virtual = true;
+                }
+                else
+                    is_virtual = false;
+                state = 1;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(NULL != (name = parse_destroy_name(pstate))) 
+                    state = 2;
+                else 
+                    state = 101;
+                break;
+
+            case 2:
+                TRACE_STATE(state);
+                if(NULL != (body = parse_function_body(pstate)))
+                    state = 100;
+                else {
+                    EXPECTED("a function body");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_destroy_definition_t*)create_ast_node(AST_DESTROY_DEFINITION);
+                node->is_virtual = is_virtual;
+                node->name = name;
+                node->body = body;
                 finished = true;
                 break;
 

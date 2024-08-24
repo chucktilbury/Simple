@@ -29,17 +29,23 @@ ast_destroy_reference_t* parse_destroy_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_destroy_name_t* name;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(NULL != (name = parse_destroy_name(pstate)))
+                    state = 1;
+                else
+                    state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_destroy_reference_t*)create_ast_node(AST_DESTROY_REFERENCE);
+                node->name = name;
                 finished = true;
                 break;
 

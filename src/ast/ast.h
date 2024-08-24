@@ -757,8 +757,6 @@ typedef struct _ast_function_definition_ {
  */
 typedef struct _ast_create_name_ {
     ast_node_t node;
-    // actual name, including the 'create'
-    String* name;
     // list of identifiers
     PtrLst* ident;
 } ast_create_name_t;
