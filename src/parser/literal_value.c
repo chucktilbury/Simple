@@ -32,17 +32,39 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    Token* literal;
+    ast_string_literal_t* str;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE(state);
+                if(TOK_LITERAL_FLOAT == TTYPE) {
+                    literal = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else if(TOK_LITERAL_INTEGER == TTYPE) {
+                    literal = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else if(TOK_LITERAL_BOOL == TTYPE) {
+                    literal = copy_token(get_token());
+                    consume_token();                    
+                    state = 100;
+                }
+                else if(NULL != (str = parse_string_literal(pstate)))
+                    state = 100;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_literal_value_t*)create_ast_node(AST_LITERAL_VALUE);
+                node->literal = literal;
+                node->str = str;
                 finished = true;
                 break;
 

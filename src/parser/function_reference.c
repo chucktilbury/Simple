@@ -55,8 +55,10 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
                 TRACE_STATE(state);
                 if(NULL != (outp = parse_compound_name_list(pstate)))
                     state = 100;
-                else
-                    state = 101;
+                else {
+                    EXPECTED("a compound name list");
+                    state = 102;
+                }
                 break;
 
             case 100:
