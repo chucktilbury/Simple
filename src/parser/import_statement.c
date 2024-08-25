@@ -29,17 +29,62 @@ ast_import_statement_t* parse_import_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_formatted_strg_t* str;
+    Token* ident;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_IMPORT == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(NULL != (str = parse_formatted_strg(pstate)))
+                    state = 2;
+                else {
+                    EXPECTED("a formatted string");
+                    state = 102;
+                }
+                break;
+
+            case 2:
+                TRACE_STATE(state);
+                if(TOK_AS == TTYPE) {
+                    consume_token();
+                    state = 3;
+                }
+                else {
+                    EXPECTED("'as' keyword");
+                    state = 102;
+                }
+                break;
+
+            case 3:
+                TRACE_STATE(state);
+                if(TOK_IDENT == TTYPE) {
+                    ident = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else {
+                    EXPECTED("an identifier");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_import_statement_t*)create_ast_node(AST_IMPORT_STATEMENT);
+                node->str = str;
+                node->ident = ident;
                 finished = true;
                 break;
 

@@ -62,17 +62,17 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
                     state = 101;
                 break;
 
-            case 2:
+            case 3:
                 TRACE_STATE(state);
                 if(NULL != (outp = parse_var_decl_list(pstate))) 
-                    state = 3;
+                    state = 4;
                 else {
                     EXPECTED("a variable declaration list");
                     state = 102;
                 }
                 break;
 
-            case 3:
+            case 4:
                 TRACE_STATE(state);
                 if(NULL != (body = parse_function_body(pstate)))
                     state = 100;

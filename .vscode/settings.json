@@ -3,6 +3,7 @@
         "CCBRACE",
         "CPAREN",
         "DSTR",
+        "fecl",
         "OCBRACE",
         "OPAREN",
         "strg"

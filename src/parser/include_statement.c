@@ -29,17 +29,35 @@ ast_include_statement_t* parse_include_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_formatted_strg_t* str;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_INCLUDE == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(NULL == (str = parse_formatted_strg(pstate))) {
+                    EXPECTED("a formatted string");
+                    state = 102;
+                }
+                else
+                    state = 100;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_include_statement_t*)create_ast_node(AST_INCLUDE_STATEMENT);
+                node->str = str;
                 finished = true;
                 break;
 
