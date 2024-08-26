@@ -29,11 +29,78 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    Token* id;
+    ast_string_literal_t* str;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_RAISE == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(TOK_OPAREN == TTYPE) {
+                    consume_token();
+                    state = 2;
+                }
+                else {
+                    EXPECTED("a '('");
+                    state = 102;
+                }
+                break;
+
+            case 2:
+                TRACE_STATE(state);
+                if(TOK_IDENT == TTYPE) {
+                    id = copy_token(get_token());
+                    consume_token();
+                    state = 3;
+                }
+                else {
+                    EXPECTED("an identifier");
+                    state = 102;
+                }
+                break;
+
+            case 3:
+                TRACE_STATE(state);
+                if(TOK_COMMA == TTYPE) {
+                    consume_token();
+                    state = 4;
+                }
+                else {
+                    EXPECTED("a ','");
+                    state = 102;
+                }
+                break;
+
+            case 4:
+                TRACE_STATE(state);
+                if(NULL != (str = parse_formatted_strg(pstate)))
+                    state = 5;
+                else {
+                    EXPECTED("a formatted string");
+                    state = 102;
+                }
+                break;
+
+            case 5:
+                TRACE_STATE(state);
+                if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else {
+                    EXPECTED("a ')'");
+                    state = 102;
+                }
                 break;
 
             case 100:

@@ -1004,7 +1004,7 @@ typedef struct _ast_trace_statement_ {
 typedef struct _ast_print_statement_ {
     ast_node_t node;
     // list of expressions.
-    PtrLst* ptr;
+    struct _ast_expression_list_* list;
 } ast_print_statement_t;
 
 /**

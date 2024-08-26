@@ -35,10 +35,28 @@ ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_node_t* ptr;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
+                if(NULL != (ptr = (ast_node_t*)parse_scope_operator(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_namespace_definition(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_class_definition(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_function_definition(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_create_definition(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_destroy_definition(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_var_definition(pstate)))
+                    state = 100;
+                else 
+                    state = 101;
                 TRACE_STATE(state);
                 break;
 
@@ -46,6 +64,7 @@ ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_namespace_item_t*)create_ast_node(AST_NAMESPACE_ITEM);
+                node->ptr = ptr;
                 finished = true;
                 break;
 

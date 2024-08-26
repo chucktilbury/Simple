@@ -29,17 +29,35 @@ ast_print_statement_t* parse_print_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_expression_list_t* list;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE(state);
+                if(TOK_PRINT == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE(state);
+                if(NULL != (list = parse_expression_list(pstate)))
+                    state = 100;
+                else {
+                    EXPECTED("an expression list");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE(state);
                 node = (ast_print_statement_t*)create_ast_node(AST_PRINT_STATEMENT);
+                node->ptr = ptr;
                 finished = true;
                 break;
 
