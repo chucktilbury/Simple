@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * raise_statement
- *     : 'raise' '(' IDENT ',' string_literal ')'
+ *     : 'raise' '(' IDENT ',' formatted_str ')'
  *     ;
  */
 ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
@@ -30,12 +30,12 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     Token* id;
-    ast_string_literal_t* str;
+    ast_formatted_strg_t* str;
 
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_RAISE == TTYPE) {
                     consume_token();
                     state = 1;
@@ -45,7 +45,7 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 2;
@@ -57,7 +57,7 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     id = copy_token(get_token());
                     consume_token();
@@ -70,7 +70,7 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_COMMA == TTYPE) {
                     consume_token();
                     state = 4;
@@ -82,7 +82,7 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
                 break;
 
             case 4:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (str = parse_formatted_strg(pstate)))
                     state = 5;
                 else {
@@ -92,7 +92,7 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
                 break;
 
             case 5:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 100;
@@ -105,21 +105,23 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_raise_statement_t*)create_ast_node(AST_RAISE_STATEMENT);
+                node->id = id;
+                node->str = str;
                 finished = true;
                 break;
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

@@ -34,7 +34,7 @@ ast_include_statement_t* parse_include_statement(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_INCLUDE == TTYPE) {
                     consume_token();
                     state = 1;
@@ -44,7 +44,7 @@ ast_include_statement_t* parse_include_statement(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL == (str = parse_formatted_strg(pstate))) {
                     EXPECTED("a formatted string");
                     state = 102;
@@ -55,7 +55,7 @@ ast_include_statement_t* parse_include_statement(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_include_statement_t*)create_ast_node(AST_INCLUDE_STATEMENT);
                 node->str = str;
                 finished = true;
@@ -63,14 +63,14 @@ ast_include_statement_t* parse_include_statement(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

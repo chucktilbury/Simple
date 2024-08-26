@@ -35,7 +35,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 1;
@@ -45,7 +45,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (expr = parse_expression(pstate))) {
                     append_ptr_lst(list, expr);
                     state = 2;
@@ -55,7 +55,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_COMMA == TTYPE) {
                     consume_token();
                     state = 3;
@@ -71,7 +71,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (expr = parse_expression(pstate))) {
                     append_ptr_lst(list, expr);
                     state = 2;
@@ -83,7 +83,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
                 break;
 
             case 10:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 100;
@@ -94,7 +94,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_expression_list_t*)create_ast_node(AST_EXPRESSION_LIST);
                 node->list = list;
                 finished = true;
@@ -102,14 +102,14 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

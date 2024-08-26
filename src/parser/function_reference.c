@@ -36,7 +36,7 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (name = parse_compound_reference(pstate)))
                     state = 1;
                 else 
@@ -44,7 +44,7 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (inp = parse_expression_list(pstate)))
                     state = 2;
                 else
@@ -52,7 +52,7 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (outp = parse_compound_name_list(pstate)))
                     state = 100;
                 else {
@@ -63,7 +63,7 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_function_reference_t*)create_ast_node(AST_FUNCTION_REFERENCE);
                 node->name = name;
                 node->inp = inp;
@@ -73,14 +73,14 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

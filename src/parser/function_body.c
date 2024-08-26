@@ -35,7 +35,7 @@ ast_function_body_t* parse_function_body(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OCBRACE == TTYPE) {
                     consume_token();
                     state = 1;
@@ -45,7 +45,7 @@ ast_function_body_t* parse_function_body(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (ptr = parse_function_body_element(pstate)))
                     append_ptr_lst(list, ptr);
                 else if(TOK_CCBRACE == TTYPE) {
@@ -60,7 +60,7 @@ ast_function_body_t* parse_function_body(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_function_body_t*)create_ast_node(AST_FUNCTION_BODY);
                 node->list = list;
                 finished = true;
@@ -68,14 +68,14 @@ ast_function_body_t* parse_function_body(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

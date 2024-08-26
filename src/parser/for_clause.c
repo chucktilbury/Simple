@@ -37,7 +37,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_FOR == TTYPE) {
                     consume_token();
                     state = 1;
@@ -47,7 +47,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 2;
@@ -57,7 +57,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (type = parse_type_name(pstate)))
                     state = 3; // ident is required
                 else 
@@ -66,7 +66,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
             case 3:
                 // required ident
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     ident = copy_token(get_token());
                     consume_token();
@@ -91,7 +91,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
             case 5:
                 // required 'in'
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IN == TTYPE) {
                     consume_token();
                     state = 6;
@@ -104,7 +104,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
             case 6:
                 // required expression
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (expr = parse_expression(pstate))) 
                     state = 7;
                 else {
@@ -115,7 +115,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
             case 7:
                 // required ')'
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 10;
@@ -127,7 +127,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                 break;
 
             case 10:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (body = parse_function_body(pstate))) 
                     state = 100;
                 else {
@@ -138,7 +138,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_for_clause_t*)create_ast_node(AST_FOR_CLAUSE);
                 node->ident = ident;
                 node->type = type;
@@ -149,14 +149,14 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

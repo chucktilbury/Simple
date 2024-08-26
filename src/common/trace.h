@@ -15,7 +15,7 @@
 #define ENTER   trace_enter(__func__)
 #define RET     trace_return(__func__, 0)
 #define RETURN(v) do { trace_return(__func__, (size_t)(v)); return (v); } while(0)
-#define TRACE_STATE(s) trace_state(__func__, (s))
+#define TRACE_STATE trace_state(__func__, (state))
 #define TRACE(fmt, ...) trace(__func__, fmt, ##__VA_ARGS__)
 #else
 #define ENTER

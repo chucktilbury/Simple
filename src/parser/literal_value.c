@@ -39,7 +39,7 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_LITERAL_FLOAT == TTYPE) {
                     literal = copy_token(get_token());
                     consume_token();
@@ -61,7 +61,7 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_literal_value_t*)create_ast_node(AST_LITERAL_VALUE);
                 node->literal = literal;
                 node->str = str;
@@ -70,14 +70,14 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

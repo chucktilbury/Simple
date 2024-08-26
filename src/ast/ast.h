@@ -977,7 +977,7 @@ typedef struct _ast_return_statement_ {
 typedef struct _ast_raise_statement_ {
     ast_node_t node;
     Token* id;
-    struct _ast_string_literal_* str;
+    struct _ast_formatted_strg_* str;
 } ast_raise_statement_t;
 
 /**
@@ -1004,7 +1004,7 @@ typedef struct _ast_trace_statement_ {
 typedef struct _ast_print_statement_ {
     ast_node_t node;
     // list of expressions.
-    struct _ast_expression_list_* list;
+    struct _ast_expression_list_* ptr;
 } ast_print_statement_t;
 
 /**

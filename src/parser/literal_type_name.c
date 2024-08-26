@@ -40,7 +40,7 @@ ast_literal_type_name_t* parse_literal_type_name(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_FLOAT == TTYPE) {
                     tok = copy_token(get_token());
                     consume_token();
@@ -82,7 +82,7 @@ ast_literal_type_name_t* parse_literal_type_name(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_literal_type_name_t*)create_ast_node(AST_LITERAL_TYPE_NAME);
                 node->tok = tok;
                 finished = true;
@@ -90,14 +90,14 @@ ast_literal_type_name_t* parse_literal_type_name(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

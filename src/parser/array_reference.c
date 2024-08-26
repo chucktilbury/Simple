@@ -36,7 +36,7 @@ ast_array_reference_t* parse_array_reference(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     name = copy_token(get_token());
                     consume_token();
@@ -56,7 +56,7 @@ ast_array_reference_t* parse_array_reference(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_array_reference_t*)create_ast_node(AST_ARRAY_REFERENCE);
                 node->ident = name;
                 node->list = list;
@@ -65,14 +65,14 @@ ast_array_reference_t* parse_array_reference(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

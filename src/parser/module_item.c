@@ -38,7 +38,7 @@ ast_module_item_t* parse_module_item(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (ptr = (ast_node_t*)parse_namespace_item(pstate)))
                     state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_import_statement(pstate)))
@@ -53,7 +53,7 @@ ast_module_item_t* parse_module_item(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_module_item_t*)create_ast_node(AST_MODULE_ITEM);
                 node->ptr = ptr;
                 finished = true;
@@ -61,14 +61,14 @@ ast_module_item_t* parse_module_item(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

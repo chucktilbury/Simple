@@ -34,7 +34,7 @@ ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_EXIT == TTYPE) {
                     consume_token();
                     state = 1;
@@ -44,7 +44,7 @@ ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 2;
@@ -56,7 +56,7 @@ ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (expr = parse_expression(pstate))) 
                     state = 5;
                 else {
@@ -66,7 +66,7 @@ ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 6;
@@ -79,21 +79,21 @@ ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_exit_statement_t*)create_ast_node(AST_EXIT_STATEMENT);
                 finished = true;
                 break;
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

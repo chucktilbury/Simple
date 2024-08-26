@@ -36,7 +36,7 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // required OPAREN or not a match
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 1;
@@ -47,7 +47,7 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
 
             case 1:
                 // optional first compound name
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (ptr = parse_compound_name(pstate))) {
                     append_ptr_lst(list, ptr);
                     state = 2;
@@ -58,7 +58,7 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
 
             case 2:
                 // comma or close paren
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_COMMA == TTYPE) {
                     consume_token();
                     state = 3;
@@ -75,7 +75,7 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
 
             case 3:
                 // required compound name
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (ptr = parse_compound_name(pstate))) {
                     append_ptr_lst(list, ptr);
                     state = 2;
@@ -88,7 +88,7 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
 
             case 4:
                 // required CPAREN
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 100;
@@ -101,7 +101,7 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
            
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_compound_name_list_t*)create_ast_node(AST_COMPOUND_NAME_LIST);
                 node->list = list;
                 finished = true;
@@ -109,14 +109,14 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

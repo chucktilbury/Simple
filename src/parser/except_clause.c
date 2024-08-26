@@ -36,7 +36,7 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_EXCEPT == TTYPE) {
                     consume_token();
                     state = 1;
@@ -46,7 +46,7 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 2;
@@ -58,7 +58,7 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     id1 = copy_token(get_token());
                     consume_token();
@@ -71,7 +71,7 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_COMMA == TTYPE) {
                     consume_token();
                     state = 4;
@@ -83,7 +83,7 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
                 break;
 
             case 4:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     id2 = copy_token(get_token());
                     consume_token();
@@ -96,7 +96,7 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
                 break;
 
             case 5:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 6;
@@ -108,7 +108,7 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
                 break;
 
             case 6:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (body = parse_function_body(pstate)))
                     state = 100;
                 else {
@@ -119,7 +119,7 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_except_clause_t*)create_ast_node(AST_EXCEPT_CLAUSE);
                 node->id1= id1;
                 node->id2= id2;
@@ -129,14 +129,14 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

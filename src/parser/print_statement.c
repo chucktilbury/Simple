@@ -29,12 +29,12 @@ ast_print_statement_t* parse_print_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_expression_list_t* list;
+    ast_expression_list_t* ptr;
 
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_PRINT == TTYPE) {
                     consume_token();
                     state = 1;
@@ -44,8 +44,8 @@ ast_print_statement_t* parse_print_statement(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
-                if(NULL != (list = parse_expression_list(pstate)))
+                TRACE_STATE;
+                if(NULL != (ptr = parse_expression_list(pstate)))
                     state = 100;
                 else {
                     EXPECTED("an expression list");
@@ -55,7 +55,7 @@ ast_print_statement_t* parse_print_statement(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_print_statement_t*)create_ast_node(AST_PRINT_STATEMENT);
                 node->ptr = ptr;
                 finished = true;
@@ -63,14 +63,14 @@ ast_print_statement_t* parse_print_statement(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

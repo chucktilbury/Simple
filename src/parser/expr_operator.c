@@ -39,7 +39,7 @@ ast_expr_operator_t* parse_expr_operator(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 switch(TTYPE) {
                     case TOK_PLUS:
                     case TOK_MINUS:
@@ -77,7 +77,7 @@ ast_expr_operator_t* parse_expr_operator(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_expr_operator_t*)create_ast_node(AST_EXPR_OPERATOR);
                 node->oper = tok;
                 finished = true;
@@ -85,14 +85,14 @@ ast_expr_operator_t* parse_expr_operator(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

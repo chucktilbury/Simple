@@ -36,7 +36,7 @@ ast_cast_statement_t* parse_cast_statement(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (type = parse_type_name(pstate)))
                     state = 1;
                 else
@@ -44,7 +44,7 @@ ast_cast_statement_t* parse_cast_statement(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_COLON == TTYPE) {
                     consume_token();
                     state = 2;
@@ -55,7 +55,7 @@ ast_cast_statement_t* parse_cast_statement(parser_state_t* pstate) {
 
             case 2:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (expr = parse_expression(pstate)))
                     state = 100;
                 else {
@@ -66,7 +66,7 @@ ast_cast_statement_t* parse_cast_statement(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_cast_statement_t*)create_ast_node(AST_CAST_STATEMENT);
                 node->type = type;
                 node->expr = expr;
@@ -75,14 +75,14 @@ ast_cast_statement_t* parse_cast_statement(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

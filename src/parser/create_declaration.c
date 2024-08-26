@@ -36,7 +36,7 @@ ast_create_declaration_t* parse_create_declaration(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_VIRTUAL == TTYPE) { 
                     consume_token();
                     is_virtual = true;
@@ -47,7 +47,7 @@ ast_create_declaration_t* parse_create_declaration(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CREATE == TTYPE) { 
                     consume_token();
                     state = 2;
@@ -57,7 +57,7 @@ ast_create_declaration_t* parse_create_declaration(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (inp = parse_type_name_list(pstate))) {
                     state = 100;
                 }
@@ -69,7 +69,7 @@ ast_create_declaration_t* parse_create_declaration(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_create_declaration_t*)create_ast_node(AST_CREATE_DECLARATION);
                 node->inp = inp;
                 node->is_virtual = is_virtual;
@@ -78,14 +78,14 @@ ast_create_declaration_t* parse_create_declaration(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

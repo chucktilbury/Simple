@@ -35,7 +35,7 @@ ast_list_init_str_t* parse_list_init_str(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_LITERAL_DSTR == TTYPE) {
                     str = copy_token(get_token());
                     consume_token();
@@ -52,7 +52,7 @@ ast_list_init_str_t* parse_list_init_str(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_list_init_str_t*)create_ast_node(AST_LIST_INIT_STR);
                 node->str = str;
                 finished = true;
@@ -60,14 +60,14 @@ ast_list_init_str_t* parse_list_init_str(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

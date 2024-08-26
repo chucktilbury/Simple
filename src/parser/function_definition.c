@@ -38,7 +38,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_VIRTUAL == TTYPE) {
                     is_virtual = true;
                     consume_token();
@@ -47,7 +47,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (name = parse_compound_name(pstate))) 
                     state = 2;
                 else
@@ -55,7 +55,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (inp = parse_var_decl_list(pstate))) 
                     state = 3;
                 else 
@@ -63,7 +63,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (outp = parse_var_decl_list(pstate))) 
                     state = 4;
                 else {
@@ -73,7 +73,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
                 break;
 
             case 4:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (body = parse_function_body(pstate)))
                     state = 100;
                 else {
@@ -84,7 +84,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_function_definition_t*)create_ast_node(AST_FUNCTION_DEFINITION);
                 node->is_virtual = is_virtual;
                 node->name = name;
@@ -96,14 +96,14 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

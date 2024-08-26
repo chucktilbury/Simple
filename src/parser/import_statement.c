@@ -35,7 +35,7 @@ ast_import_statement_t* parse_import_statement(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IMPORT == TTYPE) {
                     consume_token();
                     state = 1;
@@ -45,7 +45,7 @@ ast_import_statement_t* parse_import_statement(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (str = parse_formatted_strg(pstate)))
                     state = 2;
                 else {
@@ -55,7 +55,7 @@ ast_import_statement_t* parse_import_statement(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_AS == TTYPE) {
                     consume_token();
                     state = 3;
@@ -67,7 +67,7 @@ ast_import_statement_t* parse_import_statement(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     ident = copy_token(get_token());
                     consume_token();
@@ -81,7 +81,7 @@ ast_import_statement_t* parse_import_statement(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_import_statement_t*)create_ast_node(AST_IMPORT_STATEMENT);
                 node->str = str;
                 node->ident = ident;
@@ -90,14 +90,14 @@ ast_import_statement_t* parse_import_statement(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

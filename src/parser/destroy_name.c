@@ -35,7 +35,7 @@ ast_destroy_name_t* parse_destroy_name(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     ptr = copy_token(get_token());
                     consume_token();
@@ -48,7 +48,7 @@ ast_destroy_name_t* parse_destroy_name(parser_state_t* pstate) {
 
             case 1:
                 // if we have a dot then proceed. otherwise, not a match.
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_DOT == TTYPE) {
                     consume_token();
                     state = 2;
@@ -61,7 +61,7 @@ ast_destroy_name_t* parse_destroy_name(parser_state_t* pstate) {
                 // After the dot, must have a TOK_IDENT or TOK_CREATE. If 
                 // it's not then it's not a match. A syntax error may be 
                 // caught during another production. 
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     ptr = copy_token(get_token());
                     consume_token();
@@ -78,7 +78,7 @@ ast_destroy_name_t* parse_destroy_name(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_destroy_name_t*)create_ast_node(AST_DESTROY_NAME);
                 node->ident = ident;
                 finished = true;
@@ -86,14 +86,14 @@ ast_destroy_name_t* parse_destroy_name(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

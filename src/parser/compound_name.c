@@ -36,7 +36,7 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     tok = copy_token(get_token());
                     append_ptr_lst(list, tok);
@@ -49,7 +49,7 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
 
             case 1:
                 // optional '.'
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_DOT == TTYPE) {
                     consume_token();
                     state = 2;
@@ -60,7 +60,7 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
 
             case 2:
                 // required identifier
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     tok = copy_token(get_token());
                     append_ptr_lst(list, tok);
@@ -75,7 +75,7 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_compound_name_t*)create_ast_node(AST_COMPOUND_NAME);
                 node->list = list;
                 finished = true;
@@ -83,14 +83,14 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

@@ -40,7 +40,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IF == TTYPE) {
                     consume_token();
                     state = 1;
@@ -50,7 +50,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 2;
@@ -62,7 +62,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (expr = parse_expression(pstate)))
                     state = 3;
                 else {
@@ -72,7 +72,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 4;
@@ -84,7 +84,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
                 break;
 
             case 4:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (body = parse_function_body(pstate)))
                     state = 5;
                 else {
@@ -95,7 +95,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
 
             case 5:
                 // optional list of else clauses
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (ec = parse_else_clause(pstate))) 
                     append_ptr_lst(ecl, ec); // no state change
                 else
@@ -104,14 +104,14 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
 
             case 6:
                 // optional single final else clause
-                TRACE_STATE(state);
+                TRACE_STATE;
                 fecl = parse_final_else_clause(pstate);
                 state = 100;
                 break;
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_if_clause_t*)create_ast_node(AST_IF_CLAUSE);
                 // this could be NULL
                 node->fecl = fecl;
@@ -124,14 +124,14 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

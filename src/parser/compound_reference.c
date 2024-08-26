@@ -36,7 +36,7 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (item = parse_compound_ref_item(pstate))) {
                     append_ptr_lst(list, item);
                     state = 1;
@@ -47,7 +47,7 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
 
             case 1:
                 // if a '.' then another follows, else finished
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_DOT == TTYPE) {
                     consume_token();
                     state = 2;
@@ -57,7 +57,7 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (item = parse_compound_ref_item(pstate))) {
                     append_ptr_lst(list, item);
                     state = 1;
@@ -70,21 +70,21 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_compound_reference_t*)create_ast_node(AST_COMPOUND_REFERENCE);
                 finished = true;
                 break;
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

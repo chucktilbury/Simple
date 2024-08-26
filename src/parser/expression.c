@@ -190,7 +190,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (operand = parse_expr_operand(pstate))) {
                     flag = false;
                     state = 1;
@@ -209,14 +209,14 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
 
             case 1:
                 // dispatch operator
-                TRACE_STATE(state);
+                TRACE_STATE;
                 append_ptr_lst(queue, operand);
                 state = 0;
                 break;
 
             case 2:
                 // find the associativity
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == get_oper_type(operator)) {
                     // open paren
                     push_ptr_lst(stack, operator);
@@ -236,7 +236,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 while(get_prec(peek_ptr_lst(stack)) > get_prec(operator)) {
                     // if we find an OPAREN, then imbalanced parens
                     ast_expr_operator_t* tmp = pop_ptr_lst(stack);
@@ -253,7 +253,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 break;
 
             case 4:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 while(get_prec(peek_ptr_lst(stack)) >= get_prec(operator)) {
                     // if we find an OPAREN, then imbalanced parens
                     ast_expr_operator_t* tmp = pop_ptr_lst(stack);
@@ -271,7 +271,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
 
             case 5:
                 // handle close paren
-                TRACE_STATE(state);
+                TRACE_STATE;
                 while(TOK_OPAREN != get_oper_type(peek_ptr_lst(stack))) {
                     // if we run out of tokens, then parens are imbalanced
                     ast_expr_operator_t* tmp = pop_ptr_lst(stack);
@@ -288,7 +288,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
 
             case 6:
                 // repeat the token read
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (operand = parse_expr_operand(pstate))) {
                     flag = false;
                     state = 1;
@@ -307,7 +307,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 while(NULL != peek_ptr_lst(stack)) {
                     ast_expr_operator_t* tmp = pop_ptr_lst(stack);
                     if(TOK_OPAREN == get_oper_type(tmp)) {
@@ -326,14 +326,14 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

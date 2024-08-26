@@ -36,7 +36,7 @@ ast_assign_eq_item_t* parse_assign_eq_item(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (ptr = (ast_node_t*)parse_assignment_item(pstate)))
                     state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_compound_reference(pstate)))
@@ -47,7 +47,7 @@ ast_assign_eq_item_t* parse_assign_eq_item(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_assign_eq_item_t*)create_ast_node(AST_ASSIGN_EQ_ITEM);
                 node->ptr = ptr;
                 finished = true;
@@ -55,14 +55,14 @@ ast_assign_eq_item_t* parse_assign_eq_item(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

@@ -38,7 +38,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CLASS == TTYPE) {
                     consume_token();
                     state = 1;
@@ -48,7 +48,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     name = copy_token(get_token());
                     consume_token();
@@ -62,7 +62,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 2:
                 // optional parentheses
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 3;
@@ -73,7 +73,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 3:
                 // optional compound name
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (inher = parse_type_name(pstate)))
                     state = 4;
                 else
@@ -82,7 +82,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 4:
                 // required close paren
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 5;
@@ -95,7 +95,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 5:
                 // required open curly brace
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OCBRACE == TTYPE) {
                     consume_token();
                     state = 6;
@@ -108,7 +108,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 6:
                 // required first class item
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (item = parse_class_item(pstate))) {
                     append_ptr_lst(list, item);
                     state = 7;
@@ -121,7 +121,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 7:
                 // optional additional class items
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (item = parse_class_item(pstate)))
                     append_ptr_lst(list, item);
                 else
@@ -130,7 +130,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 8:
                 // required close curly brace
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CCBRACE == TTYPE) {
                     consume_token();
                     state = 100;
@@ -143,7 +143,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_class_definition_t*)create_ast_node(AST_CLASS_DEFINITION);
                 node->name = name;
                 node->inher = inher;
@@ -153,14 +153,14 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

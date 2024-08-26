@@ -35,7 +35,7 @@ ast_formatted_strg_t* parse_formatted_strg(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_LITERAL_DSTR == TTYPE) {
                     str = copy_token(get_token());
                     consume_token();
@@ -46,14 +46,14 @@ ast_formatted_strg_t* parse_formatted_strg(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 exprs = parse_expression_list(pstate);
                 state = 100;
                 break;
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_formatted_strg_t*)create_ast_node(AST_FORMATTED_STRG);
                 node->str = str;
                 node->exprs = exprs;
@@ -62,14 +62,14 @@ ast_formatted_strg_t* parse_formatted_strg(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

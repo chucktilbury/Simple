@@ -35,7 +35,7 @@ ast_list_init_t* parse_list_init(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OSBRACE == TTYPE) {
                     consume_token();
                     state = 1;
@@ -46,7 +46,7 @@ ast_list_init_t* parse_list_init(parser_state_t* pstate) {
 
             case 1:
                 // required element
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (ptr = parse_list_init_element(pstate)))
                     state = 2;
                 else {
@@ -57,7 +57,7 @@ ast_list_init_t* parse_list_init(parser_state_t* pstate) {
 
             case 2:
                 // either a ',' or a ']'
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_COMMA == TTYPE) {
                     consume_token();
                     state = 1;
@@ -74,7 +74,7 @@ ast_list_init_t* parse_list_init(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_list_init_t*)create_ast_node(AST_LIST_INIT);
                 node->list = list;
                 finished = true;
@@ -82,14 +82,14 @@ ast_list_init_t* parse_list_init(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

@@ -37,7 +37,7 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_VIRTUAL == TTYPE) {
                     is_virtual = true;
                     consume_token();
@@ -46,7 +46,7 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT != TTYPE) {
                     name = copy_token(get_token());
                     consume_token();
@@ -57,7 +57,7 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (inp = parse_type_name_list(pstate)))
                     state = 3;
                 else {
@@ -67,7 +67,7 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (outp = parse_type_name_list(pstate)))
                     state = 100;
                 else {
@@ -78,7 +78,7 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_function_declaration_t*)create_ast_node(AST_FUNCTION_DECLARATION);
                 node->is_virtual = is_virtual;
                 node->name = name;
@@ -89,14 +89,14 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

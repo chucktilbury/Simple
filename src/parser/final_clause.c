@@ -35,7 +35,7 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_FINAL == TTYPE) {
                     consume_token();
                     state = 1;
@@ -45,7 +45,7 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 2;
@@ -57,7 +57,7 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
                 break;
 
             case 2:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     id1 = copy_token(get_token());
                     consume_token();
@@ -70,7 +70,7 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
                 break;
 
             case 3:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 4;
@@ -82,7 +82,7 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
                 break;
 
             case 4:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL == (body = parse_function_body(pstate))) 
                     state = 100;
                 else {
@@ -93,7 +93,7 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
             
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_final_clause_t*)create_ast_node(AST_FINAL_CLAUSE);
                 node->id1 = id1;
                 node->body = body;
@@ -102,14 +102,14 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

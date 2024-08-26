@@ -37,7 +37,7 @@ ast_list_init_element_t* parse_list_init_element(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (str = parse_list_init_str(pstate)))
                     state = 1;
                 else
@@ -46,7 +46,7 @@ ast_list_init_element_t* parse_list_init_element(parser_state_t* pstate) {
 
             case 1:
                 // look for a ':'
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_COLON == TTYPE) {
                     consume_token();
                     state = 2;
@@ -57,7 +57,7 @@ ast_list_init_element_t* parse_list_init_element(parser_state_t* pstate) {
 
             case 2:
                 // assignment item
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (item = parse_assignment_item(pstate)))
                     state = 100;
                 else
@@ -66,7 +66,7 @@ ast_list_init_element_t* parse_list_init_element(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_list_init_element_t*)create_ast_node(AST_LIST_INIT_ELEMENT);
                 // this is NULL if there is no str
                 node->str = str;
@@ -76,14 +76,14 @@ ast_list_init_element_t* parse_list_init_element(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

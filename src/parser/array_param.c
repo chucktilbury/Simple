@@ -35,7 +35,7 @@ ast_array_param_t* parse_array_param(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 // initial state
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_OSBRACE == TTYPE) {
                     consume_token();
                     state = 1;
@@ -46,7 +46,7 @@ ast_array_param_t* parse_array_param(parser_state_t* pstate) {
 
             case 1:
                 // get the item
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(NULL != (ptr = parse_array_param_item(pstate)))
                     state = 2;
                 else
@@ -55,7 +55,7 @@ ast_array_param_t* parse_array_param(parser_state_t* pstate) {
 
             case 2:
                 // get a ']' or its an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 if(TOK_CSBRACE == TTYPE) {
                     consume_token();
                     state = 100;
@@ -68,7 +68,7 @@ ast_array_param_t* parse_array_param(parser_state_t* pstate) {
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_array_param_t*)create_ast_node(AST_ARRAY_PARAM);
                 node->item = ptr;
                 finished = true;
@@ -76,14 +76,14 @@ ast_array_param_t* parse_array_param(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

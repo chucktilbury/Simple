@@ -57,12 +57,12 @@ ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate) {
                     state = 100;
                 else 
                     state = 101;
-                TRACE_STATE(state);
+                TRACE_STATE;
                 break;
 
             case 100:
                 // production recognized
-                TRACE_STATE(state);
+                TRACE_STATE;
                 node = (ast_namespace_item_t*)create_ast_node(AST_NAMESPACE_ITEM);
                 node->ptr = ptr;
                 finished = true;
@@ -70,14 +70,14 @@ ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate) {
 
             case 101:
                 // not a match, not an error
-                TRACE_STATE(state);
+                TRACE_STATE;
                 reset_token_queue(post);
                 finished = true;
                 break;
 
             case 102:
                 // error found
-                TRACE_STATE(state);
+                TRACE_STATE;
                 recover_error();
                 finished = true;
                 break;

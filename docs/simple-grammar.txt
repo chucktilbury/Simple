@@ -293,7 +293,6 @@ function_body_element
     | for_clause
     | if_clause
     | try_clause
-    | switch_clause
     | break_statement
     | continue_statement
     | INLINE
@@ -327,7 +326,7 @@ return_statement
     ;
 
 raise_statement
-    : 'raise' '(' IDENT ',' string_literal ')'
+    : 'raise' '(' IDENT ',' formatted_strg ')'
     ;
 
 trace_statement
