@@ -264,6 +264,19 @@ void del_ptr_lst(PtrLst* lst, int idx) {
     }
 }
 
+/**
+ * @brief Return the number of items in the list.
+ * 
+ * @param lst 
+ * @return int 
+ */
+int length_ptr_lst(PtrLst* lst) {
+
+    ASSERT(lst != NULL);
+    return (int)lst->len;
+}
+
+
 /******************************************************************************
  *
  * Test Code

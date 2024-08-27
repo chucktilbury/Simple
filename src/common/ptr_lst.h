@@ -24,5 +24,6 @@ void* pop_ptr_lst(PtrLst* lst);
 void* peek_ptr_lst(PtrLst* lst);
 void clear_ptr_list(PtrLst* lst);
 void* iterate_ptr_lst(PtrLst* lst, int* post);
+int length_ptr_lst(PtrLst* lst);
 
 #endif /* _PTR_LST_H_ */

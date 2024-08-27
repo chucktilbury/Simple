@@ -29,18 +29,37 @@ ast_var_decl_t* parse_var_decl(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_type_name_t* type;
+    Token* ident;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE;
+                if(NULL != (type = parse_type_name(pstate)))
+                    state = 1;
+                else
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE;
+                if(TOK_IDENT == TTYPE) {
+                    ident = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else 
+                    state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE;
                 node = (ast_var_decl_t*)create_ast_node(AST_VAR_DECL);
-                finished = true;
+                node->type = type;
+                node->ident = ident;
+               finished = true;
                 break;
 
             case 101:

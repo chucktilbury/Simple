@@ -74,7 +74,7 @@ ast_var_decl_list_t* parse_var_decl_list(parser_state_t* pstate) {
                 }
                 break;
 
-            state 3:
+            case 3:
                 TRACE_STATE;
                 if(NULL != (item = parse_var_decl(pstate))) {
                     append_ptr_lst(list, item);
@@ -84,14 +84,6 @@ ast_var_decl_list_t* parse_var_decl_list(parser_state_t* pstate) {
                     EXPECTED("a variable declaration");
                     state = 102;
                 }
-                break;
-
-            case 0:
-                TRACE_STATE;
-                break;
-
-            case 0:
-                TRACE_STATE;
                 break;
 
             case 100:
