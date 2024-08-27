@@ -5,6 +5,8 @@
         "CSBRACE",
         "DSTR",
         "fecl",
+        "fstr",
+        "lstr",
         "OCBRACE",
         "OPAREN",
         "OSBRACE",

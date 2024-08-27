@@ -32,8 +32,13 @@ ast_return_statement_t* parse_return_statement(parser_state_t* pstate) {
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE;
+                if(TOK_RETURN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else
+                    state = 101;
                 break;
 
             case 100:

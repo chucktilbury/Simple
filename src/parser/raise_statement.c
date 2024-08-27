@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * raise_statement
- *     : 'raise' '(' IDENT ',' formatted_str ')'
+ *     : 'raise' '(' IDENT ',' string_literal ')'
  *     ;
  */
 ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
@@ -30,7 +30,7 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     Token* id;
-    ast_formatted_strg_t* str;
+    ast_string_literal_t* str;
 
     while(!finished) {
         switch(state) {
@@ -83,7 +83,7 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
 
             case 4:
                 TRACE_STATE;
-                if(NULL != (str = parse_formatted_strg(pstate)))
+                if(NULL != (str = parse_string_literal(pstate)))
                     state = 5;
                 else {
                     EXPECTED("a formatted string");

@@ -30,17 +30,30 @@ ast_string_literal_t* parse_string_literal(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    Token* lstr;
+    ast_formatted_strg_t* fstr;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE;
+                if(TOK_LITERAL_SSTR == TTYPE) {
+                    lstr = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else if(NULL != (fstr = parse_formatted_strg(pstate)))
+                    state = 100;
+                else 
+                    state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE;
                 node = (ast_string_literal_t*)create_ast_node(AST_STRING_LITERAL);
+                node->lstr = lstr;
+                node->fstr = fstr;
                 finished = true;
                 break;
 

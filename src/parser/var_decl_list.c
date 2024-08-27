@@ -29,10 +29,68 @@ ast_var_decl_list_t* parse_var_decl_list(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    PtrLst* list = create_ptr_lst();
+    ast_var_decl_t* item;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
+                TRACE_STATE;
+                if(TOK_OPAREN == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE;
+                if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else if(NULL != (item = parse_var_decl(pstate))) {
+                    append_ptr_lst(list, item);
+                    state = 2;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 2:
+                TRACE_STATE;
+                if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else if(TOK_COMMA == TTYPE) {
+                    consume_token();
+                    state = 3;
+                }
+                else {
+                    EXPECTED("a ',' or a ')'");
+                    state = 102;
+                }
+                break;
+
+            state 3:
+                TRACE_STATE;
+                if(NULL != (item = parse_var_decl(pstate))) {
+                    append_ptr_lst(list, item);
+                    state = 2;
+                }
+                else {
+                    EXPECTED("a variable declaration");
+                    state = 102;
+                }
+                break;
+
+            case 0:
+                TRACE_STATE;
+                break;
+
+            case 0:
                 TRACE_STATE;
                 break;
 

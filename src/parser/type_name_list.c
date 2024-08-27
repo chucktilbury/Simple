@@ -29,17 +29,42 @@ ast_type_name_list_t* parse_type_name_list(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    PtrLst* list = create_ptr_lst();
+    ast_type_name_t* name;
+
     while(!finished) {
         switch(state) {
             case 0:
                 // initial state
                 TRACE_STATE;
+                if(TOK_OPAREN == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else 
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE;
+                if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else if(NULL != (name = parse_type_name(pstate))) {
+                    append_ptr_lst(list, name);
+                }
+                else {
+                    EXPECTED("a type name or a ')'");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE;
                 node = (ast_type_name_list_t*)create_ast_node(AST_TYPE_NAME_LIST);
+                node->list = list;
                 finished = true;
                 break;
 

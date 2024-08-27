@@ -129,7 +129,7 @@ typedef struct _ast_module_item_ {
  */
 typedef struct _ast_start_definition_ {
     ast_node_t node;
-    struct _ast_function_body_* func;
+    struct _ast_function_body_* body;
 } ast_start_definition_t;
 
 /**
@@ -977,7 +977,7 @@ typedef struct _ast_return_statement_ {
 typedef struct _ast_raise_statement_ {
     ast_node_t node;
     Token* id;
-    struct _ast_formatted_strg_* str;
+    struct _ast_string_literal_* str;
 } ast_raise_statement_t;
 
 /**

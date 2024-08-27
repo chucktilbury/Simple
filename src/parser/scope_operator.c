@@ -31,17 +31,36 @@ ast_scope_operator_t* parse_scope_operator(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
+    Token* tok;
+
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE;
+                if(TOK_PRIVATE == TTYPE) {
+                    tok = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else if(TOK_PUBLIC == TTYPE) {
+                    tok = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else if(TOK_PROTECTED == TTYPE) {
+                    tok = copy_token(get_token());
+                    consume_token();
+                    state = 100;
+                }
+                else 
+                    state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE;
                 node = (ast_scope_operator_t*)create_ast_node(AST_SCOPE_OPERATOR);
+                node->tok = tok;
                 finished = true;
                 break;
 
