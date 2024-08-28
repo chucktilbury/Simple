@@ -35,12 +35,6 @@ void trace_return(const char* func, size_t val) {
     printf("RETURN: %s: 0x%08lX\n", func, val);
 }
 
-void trace_state(const char* func, int state) {
-
-    pad();
-    printf("STATE: %s: %d\n", func, state);
-}
-
 void trace(const char* func, const char* fmt, ...) {
 
     va_list args;

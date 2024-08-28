@@ -69,7 +69,7 @@ void expected(const char* str) {
 
     fprintf(stderr, "ERROR: %s: %d: %d: expected %s but got '%s'",
             tok->fname, tok->line_no, tok->col_no, str,
-            token_type_to_str(tok->type));
+            token_to_str(tok->type));
     errors++;
 
     fputc('\n', stderr);

@@ -17,18 +17,19 @@
  */
 #include "token_defs.h"
 
-/**
- * @brief The parser expects a token to look like this.
- */
-typedef struct {
-    String* str;       // String that caused the token to be recognized
-    TokenType type;    // Type of the token
-    int line_no;       // Line number where the token was recognized
-    int col_no;        // Column of the last character of the token
-    const char* fname; // File name where the token was taken
-} Token;
-
 #define TTYPE (token_type(get_token()))
+
+#ifdef USE_TRACE
+#include "trace.h"
+#define TRACE_TOKEN do { \
+        Token* t = get_token(); \
+        TRACE(token: %s '%s': %d: %d: %s, token_type_to_str(t), \
+                raw_string(t->str), \
+                t->line_no, t->col_no, t->fname); \
+    } while(0)
+#else
+#define TRACE_TOKEN
+#endif
 
 /**
  * @brief Return the token type.

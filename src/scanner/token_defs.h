@@ -113,7 +113,21 @@ typedef struct {
     TokenType type;
 } token_database_t;
 
-const char* token_type_to_str(TokenType type);
+#include "common.h"
+
+/**
+ * @brief The parser expects a token to look like this.
+ */
+typedef struct _token_t_ {
+    String* str;       // String that caused the token to be recognized
+    TokenType type;    // Type of the token
+    int line_no;       // Line number where the token was recognized
+    int col_no;        // Column of the last character of the token
+    const char* fname; // File name where the token was taken
+} Token;
+
+const char* token_to_str(TokenType type);
+const char* token_type_to_str(Token* tok);
 token_database_t* find_keyword(const char* str);
 
 #endif  /* _TOKEN_DEFS_H_ */

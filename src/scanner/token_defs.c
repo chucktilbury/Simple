@@ -9,7 +9,7 @@
 #include <stdio.h>
 #include <strings.h>
 
-#include "token_defs.h"
+#include "tokens.h"
 
 static token_database_t keywords[] = {
     {"and", TOK_AND},
@@ -62,7 +62,7 @@ static token_database_t keywords[] = {
 };
 #define NUM_KEYWORDS (sizeof(keywords)/sizeof(token_database_t))
 
-const char* token_type_to_str(TokenType type) {
+const char* token_to_str(TokenType type) {
 
     return (type == TOK_START)? "start" :
         (type == TOK_IMPORT)? "import" :
@@ -152,6 +152,102 @@ const char* token_type_to_str(TokenType type) {
         (type == TOK_END_OF_FILE)? "END OF FILE" :
         (type == TOK_ERROR)? "ERROR" : "UNKNOWN";
 }
+
+const char* token_type_to_str(Token* tok) {
+
+    TokenType type = token_type(tok);
+    return (type == TOK_START)? "TOK_START" :
+        (type == TOK_IMPORT)? "TOK_IMPORT" :
+        (type == TOK_AS)? "TOK_AS" :
+        (type == TOK_IDENT)? "TOK_IDENT" :
+        (type == TOK_INCLUDE)? "TOK_INCLUDE" :
+        (type == TOK_PRIVATE)? "TOK_PRIVATE" :
+        (type == TOK_PUBLIC)? "TOK_PUBLIC" :
+        (type == TOK_PROTECTED)? "TOK_PROTECTED" :
+        (type == TOK_FLOAT)? "TOK_FLOAT" :
+        (type == TOK_INTEGER)? "TOK_INTEGER" :
+        (type == TOK_STRING)? "TOK_STRING" :
+        (type == TOK_BOOLEAN)? "TOK_BOOLEAN" :
+        (type == TOK_NOTHING)? "TOK_NOTHING" :
+        (type == TOK_LIST)? "TOK_LIST" :
+        (type == TOK_DICT)? "TOK_DICT" :
+        (type == TOK_OPAREN)? "TOK_OPAREN" :
+        (type == TOK_COMMA)? "TOK_COMMA" :
+        (type == TOK_CPAREN)? "TOK_CPAREN" :
+        (type == TOK_LITERAL_DSTR)? "TOK_LITERAL_DSTR" :
+        (type == TOK_LITERAL_SSTR)? "TOK_LITERAL_SSTR" :
+        (type == TOK_LITERAL_FLOAT)? "TOK_LITERAL_FLOAT" :
+        (type == TOK_LITERAL_INTEGER)? "TOK_LITERAL_INTEGER" :
+        (type == TOK_LITERAL_BOOL)? "TOK_LITERAL_BOOL" :
+        (type == TOK_CONST)? "TOK_CONST" :
+        (type == TOK_EQUAL)? "TOK_EQUAL" :
+        (type == TOK_COLON)? "TOK_COLON" :
+        (type == TOK_OSBRACE)? "TOK_OSBRACE" :
+        (type == TOK_CSBRACE)? "TOK_CSBRACE" :
+        (type == TOK_DOT)? "TOK_DOT" :
+        (type == TOK_OR)? "TOK_OR" :
+        (type == TOK_AND)? "TOK_AND" :
+        (type == TOK_EQU)? "TOK_EQU" :
+        (type == TOK_NEQU)? "TOK_NEQU" :
+        (type == TOK_LT)? "TOK_LT" :
+        (type == TOK_GT)? "TOK_GT" :
+        (type == TOK_LTE)? "TOK_LTE" :
+        (type == TOK_GTE)? "TOK_GTE" :
+        (type == TOK_NOT)? "TOK_NOT" :
+        (type == TOK_EQUAL_EQUAL)? "TOK_EQUAL_EQUAL" :
+        (type == TOK_BANG_EQUAL)? "TOK_BANG_EQUAL" :
+        (type == TOK_OPBRACE)? "TOK_OPBRACE" :
+        (type == TOK_CPBRACE)? "TOK_CPBRACE" :
+        (type == TOK_OPBRACE_EQUAL)? "TOK_OPBRACE_EQUAL" :
+        (type == TOK_CPBRACE_EQUAL)? "TOK_CPBRACE_EQUAL" :
+        (type == TOK_PLUS)? "TOK_PLUS" :
+        (type == TOK_MINUS)? "TOK_MINUS" :
+        (type == TOK_STAR)? "TOK_STAR" :
+        (type == TOK_SLASH)? "TOK_SLASH" :
+        (type == TOK_PERCENT)? "TOK_PERCENT" :
+        (type == TOK_BANG)? "TOK_BANG" :
+        (type == TOK_NAMESPACE)? "TOK_NAMESPACE" :
+        (type == TOK_OCBRACE)? "TOK_OCBRACE" :
+        (type == TOK_CCBRACE)? "TOK_CCBRACE" :
+        (type == TOK_CLASS)? "TOK_CLASS" :
+        (type == TOK_VIRTUAL)? "TOK_VIRTUAL" :
+        (type == TOK_CREATE)? "TOK_CREATE" :
+        (type == TOK_DESTROY)? "TOK_DESTROY" :
+        (type == TOK_PLUS_EQUAL)? "TOK_PLUS_EQUAL" :
+        (type == TOK_MINUS_EQUAL)? "TOK_MINUS_EQUAL" :
+        (type == TOK_STAR_EQUAL)? "TOK_STAR_EQUAL" :
+        (type == TOK_SLASH_EQUAL)? "TOK_SLASH_EQUAL" :
+        (type == TOK_PERCENT_EQUAL)? "TOK_PERCENT_EQUAL" :
+        (type == TOK_INLINE)? "TOK_INLINE" :
+        (type == TOK_BREAK)? "TOK_BREAK" :
+        (type == TOK_CONTINUE)? "TOK_CONTINUE" :
+        (type == TOK_YIELD)? "TOK_YIELD" :
+        (type == TOK_TYPE)? "TOK_TYPE" :
+        (type == TOK_RETURN)? "TOK_RETURN" :
+        (type == TOK_RAISE)? "TOK_RAISE" :
+        (type == TOK_TRACE)? "TOK_TRACE" :
+        (type == TOK_PRINT)? "TOK_PRINT" :
+        (type == TOK_EXIT)? "TOK_EXIT" :
+        (type == TOK_WHILE)? "TOK_WHILE" :
+        (type == TOK_DO)? "TOK_DO" :
+        (type == TOK_FOR)? "TOK_FOR" :
+        (type == TOK_IN)? "TOK_IN" :
+        (type == TOK_IF)? "TOK_IF" :
+        (type == TOK_ELSE)? "TOK_ELSE" :
+        (type == TOK_TRY)? "TOK_TRY" :
+        (type == TOK_EXCEPT)? "TOK_EXCEPT" :
+        (type == TOK_FINAL)? "TOK_FINAL" :
+        (type == TOK_CARAT)? "TOK_CARAT" :
+        (type == TOK_PIPE)? "TOK_PIPE" :
+        (type == TOK_AMPERSAND)? "TOK_AMPERSAND" :
+        (type == TOK_UNARY_MINUS)? "TOK_UNARY_MINUS" :
+        (type == TOK_UNARY_NOT)? "TOK_UNARY_NOT" :
+        (type == TOK_END_OF_INPUT)? "TOK_END_OF_INPUT" :
+        (type == TOK_END_OF_FILE)? "TOK_END_OF_FILE" :
+        (type == TOK_ERROR)? "TOK_ERROR" : "UNKNOWN";
+
+}
+
 
 token_database_t* find_keyword(const char* str) {
 

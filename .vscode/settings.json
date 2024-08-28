@@ -2,14 +2,20 @@
     "cSpell.words": [
         "CCBRACE",
         "CPAREN",
+        "CPBRACE",
+        "crnt",
         "CSBRACE",
         "DSTR",
         "fecl",
         "fstr",
         "lstr",
+        "NEQU",
+        "ntok",
         "OCBRACE",
         "OPAREN",
+        "OPBRACE",
         "OSBRACE",
-        "strg"
+        "strg",
+        "tqueue"
     ]
 }

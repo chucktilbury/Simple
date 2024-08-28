@@ -1178,6 +1178,8 @@ typedef struct _ast_final_clause_ {
 typedef void (*AstFuncPtr)(ast_node_t* node);
 ast_node_t* create_ast_node(AstNodeType type);
 void traverse_ast(ast_module_t* node, AstFuncPtr pre, AstFuncPtr post);
+const char* nterm_type_to_str(ast_node_t* node);
+AstNodeType nterm_type(ast_node_t* node);
 
 void traverse_module(ast_module_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_module_item(ast_module_item_t* node, AstFuncPtr pre, AstFuncPtr post);

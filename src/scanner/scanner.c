@@ -692,8 +692,3 @@ Token* sneak_token(void) {
     return &token;
 }
 
-TokenType token_type(Token* tok) {
-
-    ASSERT(tok != NULL);
-    return tok->type;
-}

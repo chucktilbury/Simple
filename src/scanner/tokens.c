@@ -15,6 +15,7 @@
 #include "common.h"
 #include "fileio.h"
 #include "scanner.h"
+#include "tokens.h"
 
 static unsigned serial = 0;
 static Token end_tok;

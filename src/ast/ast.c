@@ -101,3 +101,87 @@ void traverse_ast(ast_module_t* node, AstFuncPtr pre, AstFuncPtr post) {
     traverse_module(node, pre, post);
 }
 
+AstNodeType nterm_type(ast_node_t* node) {
+
+    return node->type;
+}
+
+const char* nterm_type_to_str(ast_node_t* node) {
+
+    AstNodeType type = nterm_type(node);
+
+    return (type == AST_MODULE)? "AST_MODULE" :
+        (type == AST_MODULE_ITEM)? "AST_MODULE_ITEM" :
+        (type == AST_START_DEFINITION)? "AST_START_DEFINITION" :
+        (type == AST_IMPORT_STATEMENT)? "AST_IMPORT_STATEMENT" :
+        (type == AST_INCLUDE_STATEMENT)? "AST_INCLUDE_STATEMENT" :
+        (type == AST_NAMESPACE_ITEM)? "AST_NAMESPACE_ITEM" :
+        (type == AST_SCOPE_OPERATOR)? "AST_SCOPE_OPERATOR" :
+        (type == AST_LITERAL_TYPE_NAME)? "AST_LITERAL_TYPE_NAME" :
+        (type == AST_TYPE_NAME)? "AST_TYPE_NAME" :
+        (type == AST_TYPE_NAME_LIST)? "AST_TYPE_NAME_LIST" :
+        (type == AST_FORMATTED_STRG)? "AST_FORMATTED_STRG" :
+        (type == AST_STRING_LITERAL)? "AST_STRING_LITERAL" :
+        (type == AST_LITERAL_VALUE)? "AST_LITERAL_VALUE" :
+        (type == AST_VAR_DECL)? "AST_VAR_DECL" :
+        (type == AST_VAR_DECL_LIST)? "AST_VAR_DECL_LIST" :
+        (type == AST_FUNCTION_ASSIGNMENT)? "AST_FUNCTION_ASSIGNMENT" :
+        (type == AST_ASSIGNMENT_ITEM)? "AST_ASSIGNMENT_ITEM" :
+        (type == AST_VAR_DEFINITION)? "AST_VAR_DEFINITION" :
+        (type == AST_LIST_INIT_STR)? "AST_LIST_INIT_STR" :
+        (type == AST_LIST_INIT_ELEMENT)? "AST_LIST_INIT_ELEMENT" :
+        (type == AST_LIST_INIT)? "AST_LIST_INIT" :
+        (type == AST_ARRAY_PARAM_ITEM)? "AST_ARRAY_PARAM_ITEM" :
+        (type == AST_ARRAY_PARAM)? "AST_ARRAY_PARAM" :
+        (type == AST_ARRAY_PARAM_LIST)? "AST_ARRAY_PARAM_LIST" :
+        (type == AST_ARRAY_REFERENCE)? "AST_ARRAY_REFERENCE" :
+        (type == AST_FUNCTION_REFERENCE)? "AST_FUNCTION_REFERENCE" :
+        (type == AST_CREATE_REFERENCE)? "AST_CREATE_REFERENCE" :
+        (type == AST_DESTROY_REFERENCE)? "AST_DESTROY_REFERENCE" :
+        (type == AST_COMPOUND_NAME)? "AST_COMPOUND_NAME" :
+        (type == AST_COMPOUND_NAME_LIST)? "AST_COMPOUND_NAME_LIST" :
+        (type == AST_COMPOUND_REF_ITEM)? "AST_COMPOUND_REF_ITEM" :
+        (type == AST_COMPOUND_REFERENCE)? "AST_COMPOUND_REFERENCE" :
+        (type == AST_CAST_STATEMENT)? "AST_CAST_STATEMENT" :
+        (type == AST_EXPRESSION)? "AST_EXPRESSION" :
+        (type == AST_EXPR_OPERATOR)? "AST_EXPR_OPERATOR" :
+        (type == AST_EXPR_OPERAND)? "AST_EXPR_OPERAND" :
+        (type == AST_EXPRESSION_LIST)? "AST_EXPRESSION_LIST" :
+        (type == AST_NAMESPACE_DEFINITION)? "AST_NAMESPACE_DEFINITION" :
+        (type == AST_CLASS_DEFINITION)? "AST_CLASS_DEFINITION" :
+        (type == AST_CLASS_ITEM)? "AST_CLASS_ITEM" :
+        (type == AST_FUNCTION_DECLARATION)? "AST_FUNCTION_DECLARATION" :
+        (type == AST_CREATE_DECLARATION)? "AST_CREATE_DECLARATION" :
+        (type == AST_DESTROY_DECLARATION)? "AST_DESTROY_DECLARATION" :
+        (type == AST_FUNCTION_DEFINITION)? "AST_FUNCTION_DEFINITION" :
+        (type == AST_CREATE_NAME)? "AST_CREATE_NAME" :
+        (type == AST_CREATE_DEFINITION)? "AST_CREATE_DEFINITION" :
+        (type == AST_DESTROY_NAME)? "AST_DESTROY_NAME" :
+        (type == AST_DESTROY_DEFINITION)? "AST_DESTROY_DEFINITION" :
+        (type == AST_FUNCTION_BODY)? "AST_FUNCTION_BODY" :
+        (type == AST_ASSIGN_EQ_ITEM)? "AST_ASSIGN_EQ_ITEM" :
+        (type == AST_ASSIGN_INC_ITEM)? "AST_ASSIGN_INC_ITEM" :
+        (type == AST_ASSIGNMENT)? "AST_ASSIGNMENT" :
+        (type == AST_FUNCTION_BODY_ELEMENT)? "AST_FUNCTION_BODY_ELEMENT" :
+        (type == AST_BREAK_STATEMENT)? "AST_BREAK_STATEMENT" :
+        (type == AST_CONTINUE_STATEMENT)? "AST_CONTINUE_STATEMENT" :
+        (type == AST_YIELD_STATEMENT)? "AST_YIELD_STATEMENT" :
+        (type == AST_TYPE_STATEMENT)? "AST_TYPE_STATEMENT" :
+        (type == AST_RETURN_STATEMENT)? "AST_RETURN_STATEMENT" :
+        (type == AST_RAISE_STATEMENT)? "AST_RAISE_STATEMENT" :
+        (type == AST_TRACE_STATEMENT)? "AST_TRACE_STATEMENT" :
+        (type == AST_PRINT_STATEMENT)? "AST_PRINT_STATEMENT" :
+        (type == AST_EXIT_STATEMENT)? "AST_EXIT_STATEMENT" :
+        (type == AST_WHILE_DEFINITION)? "AST_WHILE_DEFINITION" :
+        (type == AST_WHILE_CLAUSE)? "AST_WHILE_CLAUSE" :
+        (type == AST_DO_CLAUSE)? "AST_DO_CLAUSE" :
+        (type == AST_FOR_CLAUSE)? "AST_FOR_CLAUSE" :
+        (type == AST_IF_CLAUSE)? "AST_IF_CLAUSE" :
+        (type == AST_ELSE_CLAUSE)? "AST_ELSE_CLAUSE" :
+        (type == AST_FINAL_ELSE_CLAUSE)? "AST_FINAL_ELSE_CLAUSE" :
+        (type == AST_TRY_CLAUSE)? "AST_TRY_CLAUSE" :
+        (type == AST_EXCEPT_CLAUSE)? "AST_EXCEPT_CLAUSE" :
+        (type == AST_FINAL_CLAUSE)? "AST_FINAL_CLAUSE" : "UNKNOWN";
+
+}
+

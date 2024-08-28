@@ -16,8 +16,8 @@
 #include "ptr_lst.h"
 #include "str.h"
 #include "str_lst.h"
-#include "trace.h"
+//#include "trace.h"
 #include "llist.h"
 
-#endif /* _COMMON_H_ */
+#endif  /* _COMMON_H_ */
 

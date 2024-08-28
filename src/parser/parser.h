@@ -17,6 +17,13 @@ typedef struct {
 
 #include "parser_prototypes.h"
 
+#ifdef USE_TRACE
+#include "trace.h"
+#define TRACE_STATE do { TRACE("state: %d", state); } while(0)
+#else
+#define TRACE_STATE
+#endif
+
 void recover_error(void);
 ast_module_t* parse(void);
 

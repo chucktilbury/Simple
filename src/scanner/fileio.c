@@ -20,6 +20,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+#include "trace.h"
 #include "common.h"
 #include "fileio.h"
 

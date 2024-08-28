@@ -135,7 +135,7 @@ static ast_expr_operator_t* check_operator(ast_expr_operator_t* oper) {
         default:
             if(flag) {
                 SYNTAX("the \"%s\" operator cannot be unary",
-                    token_type_to_str(get_oper_type(oper)));
+                    token_to_str(get_oper_type(oper)));
                 return NULL;
             }
     }
