@@ -96,10 +96,5 @@ void reset_token_queue(void* post);
  */
 void* post_token_queue(void);
 
-void dump_token_queue(void);
-void append_token(Token* tok);
-void push_token_queue(void);
-void pop_token_queue(void);
-
 #endif  /* _TOKENS_H_ */
 

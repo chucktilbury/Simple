@@ -5,6 +5,7 @@
         "CPBRACE",
         "crnt",
         "CSBRACE",
+        "dquote",
         "DSTR",
         "fecl",
         "fstr",
@@ -15,6 +16,7 @@
         "OPAREN",
         "OPBRACE",
         "OSBRACE",
+        "squote",
         "strg",
         "tqueue"
     ]

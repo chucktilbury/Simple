@@ -37,28 +37,6 @@ typedef struct {
 // static TokQueue* tqueue = NULL;
 static LinkList* tqueue_stack = NULL;
 
-/**
- * @brief Push the token queue.
- *
- *
- */
-void push_token_queue(void) {
-
-    TokQueue* queue = _ALLOC_DS(TokQueue);
-    push_link_list(tqueue_stack, queue);
-    append_token(scan_token());
-}
-
-/**
- * @brief Pop the token queue
- *
- *
- */
-void pop_token_queue(void) {
-
-    pop_link_list(tqueue_stack);
-}
-
 /*
  * Append a token to the end of the queue. It could be that advance_token()
  * has found the end of the queue, but it could be something else.
@@ -85,6 +63,28 @@ void append_token(Token* tok) {
         tqueue->crnt = item;
         tqueue->tail = item;
     }
+}
+
+/**
+ * @brief Push the token queue.
+ *
+ *
+ */
+void push_token_queue(void) {
+
+    TokQueue* queue = _ALLOC_DS(TokQueue);
+    push_link_list(tqueue_stack, queue);
+    append_token(scan_token());
+}
+
+/**
+ * @brief Pop the token queue
+ *
+ *
+ */
+void pop_token_queue(void) {
+
+    pop_link_list(tqueue_stack);
 }
 
 /**
