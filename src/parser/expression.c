@@ -208,19 +208,19 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 break;
 
             case 1:
-                // dispatch operator
+                // dispatch operand
                 TRACE_STATE;
                 append_ptr_lst(queue, operand);
-                state = 0;
+                state = 6;
                 break;
 
             case 2:
-                // find the associativity
+                // dispatch operator
                 TRACE_STATE;
                 if(TOK_OPAREN == get_oper_type(operator)) {
                     // open paren
                     push_ptr_lst(stack, operator);
-                    state = 0;
+                    state = 6;
                 }
                 else if(TOK_CPAREN == get_oper_type(operator)) {
                     // close paren
@@ -248,6 +248,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                     append_ptr_lst(queue, tmp);
                 }
                 push_ptr_lst(stack, operator);
+                consume_token();
                 state = 6;
                 case_3_error:
                 break;
@@ -265,25 +266,38 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                     append_ptr_lst(queue, tmp);
                 }
                 push_ptr_lst(stack, operator);
+                consume_token();
                 state = 6;
                 case_4_error:
                 break;
 
-            case 5:
+            case 5: 
                 // handle close paren
                 TRACE_STATE;
-                while(TOK_OPAREN != get_oper_type(peek_ptr_lst(stack))) {
-                    // if we run out of tokens, then parens are imbalanced
-                    ast_expr_operator_t* tmp = pop_ptr_lst(stack);
-                    if(NULL == tmp) {
+                {
+                    ast_expr_operator_t* oper;
+                    int count = 0; 
+                    while(NULL != (oper = peek_ptr_lst(stack))) {
+                        TRACE("oper: %d: %p", count, oper);
+                        if(TOK_OPAREN == get_oper_type(oper)) {
+                            pop_ptr_lst(stack); // discard the OPAREN
+                            state = 6;
+                            break;
+                        }
+                        else {
+                            append_ptr_lst(queue, pop_ptr_lst(stack));
+                            count++;
+                        }
+                    }
+
+                    if(oper == NULL && count > 0) {
                         SYNTAX("imbalanced parenthesis");
                         state = 102;
-                        goto case_5_error;
                     }
+                    else
+                        state = 100;
+
                 }
-                pop_ptr_lst(stack); // discard the OPAREN
-                state = 6;
-                case_5_error:
                 break;
 
             case 6:

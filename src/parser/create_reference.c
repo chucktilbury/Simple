@@ -50,6 +50,7 @@ ast_create_reference_t* parse_create_reference(parser_state_t* pstate) {
                     EXPECTED("an expression list");
                     state = 102;
                 }
+                break;
 
             case 100:
                 // production recognized

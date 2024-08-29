@@ -24,7 +24,7 @@
 #include "trace.h"
 #define TRACE_TOKEN do { \
         Token* t = get_token(); \
-        TRACE("token: %s '%s': %d: %d: %s", token_type_to_str(t), \
+        TRACE("%s '%s': %d: %d: %s", token_type_to_str(t), \
                 raw_string(t->str), \
                 t->line_no, t->col_no, t->fname); \
     } while(0)
