@@ -2,7 +2,7 @@
 ; Correct do/while example
 ;-------------------------------------------------------------------------------
 
-func name1()() {
+name1()() {
 	
 	do {
 		; stuff in a function body

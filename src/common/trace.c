@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#define INDENT 2
+#define INDENT 4
 static int indent = 0;
 
 static void pad(void) {

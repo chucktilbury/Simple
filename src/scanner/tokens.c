@@ -188,7 +188,8 @@ Token* copy_token(const Token* tok) {
 Token* consume_token(void) {
 
     ENTER;
-    
+    TRACE_TOKEN;
+
     TokQueue* tqueue = peek_link_list(tqueue_stack);
     if(tqueue == NULL) {
         end_tok.type = TOK_END_OF_INPUT;

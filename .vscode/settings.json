@@ -1,6 +1,8 @@
 {
     "cSpell.words": [
         "CCBRACE",
+        "cmderror",
+        "cmdwarning",
         "CPAREN",
         "CPBRACE",
         "crnt",
@@ -9,6 +11,7 @@
         "DSTR",
         "fecl",
         "fstr",
+        "inher",
         "lstr",
         "NEQU",
         "ntok",

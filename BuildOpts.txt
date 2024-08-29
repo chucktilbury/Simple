@@ -19,6 +19,7 @@ add_definitions(
 if(CMAKE_BUILD_TYPE STREQUAL "debug")
     add_definitions(
         -g
+        -O0
         -DMEMORY_DEBUG
         -DUSE_TRACE
         -DUSE_ASSERTS

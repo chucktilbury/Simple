@@ -33,18 +33,7 @@ int main(int argc, char** argv) {
     // see what we got.
     parse_cmdline(argc, argv, 0);
 
-    init_scanner(get_cmdline("list of files")); //"../testing/scanner/test_input1.txt");
-
-    Token* tok = get_token();
-
-    while(true) {
-        print_token(tok);
-        if(tok->type == TOK_END_OF_INPUT)
-            break;
-        else if(tok->type == TOK_END_OF_FILE)
-            close_file();
-        tok = consume_token();
-    }
+    parse();
 
     RETURN(0);
 }

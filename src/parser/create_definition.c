@@ -36,6 +36,7 @@ ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
 
     while(!finished) {
         switch(state) {
+            case 0:
                 // initial state
                 TRACE_STATE;
                 if(TOK_VIRTUAL == TTYPE) { 

@@ -55,8 +55,10 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
                     consume_token();                    
                     state = 100;
                 }
-                else if(NULL != (str = parse_string_literal(pstate)))
+                else if(NULL != (str = parse_string_literal(pstate))) 
                     state = 100;
+                else 
+                    state = 101;
                 break;
 
             case 100:

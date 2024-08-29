@@ -237,7 +237,7 @@ void parse_cmdline(int argc, char** argv, int flag) {
     cmdline->flag = flag;
 
     if(argc <= cmdline->min_reqd)
-        error("at least %d command arguments are required.", cmdline->min_reqd);
+        cmderror("at least %d command arguments are required.", cmdline->min_reqd);
 
     internal_parse_cmdline(argc, argv);
 
@@ -247,11 +247,11 @@ void parse_cmdline(int argc, char** argv, int flag) {
     while(NULL != (op = iterate_ptr_lst(cmdline->cmd_opts, &post))) {
         if((op->flag & CMD_REQD) && (!(op->flag & CMD_SEEN) || (op->values->len == 0))) {
             if(op->short_opt != 0)
-                error("required command parameter '-%c' missing.", op->short_opt);
+                cmderror("required command parameter '-%c' missing.", op->short_opt);
             else if(strlen(op->long_opt) > 0)
-                error("required command parameter '--%s' missing.", op->long_opt);
+                cmderror("required command parameter '--%s' missing.", op->long_opt);
             else
-                error("required command parameter '%s' missing.", op->name);
+                cmderror("required command parameter '%s' missing.", op->name);
         }
     }
 }

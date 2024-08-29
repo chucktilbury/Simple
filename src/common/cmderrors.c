@@ -21,7 +21,7 @@
  * @param fmt
  * @param ...
  */
-void error(const char* fmt, ...) {
+void cmderror(const char* fmt, ...) {
 
     va_list args;
 
@@ -44,7 +44,7 @@ void error(const char* fmt, ...) {
  * @param fmt
  * @param ...
  */
-void warning(const char* fmt, ...) {
+void cmdwarning(const char* fmt, ...) {
 
     va_list args;
 
