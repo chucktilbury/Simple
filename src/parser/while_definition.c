@@ -60,8 +60,9 @@ ast_while_definition_t* parse_while_definition(parser_state_t* pstate) {
                 if(NULL != (expr = parse_expression(pstate)))
                     state = 3;
                 else {
-                    EXPECTED("an expression");
-                    state = 102;
+                    // EXPECTED("an expression");
+                    // state = 102;
+                    state = 3;
                 }
                 break;
 

@@ -39,20 +39,16 @@ ast_module_t* parse_module(parser_state_t* pstate) {
                 TRACE_STATE;
                 if(NULL != (ptr = parse_module_item(pstate))) {
                     append_ptr_lst(list, ptr);
-                    state = 1;
+                    //state = 1;
                 }
-                else 
-                    state = 102;
-                break;
-
-            case 1:
-                TRACE_STATE;
-                if(NULL != (ptr = parse_module_item(pstate)))
-                    append_ptr_lst(list, ptr);
-                else if(TTYPE == TOK_END_OF_FILE)
+                else if(TOK_END_OF_FILE == TTYPE) {
+                    consume_token();
                     state = 100;
-                else
+                }
+                else {
+                    EXPECTED("a valid module item");
                     state = 102;
+                }
                 break;
 
             case 100:

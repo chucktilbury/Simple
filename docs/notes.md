@@ -1,6 +1,12 @@
 
 # Problems and thoughts...
 
+## Parser State
+This is information that can be taken by the parser implementation. 
+
+* Symbol table creation.
+* Tracking the scope of symbols that are created.
+
 ## Symbol table.
 A symbol table stores the names that are defined in a program such that the scope and type of a name can be verified when a reference to it is encountered. A symbol is a single word that exists in a context of other single words. Each word represents a name that has a type and other attributes according to its definition. Some symbols can host other symbols. For example a class is used to define other names that are exclusive to the class. Other symbols can only represent themselves, such as a variable name. Functions have one or more anonymous symbol scopes. A reference to a name in an anonymous scope can be defined in an outer anonymous scope. Functions also have input and output parameters defined. Those have their own special access rules and are defined in the outermost anonymous scope of the function. Input parameters are read only and output parameters are both read and write. All other names have access parameters specified in their definition. For a function that is declared in a class, the variables declared in the class are also considered local to an anonymous scope in a function. When there is a name defined in an anonymous scope that has already been declared in an outer scope, a warning is issued and the name used is the most local one. 
 

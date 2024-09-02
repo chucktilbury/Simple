@@ -363,15 +363,9 @@ def gen_token_defs():
         fp.write(s)
         fp.write("\n}\n\n")
 
-if __name__ == '__main__':
-    
-    print("Before you run this, know that it will destroy the parser")
-    print("and all of the manual changes that were made to it.")
-    exit(1)
-
+def installer() :
     os.system("mkdir parser ast tokens")
 
-    gen_lists()
     gen_ast()
     gen_parse()
     gen_token_defs()
@@ -380,3 +374,17 @@ if __name__ == '__main__':
     os.system("mv -f ast/*.c ast/*.h ../../src/ast/")
     os.system("mv -f tokens/*.c tokens/*.h ../../src/tokens/")
     os.system("rm -rf parser ast tokens")
+
+
+if __name__ == '__main__':
+    
+    print("Before you run this, know that it will destroy the parser")
+    print("and all of the manual changes that were made to it.")
+    exit(1)
+
+    gen_lists()
+
+    with open("non-terminals.txt", "w") as fp:
+        for item in non_terminals:
+            fp.write("%s\n"%(item))
+

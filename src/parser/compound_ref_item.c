@@ -38,13 +38,13 @@ ast_compound_ref_item_t* parse_compound_ref_item(parser_state_t* pstate) {
             case 0:
                 // initial state
                 TRACE_STATE;
-                if(TOK_IDENT == TTYPE) {
+                if(NULL != (ref = parse_array_reference(pstate))) 
+                    state = 100;
+                else if(TOK_IDENT == TTYPE) {
                     name = copy_token(get_token());
                     consume_token();
                     state = 100;
                 }
-                else if(NULL != (ref = parse_array_reference(pstate))) 
-                    state = 100;
                 else
                     state = 101;
                 break;
