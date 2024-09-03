@@ -50,8 +50,8 @@ ast_while_definition_t* parse_while_definition(parser_state_t* pstate) {
                     state = 2;
                 }
                 else {
-                    EXPECTED("a '('");
-                    state = 102;
+                    //EXPECTED("a '('");
+                    state = 100;
                 }
                 break;
 

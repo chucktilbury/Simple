@@ -50,7 +50,12 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
                     consume_token();
                     state = 100;
                 }
-                else if(TOK_LITERAL_BOOL == TTYPE) {
+                else if(TOK_LITERAL_TRUE == TTYPE) {
+                    literal = copy_token(get_token());
+                    consume_token();                    
+                    state = 100;
+                }
+                else if(TOK_LITERAL_FALSE == TTYPE) {
                     literal = copy_token(get_token());
                     consume_token();                    
                     state = 100;

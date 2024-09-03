@@ -47,7 +47,7 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
 
             case 1:
                 TRACE_STATE;
-                if(TOK_IDENT != TTYPE) {
+                if(TOK_IDENT == TTYPE) {
                     name = copy_token(get_token());
                     consume_token();
                     state = 2;

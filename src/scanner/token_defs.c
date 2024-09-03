@@ -27,7 +27,7 @@ static token_database_t keywords[] = {
     {"equ", TOK_EQU},
     {"except", TOK_EXCEPT},
     {"exit", TOK_EXIT},
-    {"false", TOK_FALSE},
+    {"false", TOK_LITERAL_FALSE},
     {"final", TOK_FINAL},
     {"float", TOK_FLOAT},
     {"for", TOK_FOR},
@@ -55,7 +55,7 @@ static token_database_t keywords[] = {
     {"start", TOK_START},
     {"string", TOK_STRING},
     {"trace", TOK_TRACE},
-    {"true", TOK_TRUE},
+    {"true", TOK_LITERAL_TRUE},
     {"try", TOK_TRY},
     {"type", TOK_TYPE},
     {"virtual", TOK_VIRTUAL},
@@ -147,8 +147,8 @@ const char* token_to_str(TokenType type) {
         (type == TOK_TRY)? "try" :
         (type == TOK_EXCEPT)? "except" :
         (type == TOK_FINAL)? "final" :
-        (type == TOK_TRUE)? "true" :
-        (type == TOK_FALSE)? "false" :
+        (type == TOK_LITERAL_TRUE)? "true" :
+        (type == TOK_LITERAL_FALSE)? "false" :
         (type == TOK_CARAT)? "^" :
         (type == TOK_PIPE)? "|" :
         (type == TOK_AMPERSAND)? "&" :
@@ -243,8 +243,8 @@ const char* token_type_to_str(Token* tok) {
         (type == TOK_FINAL)? "TOK_FINAL" :
         (type == TOK_CARAT)? "TOK_CARAT" :
         (type == TOK_PIPE)? "TOK_PIPE" :
-        (type == TOK_TRUE)? "TOK_TRUE" :
-        (type == TOK_FALSE)? "TOK_FALSE" :
+        (type == TOK_LITERAL_TRUE)? "TOK_LITERAL_TRUE" :
+        (type == TOK_LITERAL_FALSE)? "TOK_LITERAL_FALSE" :
         (type == TOK_AMPERSAND)? "TOK_AMPERSAND" :
         (type == TOK_UNARY_MINUS)? "TOK_UNARY_MINUS" :
         (type == TOK_UNARY_NOT)? "TOK_UNARY_NOT" :

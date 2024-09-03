@@ -53,9 +53,40 @@ ast_type_name_list_t* parse_type_name_list(parser_state_t* pstate) {
                 }
                 else if(NULL != (name = parse_type_name(pstate))) {
                     append_ptr_lst(list, name);
+                    state = 2;
                 }
                 else {
                     EXPECTED("a type name or a ')'");
+                    state = 102;
+                }
+                break;
+
+            case 2:
+                // a ',' or a ')' is expected after a type name
+                TRACE_STATE;
+                if(TOK_COMMA == TTYPE) {
+                    consume_token();
+                    state = 3;
+                }
+                else if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else {
+                    EXPECTED("a ')' or a ','");
+                    state = 102;
+                }
+                break;
+
+            case 3:
+                // type name is required after a ','
+                TRACE_STATE;
+                if(NULL != (name = parse_type_name(pstate))) {
+                    append_ptr_lst(list, name);
+                    state = 2;
+                }
+                else {
+                    EXPECTED("a type name");
                     state = 102;
                 }
                 break;
