@@ -895,6 +895,7 @@ typedef struct _ast_assignment_ {
  *     | raise_statement
  *     | trace_statement
  *     | print_statement
+ *     | exit_statement
  *     | function_body
  *     ;
  */
@@ -1012,12 +1013,11 @@ typedef struct _ast_print_statement_ {
  * Grammar production:
  *
  * exit_statement
- *     : 'exit' '(' expression ')'
+ *     : 'exit'
  *     ;
  */
 typedef struct _ast_exit_statement_ {
     ast_node_t node;
-    struct _ast_expression_* expr;
 } ast_exit_statement_t;
 
 /**
@@ -1067,12 +1067,11 @@ typedef struct _ast_do_clause_ {
  * Grammar production:
  *
  * for_clause
- *     : 'for' ( '(' ( (type_name)? IDENT 'in' expression )? ')' )? function_body
+ *     : 'for' ( '(' ( expression 'as' IDENT )? ')' )? function_body
  *     ;
  */
 typedef struct _ast_for_clause_ {
     ast_node_t node;
-    struct _ast_type_name_* type;
     Token* ident;
     struct _ast_expression_* expr;
     struct _ast_function_body_* body;

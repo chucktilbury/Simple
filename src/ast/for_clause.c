@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * for_clause
- *     : 'for' ( '(' ( (type_name)? IDENT 'in' expression )? ')' )? function_body
+ *     : 'for' ( '(' ( expression 'as' IDENT )? ')' )? function_body
  *     ;
  */
 void traverse_for_clause(ast_for_clause_t* node, AstFuncPtr pre, AstFuncPtr post) {

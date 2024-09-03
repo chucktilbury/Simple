@@ -302,6 +302,7 @@ function_body_element
     | raise_statement
     | trace_statement
     | print_statement
+    | exit_statement
     | function_body
     ;
 
@@ -338,7 +339,7 @@ print_statement
     ;
 
 exit_statement
-    : 'exit' '(' expression ')'
+    : 'exit'
     ;
 
 while_definition
@@ -354,7 +355,7 @@ do_clause
     ;
 
 for_clause
-    : 'for' ( '(' ( (type_name)? IDENT 'in' expression )? ')' )? function_body
+    : 'for' ( '(' ( expression 'as' IDENT )? ')' )? function_body
     ;
 
 if_clause

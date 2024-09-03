@@ -2,9 +2,9 @@
 ; Continue example
 ;-------------------------------------------------------------------------------
 
-func name1()() {
+name1()() {
 
-	while {
-		continue
-	}
+    while {
+        continue
+    }
 }

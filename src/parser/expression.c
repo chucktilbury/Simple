@@ -289,7 +289,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
             case 5: 
                 // handle close paren
                 TRACE_STATE;
-                // }
+                TRACE("paren count = %d",paren_count);
                 if(paren_count < 0) {
                     // end of the expression
                     state = 100;
@@ -297,11 +297,12 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 else {
                     ast_expr_operator_t* oper = peek_ptr_lst(stack);
                     while(oper != NULL && get_oper_type(oper) != TOK_OPAREN) {
-                        oper = pop_ptr_lst(stack);
-                        TRACE("transfer token: %s", token_type_to_str(oper->oper));
-                        append_ptr_lst(queue, oper);
+                        if(NULL != (oper = pop_ptr_lst(stack))) {
+                            TRACE("transfer token: %s", token_type_to_str(oper->oper));
+                            append_ptr_lst(queue, oper);
+                        }
                     }
-                    pop_ptr_lst(stack);
+                    //pop_ptr_lst(stack);
                     consume_token();
                     state = 6;
                     

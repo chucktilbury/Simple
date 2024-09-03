@@ -35,7 +35,6 @@ static token_database_t keywords[] = {
     {"gte", TOK_GTE},
     {"if", TOK_IF},
     {"import", TOK_IMPORT},
-    {"in", TOK_IN},
     {"include", TOK_INCLUDE},
     {"integer", TOK_INTEGER},
     {"list", TOK_LIST},
@@ -141,7 +140,6 @@ const char* token_to_str(TokenType type) {
         (type == TOK_WHILE)? "while" :
         (type == TOK_DO)? "do" :
         (type == TOK_FOR)? "for" :
-        (type == TOK_IN)? "in" :
         (type == TOK_IF)? "if" :
         (type == TOK_ELSE)? "else" :
         (type == TOK_TRY)? "try" :
@@ -235,7 +233,6 @@ const char* token_type_to_str(Token* tok) {
         (type == TOK_WHILE)? "TOK_WHILE" :
         (type == TOK_DO)? "TOK_DO" :
         (type == TOK_FOR)? "TOK_FOR" :
-        (type == TOK_IN)? "TOK_IN" :
         (type == TOK_IF)? "TOK_IF" :
         (type == TOK_ELSE)? "TOK_ELSE" :
         (type == TOK_TRY)? "TOK_TRY" :

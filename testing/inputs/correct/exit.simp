@@ -2,9 +2,9 @@
 ; basic use of exit statement
 ;-------------------------------------------------------------------------------
 
-func name()() {
+name()() {
 
-    exit(1)
-    exit(1+2/3)
-    exit("some string")
+    exit
+    exit
+    exit
 }

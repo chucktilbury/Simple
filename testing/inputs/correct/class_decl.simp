@@ -3,13 +3,13 @@
 ;-------------------------------------------------------------------------------
 
 class some_name {
-    ; empty
+    public
 }
 
 class some_name () {
-    ; empty
+    public
 }
 
 class some_name (this.is.a.compound.name) {
-    ; empty
+    public
 }

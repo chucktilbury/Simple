@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * for_clause
- *     : 'for' ( '(' ( (type_name)? IDENT 'in' expression )? ')' )? function_body
+ *     : 'for' ( '(' ( expression 'as' IDENT )? ')' )? function_body
  *     ;
  */
 ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
@@ -30,7 +30,6 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     Token* ident = NULL;
-    ast_type_name_t* type = NULL;
     ast_expression_t* expr = NULL;
     ast_function_body_t* body = NULL;
 
@@ -53,18 +52,30 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                     state = 2;
                 }
                 else 
-                    state = 10;
+                    state = 6;
                 break;
 
             case 2:
                 TRACE_STATE;
-                if(NULL != (type = parse_type_name(pstate)))
-                    state = 3; // ident is required
+                if(NULL != (expr = parse_expression(pstate)))
+                    state = 3; // not empty
                 else 
-                    state = 4; // ident is optional
+                    state = 5; // is empty
                 break;
 
             case 3:
+                TRACE_STATE;
+                if(TOK_AS == TTYPE) {
+                    consume_token();
+                    state = 4;
+                }
+                else {
+                    EXPECTED("'as' keyword");
+                    state = 102;
+                }
+                break;
+
+            case 4:
                 // required ident
                 TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
@@ -78,47 +89,11 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                 } 
                 break;
 
-            case 4:
-                // optional ident
-                if(TOK_IDENT == TTYPE) {
-                    ident = copy_token(get_token());
-                    consume_token();
-                    state = 5;
-                }
-                else 
-                    state = 7;
-                break;
-
             case 5:
-                // required 'in'
-                TRACE_STATE;
-                if(TOK_IN == TTYPE) {
-                    consume_token();
-                    state = 6;
-                }
-                else {
-                    EXPECTED("the 'in' keyword");
-                    state = 102;
-                }
-                break;
-
-            case 6:
-                // required expression
-                TRACE_STATE;
-                if(NULL != (expr = parse_expression(pstate))) 
-                    state = 7;
-                else {
-                    EXPECTED("an expression");
-                    state = 102;
-                }
-                break;
-
-            case 7:
-                // required ')'
-                TRACE_STATE;
+                // optional ident
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
-                    state = 10;
+                    state = 6;
                 }
                 else {
                     EXPECTED("a ')'");
@@ -126,7 +101,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                 }
                 break;
 
-            case 10:
+            case 6:
                 TRACE_STATE;
                 if(NULL != (body = parse_function_body(pstate))) 
                     state = 100;
@@ -141,7 +116,6 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                 TRACE_STATE;
                 node = (ast_for_clause_t*)create_ast_node(AST_FOR_CLAUSE);
                 node->ident = ident;
-                node->type = type;
                 node->expr = expr;
                 node->body = body;
                 finished = true;

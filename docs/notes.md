@@ -14,3 +14,7 @@ The symbol table is implemented as a hash table where sibling names are in the s
 
 ## Implement the debugger
 The debugger information will be implemented as text messages sent over an ethernet connection. The application side software is implemented in the runtime to interpret debugger commands and run the program line by line using a function that waits after each line of source code. When the line is run, then the runtime debugger reports that it's done back to the debugger UI. Design the protocol and messages. The runtime is smart enough to be able to run if the debugger is not active. 
+
+## Things to fix.
+
+* Need to differentiate between a loop body and a function body. A loop body adds the keywords of "break", and "continue". Those cannot appear outside of a loop. Also note that the "yield" keyword has a different meaning inside a loop than it does outside of it. Maybe it is a loop-only construct. Yield keyword is for implementing iterators and it may not have a meaning outside of a loop.

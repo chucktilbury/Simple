@@ -86,7 +86,6 @@ typedef enum {
     TOK_WHILE,
     TOK_DO,
     TOK_FOR,
-    TOK_IN,
     TOK_IF,
     TOK_ELSE,
     TOK_TRY,

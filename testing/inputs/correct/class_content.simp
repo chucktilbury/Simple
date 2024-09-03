@@ -17,7 +17,7 @@ class name {
 class name {
     some.compound.name name1
     float name2
-    const float name3
+    float name3
 }
 
 class name {
@@ -29,7 +29,7 @@ class name {
     some.compound.name name1
     float name2
     protected
-    const float name3
+    float name3
     create(asdf, qwer)
     destroy
 }

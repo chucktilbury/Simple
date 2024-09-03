@@ -92,6 +92,8 @@ ast_function_body_element_t* parse_function_body_element(parser_state_t* pstate)
                     state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_print_statement(pstate)))
                     state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_exit_statement(pstate)))
+                    state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_function_body(pstate)))
                     state = 100;
                 else if(TOK_INLINE == TTYPE) {
