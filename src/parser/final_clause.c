@@ -83,10 +83,10 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
 
             case 4:
                 TRACE_STATE;
-                if(NULL == (body = parse_function_body(pstate))) 
+                if(NULL != (body = parse_function_body(pstate))) 
                     state = 100;
                 else {
-                    EXPECTED("a '('");
+                    EXPECTED("a function body");
                     state = 102;
                 }
                 break;

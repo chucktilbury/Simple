@@ -38,6 +38,9 @@ static inline TokenType get_oper_type(ast_expr_operator_t* oper) {
  */
 static int get_prec(ast_expr_operator_t* oper) {
 
+    if(oper == NULL)
+        return 1000;
+
     int prec = 0;
 
     switch(get_oper_type(oper)) {
@@ -164,11 +167,11 @@ static ast_expr_operator_t* check_operator(ast_expr_operator_t* oper) {
  *       While there's an operator on the stack with greater precedence:
  *         Pop operators from the stack onto the output queue
  *     Push the current operator onto the stack
- *   If it's a left bracket push it onto the operator stack
- *   If it's a right bracket
- *     While there's not a left bracket at the top of the stack:
+ *   If it's a left paren push it onto the operator stack
+ *   If it's a right paren
+ *     While there's not a left paren at the top of the stack:
  *       Pop operators from the stack onto the output queue.
- *     Pop the left bracket from the stack and discard it
+ *     Pop the left paren from the stack and discard it
  * While there are operators on the stack, pop them to the queue
  *
  * @return ast_expression_t*
@@ -188,6 +191,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
     int state = 0;
     bool finished = false;
     void* post = post_token_queue();
+    int paren_count = 0; // current nesting number of '()' that have been seen
 
     while(!finished) {
         switch(state) {
@@ -225,11 +229,14 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 if(TOK_OPAREN == get_oper_type(operator)) {
                     // open paren
                     push_ptr_lst(stack, operator);
+                    paren_count++;
                     consume_token();
                     state = 6;
                 }
                 else if(TOK_CPAREN == get_oper_type(operator)) {
                     // close paren
+                    paren_count--;
+                    flag = false;
                     state = 5;
                 }
                 else {
@@ -244,93 +251,65 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
             case 3:
                 // left assoc operator
                 TRACE_STATE;
-                {
-                    ast_expr_operator_t* oper = peek_ptr_lst(stack);
-                    while(NULL != oper) {
-                        if(TOK_OPAREN == get_oper_type(oper)) {
-                            SYNTAX("imbalanced parenthesis");
-                            state = 102;
-                            goto case_3_error;
-                        }
-                        else if(get_prec(oper) > get_prec(operator)) {
-                            oper = pop_ptr_lst(stack);
-                            TRACE("transfer token: %s", token_type_to_str(oper->oper));
-                            append_ptr_lst(queue, oper);
-                        }
-                        else 
-                            break;
+                // {
+                while(get_prec(peek_ptr_lst(stack)) > get_prec(operator)) {
+                    ast_expr_operator_t* oper = pop_ptr_lst(stack);
+                    if(oper != NULL) {
+                        TRACE("transfer token: %s", token_type_to_str(oper->oper));
+                        append_ptr_lst(queue, oper);
                     }
-                    push_ptr_lst(stack, operator);
-                    TRACE("push token: %s", token_type_to_str(operator->oper));
-                    consume_token();
-                    state = 6;
+                    else
+                        break;
                 }
-                case_3_error:
+                TRACE("push token: %s", token_type_to_str(operator->oper));
+                push_ptr_lst(stack, operator);
+                consume_token();
+                state = 6;
                 break;
 
             case 4:
                 // right assoc operator
                 TRACE_STATE;
-                {
-                    ast_expr_operator_t* oper = peek_ptr_lst(stack);
-                    while(NULL != oper) {
-                        if(TOK_OPAREN == get_oper_type(oper)) {
-                            SYNTAX("imbalanced parenthesis");
-                            state = 102;
-                            goto case_4_error;
-                        }
-                        else if(get_prec(oper) >= get_prec(operator)) {
-                            oper = pop_ptr_lst(stack);
-                            TRACE("transfer token: %s", token_type_to_str(oper->oper));
-                            append_ptr_lst(queue, oper);
-                        }
-                        else 
-                            break;
+                // {
+                while(get_prec(peek_ptr_lst(stack)) >= get_prec(operator)) {
+                    ast_expr_operator_t* oper = pop_ptr_lst(stack);
+                    if(oper != NULL) {
+                        TRACE("transfer token: %s", token_type_to_str(oper->oper));
+                        append_ptr_lst(queue, oper);
                     }
-                    push_ptr_lst(stack, operator);
-                    TRACE("push token: %s", token_type_to_str(operator->oper));
-                    consume_token();
-                    state = 6;
+                    else 
+                        break;
                 }
-                case_4_error:
+                TRACE("push token: %s", token_type_to_str(operator->oper));
+                push_ptr_lst(stack, operator);
+                consume_token();
+                state = 6;
                 break;
 
             case 5: 
                 // handle close paren
                 TRACE_STATE;
-                {
-                    ast_expr_operator_t* oper;
-                    int count = 0; 
-                    while(NULL != (oper = peek_ptr_lst(stack))) {
-                        TRACE("oper: %d: %p", count, oper);
-                        if(TOK_OPAREN == get_oper_type(oper)) {
-                            TRACE("pop token: %s", token_type_to_str(oper->oper));
-                            pop_ptr_lst(stack); // discard the OPAREN
-                            state = 6;
-                            break;
-                        }
-                        else {
-                            TRACE("transfer token: %s", token_type_to_str(oper->oper));
-                            append_ptr_lst(queue, pop_ptr_lst(stack));
-                            count++;
-                        }
+                // }
+                if(paren_count < 0) {
+                    // end of the expression
+                    state = 100;
+                }
+                else {
+                    ast_expr_operator_t* oper = peek_ptr_lst(stack);
+                    while(oper != NULL && get_oper_type(oper) != TOK_OPAREN) {
+                        oper = pop_ptr_lst(stack);
+                        TRACE("transfer token: %s", token_type_to_str(oper->oper));
+                        append_ptr_lst(queue, oper);
                     }
-
-                    if(oper == NULL && count > 0) {
-                        SYNTAX("imbalanced parenthesis");
-                        state = 102;
-                    }
-                    else if(count != 0) {
-                        consume_token();
-                        state = 6;
-                    }
-                    else 
-                        state = 100;
+                    pop_ptr_lst(stack);
+                    consume_token();
+                    state = 6;
+                    
                 }
                 break;
 
             case 6:
-                // a operand or an operator are correct after an operator
+                // a operand or a unary operator are correct after an operator
                 TRACE_STATE;
                 if(NULL != (operand = parse_expr_operand(pstate))) {
                     flag = false;
@@ -352,7 +331,10 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 // only an operator is correct after an operand.
                 TRACE_STATE;
                 if(NULL != (operator = parse_expr_operator(pstate))) {
-                    state = 2;
+                    if(NULL == check_operator(operator))
+                        state = 102;
+                    else 
+                        state = 2;
                 }
                 else {
                     // not a match marks end of the production
@@ -365,11 +347,6 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 TRACE_STATE;
                 while(NULL != peek_ptr_lst(stack)) {
                     ast_expr_operator_t* tmp = pop_ptr_lst(stack);
-                    if(TOK_OPAREN == get_oper_type(tmp)) {
-                        SYNTAX("imbalanced parenthesis");
-                        state = 102;
-                        goto case_100_error;
-                    }
                     TRACE("transfer token: %s", token_type_to_str(tmp->oper));
                     append_ptr_lst(queue, tmp);
                 }
@@ -377,7 +354,6 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 node = (ast_expression_t*)create_ast_node(AST_EXPRESSION);
                 node->list = queue;
                 finished = true;
-                case_100_error:
                 break;
 
             case 101:

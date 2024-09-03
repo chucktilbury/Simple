@@ -51,8 +51,8 @@ ast_else_clause_t* parse_else_clause(parser_state_t* pstate) {
                     state = 2;
                 }
                 else {
-                    EXPECTED("a '('");
-                    state = 102;
+                    //EXPECTED("a '('");
+                    state = 101;
                 }
                 break;
 
