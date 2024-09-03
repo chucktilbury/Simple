@@ -95,6 +95,8 @@ typedef enum {
     TOK_CARAT,
     TOK_PIPE,
     TOK_AMPERSAND,
+    TOK_TRUE,
+    TOK_FALSE,
 
     // determined by the parser
     TOK_UNARY_MINUS,
