@@ -7,6 +7,7 @@
         "CPBRACE",
         "crnt",
         "CSBRACE",
+        "DMEMORY",
         "dquote",
         "DSTR",
         "fecl",
@@ -16,11 +17,15 @@
         "NEQU",
         "ntok",
         "OCBRACE",
+        "Ofast",
         "OPAREN",
         "OPBRACE",
         "OSBRACE",
         "squote",
+        "STREQUAL",
         "strg",
-        "tqueue"
+        "tqueue",
+        "Wextra",
+        "Wpedantic"
     ]
 }

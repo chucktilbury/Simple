@@ -3,7 +3,7 @@
  */
 #include "common.h"
 #include "cmdline.h"
-
+#include "trace.h"
 
 void init(int argc, char** argv) {
 
@@ -39,6 +39,9 @@ void init(int argc, char** argv) {
 
 // #include "regurg.h"
 int main(int argc, char** argv) {
+
+    INIT_TRACE();
+    PUSH_TRACE_STATE(TRACE_ON);
 
     init(argc, argv);
     // terms  = create_str_lst();

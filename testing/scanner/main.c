@@ -18,6 +18,9 @@ void print_token(Token* tok) {
 
 int main(int argc, char** argv) {
 
+    INIT_TRACE();
+    PUSH_TRACE_STATE(TRACE_ON);
+    
     ENTER;
 
     init_cmdline("Scanner Test Program", "", "Scanner Test", "0.0.0");
