@@ -32,6 +32,7 @@ void error(ErrorType type, Token* tok, const char* func, const char* fmt, ...);
 void expected(const char* str);
 int get_errors(void);
 int get_warnings(void);
+void recover_error(void);
 
 #endif /* _ERRORS_H_ */
 

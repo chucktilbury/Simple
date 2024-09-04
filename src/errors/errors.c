@@ -95,3 +95,10 @@ int get_warnings(void) {
     return warnings;
 }
 
+void recover_error(void) {
+
+    //SYNTAX("Syntax error");
+    fprintf(stderr, "Syntax Error\n");
+    exit(1);
+}
+

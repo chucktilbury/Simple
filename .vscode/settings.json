@@ -21,6 +21,7 @@
         "OPAREN",
         "OPBRACE",
         "OSBRACE",
+        "PMODE",
         "squote",
         "STREQUAL",
         "strg",

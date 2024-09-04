@@ -13,21 +13,33 @@
 
 #include "cmdline.h"
 
-void recover_error(void) {
-
-    //SYNTAX("Syntax error");
-    fprintf(stderr, "Syntax Error\n");
-    exit(1);
-}
-
 parser_state_t* init_parser(void) {
 
     parser_state_t* pstate = _ALLOC_DS(parser_state_t);
-    pstate->mode = 0;
+    pstate->mode = create_link_list();
+    ParserMode mode = PMODE_NORMAL;
+    push_link_list(pstate->mode, _DUP_DS(&mode, ParserMode));
 
     init_scanner(get_cmdline("list of files"));
 
     return pstate;
+}
+
+void push_parser_mode(parser_state_t* state, ParserMode mode) {
+
+    push_link_list(state->mode, _DUP_DS(&mode, ParserMode));
+}
+
+ParserMode pop_parser_mode(parser_state_t* state) {
+
+    ParserMode* mode = pop_link_list(state->mode);
+    return *mode;
+}
+
+ParserMode peek_parser_mode(parser_state_t* state) {
+
+    ParserMode* mode = peek_link_list(state->mode);
+    return *mode;
 }
 
 ast_module_t* parse(void) {

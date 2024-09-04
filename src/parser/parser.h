@@ -10,9 +10,16 @@
 #define _PARSER_H_
 
 #include "ast.h"
+#include "common.h"
+
+typedef enum {
+    PMODE_NORMAL,
+    PMODE_INCLUDE,
+    PMODE_IMPORT,
+} ParserMode;
 
 typedef struct {
-    int mode;
+    LinkList* mode;
 } parser_state_t;
 
 #include "parser_prototypes.h"
@@ -24,8 +31,11 @@ typedef struct {
 #define TRACE_STATE
 #endif
 
-void recover_error(void);
 ast_module_t* parse(void);
+
+void push_parser_mode(parser_state_t* state, ParserMode mode);
+ParserMode pop_parser_mode(parser_state_t* state);
+ParserMode peek_parser_mode(parser_state_t* state);
 
 #endif  /* _PARSER_H_ */
 
