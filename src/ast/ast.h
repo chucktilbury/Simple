@@ -1174,6 +1174,12 @@ typedef struct _ast_final_clause_ {
         }\
     } while(0)
 
+#define TRACE_TERMINAL(t) do { \
+        TRACE("%s '%s': %d: %d: %s", token_type_to_str(t), \
+                raw_string(t->str), \
+                t->line_no, t->col_no, t->fname); \
+    } while (0)
+
 typedef void (*AstFuncPtr)(ast_node_t* node);
 ast_node_t* create_ast_node(AstNodeType type);
 void traverse_ast(ast_module_t* node, AstFuncPtr pre, AstFuncPtr post);

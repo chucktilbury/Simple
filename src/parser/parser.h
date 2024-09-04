@@ -12,14 +12,29 @@
 #include "ast.h"
 #include "common.h"
 
+typedef struct _parser_context_t_ {
+    String* name;
+    HashTable* children;
+    struct _parser_context_t_* parent;
+} parser_context_t;
+
 typedef enum {
     PMODE_NORMAL,
     PMODE_INCLUDE,
     PMODE_IMPORT,
 } ParserMode;
 
+typedef enum {
+    PSCOPE_PRIVATE,
+    PSCOPE_PUBLIC,
+    PSCOPE_PROTECTED,
+} ParserScope;
+
 typedef struct {
     LinkList* mode;
+    LinkList* scope;
+    parser_context_t* context;
+    parser_context_t* crnt_context;
 } parser_state_t;
 
 #include "parser_prototypes.h"
@@ -35,7 +50,18 @@ ast_module_t* parse(void);
 
 void push_parser_mode(parser_state_t* state, ParserMode mode);
 ParserMode pop_parser_mode(parser_state_t* state);
-ParserMode peek_parser_mode(parser_state_t* state);
+ParserMode get_parser_mode(parser_state_t* state);
+
+void push_parser_scope(parser_state_t* state, ParserScope scope);
+void set_parser_scope(parser_state_t* state, ParserScope scope);
+ParserScope pop_parser_scope(parser_state_t* state);
+ParserScope get_parser_scope(parser_state_t* state);
+
+parser_context_t* create_context(parser_context_t* crnt, String* name);
+void push_parser_context(parser_state_t* state, parser_context_t* context);
+parser_context_t* pop_parser_context(parser_state_t* state);
+parser_context_t* get_parser_context(parser_state_t* state);
+String* get_parser_context_string(parser_state_t* state);
 
 #endif  /* _PARSER_H_ */
 

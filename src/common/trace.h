@@ -39,7 +39,7 @@ void trace_enter(const char* func);
 void trace_return(const char* func, size_t val);
 void trace(const char* func, const char* fmt, ...);
 void push_trace_state(TraceState val);
-void pop_trace_state(void);
+TraceState pop_trace_state(void);
 
 #endif /* _TRACE_H_ */
 

@@ -24,6 +24,9 @@ void traverse_import_statement(ast_import_statement_t* node, AstFuncPtr pre, Ast
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE_TERMINAL(node->ident);
+    traverse_formatted_strg(node->str, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

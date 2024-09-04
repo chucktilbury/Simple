@@ -18,9 +18,9 @@ static int indent = 0;
 #include "llist.h"
 #include "trace.h"
 #include "myassert.h"
+#include "memory.h"
 
 static LinkList* stack = NULL;
-static TraceState state = TRACE_OFF; //  off by default
 
 static inline void pad(void) {
 
@@ -32,7 +32,8 @@ void init_trace(void) {
 
     if(stack == NULL) {
         stack = create_link_list();
-        push_link_list(stack, &state);
+        TraceState state = TRACE_OFF;
+        push_link_list(stack, _DUP_DS(&state, TraceState));
     }
     // else do nothing
 }
@@ -82,14 +83,13 @@ void push_trace_state(TraceState val) {
 
     ASSERT_MSG(stack != NULL, "trace is not initialized");
 
-    state = val;
-    push_link_list(stack , &state);
+    push_link_list(stack , _DUP_DS(&val, TraceState));
 }
 
-void pop_trace_state(void) {
+TraceState pop_trace_state(void) {
 
     ASSERT_MSG(stack != NULL, "trace is not initialized");
 
-    // throw away the value
-    pop_link_list(stack);
+    TraceState* s = pop_link_list(stack);
+    return *s;
 }
