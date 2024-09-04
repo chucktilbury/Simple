@@ -18,3 +18,4 @@ The debugger information will be implemented as text messages sent over an ether
 ## Things to fix.
 
 * Need to differentiate between a loop body and a function body. A loop body adds the keywords of "break", and "continue". Those cannot appear outside of a loop. Also note that the "yield" keyword has a different meaning inside a loop than it does outside of it. Maybe it is a loop-only construct. Yield keyword is for implementing iterators and it may not have a meaning outside of a loop.
+* Make tracing controllable from the command line. Unify the testing functionality into the main executable. The trace capability needs to be a stack so that the different subsystems can be isolated for trace.
