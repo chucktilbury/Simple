@@ -18,9 +18,9 @@ add_executable(${PROJECT_NAME}
 
 target_link_libraries(${PROJECT_NAME}
     parser
-    errors
     scanner
     ast
+    errors
     common
     gc
     pthread
