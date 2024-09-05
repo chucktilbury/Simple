@@ -7,6 +7,7 @@ include_directories(
     "${PROJECT_SOURCE_DIR}/../tokens"
     "${PROJECT_SOURCE_DIR}/../parser"
     "${PROJECT_SOURCE_DIR}/../errors"
+    "${PROJECT_SOURCE_DIR}/../symbols"
     "/usr/local/include"
 )
 

@@ -9,7 +9,7 @@ include_directories(
     "${PROJECT_SOURCE_DIR}/../../src/tokens"
     "${PROJECT_SOURCE_DIR}/../../src/parser"
     "${PROJECT_SOURCE_DIR}/../../src/errors"
-    "${PROJECT_BINARY_DIR}/../tokens"
+    "${PROJECT_SOURCE_DIR}/../../src/symbols"
 )
 
 add_executable(${PROJECT_NAME}

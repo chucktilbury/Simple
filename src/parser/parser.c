@@ -25,9 +25,6 @@ parser_state_t* init_parser(void) {
     ParserScope scope = PSCOPE_PRIVATE;
     push_link_list(pstate->scope, _DUP_DS(&scope, ParserScope));
 
-    pstate->context = NULL; //create_context(NULL, "root");
-    pstate->crnt_context = pstate->context;
-
     init_scanner(get_cmdline("list of files"));
 
     return pstate;

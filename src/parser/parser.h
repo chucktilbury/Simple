@@ -12,12 +12,6 @@
 #include "ast.h"
 #include "common.h"
 
-typedef struct _parser_context_t_ {
-    String* name;
-    HashTable* children;
-    struct _parser_context_t_* parent;
-} parser_context_t;
-
 typedef enum {
     PMODE_NORMAL,
     PMODE_INCLUDE,
@@ -30,11 +24,13 @@ typedef enum {
     PSCOPE_PROTECTED,
 } ParserScope;
 
+#include "symbols.h"
+
 typedef struct {
     LinkList* mode;
     LinkList* scope;
-    parser_context_t* context;
-    parser_context_t* crnt_context;
+    struct _symbol_t_* sym_tab;
+    struct _symbol_t_* crnt_sym;
 } parser_state_t;
 
 #include "parser_prototypes.h"
@@ -56,12 +52,6 @@ void push_parser_scope(parser_state_t* state, ParserScope scope);
 void set_parser_scope(parser_state_t* state, ParserScope scope);
 ParserScope pop_parser_scope(parser_state_t* state);
 ParserScope get_parser_scope(parser_state_t* state);
-
-parser_context_t* create_context(parser_context_t* crnt, String* name);
-void push_parser_context(parser_state_t* state, parser_context_t* context);
-parser_context_t* pop_parser_context(parser_state_t* state);
-parser_context_t* get_parser_context(parser_state_t* state);
-String* get_parser_context_string(parser_state_t* state);
 
 #endif  /* _PARSER_H_ */
 
