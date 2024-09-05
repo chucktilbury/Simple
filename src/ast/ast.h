@@ -325,7 +325,7 @@ typedef struct _ast_var_decl_list_ {
  */
 typedef struct _ast_function_assignment_ {
     ast_node_t node;
-    struct _ast_compound_name_* name;
+    struct _ast_compound_reference_* name;
     struct _ast_type_name_list_* inp;
     struct _ast_type_name_list_* outp;
 } ast_function_assignment_t;
@@ -788,8 +788,6 @@ typedef struct _ast_create_definition_ {
  */
 typedef struct _ast_destroy_name_ {
     ast_node_t node;
-    // actual name, including the 'destroy'
-    String* name;
     // list of identifiers
     PtrLst* ident;
 } ast_destroy_name_t;
@@ -1176,9 +1174,14 @@ typedef struct _ast_final_clause_ {
     } while(0)
 
 #define TRACE_TERMINAL(t) do { \
-        TRACE("%s '%s': %d: %d: %s", token_type_to_str(t), \
-                raw_string(t->str), \
-                t->line_no, t->col_no, t->fname); \
+        if((t) != NULL) { \
+            TRACE("%s is %s '%s': %d: %d: %s", #t, token_type_to_str(t), \
+                    raw_string(t->str), \
+                    t->line_no, t->col_no, t->fname); \
+        } \
+        else { \
+            TRACE("%s is a NULL TERMINAL", #t); \
+        } \
     } while (0)
 
 typedef void (*AstFuncPtr)(ast_node_t* node);

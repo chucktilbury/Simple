@@ -29,7 +29,7 @@ ast_function_assignment_t* parse_function_assignment(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_compound_name_t* name;
+    ast_compound_reference_t* name;
     ast_type_name_list_t* inp;
     ast_type_name_list_t* outp;
 
@@ -37,7 +37,7 @@ ast_function_assignment_t* parse_function_assignment(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 TRACE_STATE;
-                if(NULL != (name = parse_compound_name(pstate))) 
+                if(NULL != (name = parse_compound_reference(pstate))) 
                     state = 1;
                 else
                     state = 101;

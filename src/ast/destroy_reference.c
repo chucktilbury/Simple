@@ -24,6 +24,8 @@ void traverse_destroy_reference(ast_destroy_reference_t* node, AstFuncPtr pre, A
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_destroy_name(node->name, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

@@ -25,6 +25,11 @@ void traverse_compound_ref_item(ast_compound_ref_item_t* node, AstFuncPtr pre, A
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    if(node->name != NULL)
+        TRACE_TERMINAL(node->name);
+    else
+        traverse_array_reference(node->ref, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

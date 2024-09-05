@@ -24,6 +24,9 @@ void traverse_var_decl(ast_var_decl_t* node, AstFuncPtr pre, AstFuncPtr post) {
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE_TERMINAL(node->ident);
+    traverse_type_name(node->type, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

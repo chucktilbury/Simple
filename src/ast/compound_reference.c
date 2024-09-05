@@ -24,6 +24,12 @@ void traverse_compound_reference(ast_compound_reference_t* node, AstFuncPtr pre,
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    ast_compound_ref_item_t* ref;
+    int mark = 0;
+
+    while(NULL != (ref = iterate_ptr_lst(node->list, &mark)))
+        traverse_compound_ref_item(ref, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

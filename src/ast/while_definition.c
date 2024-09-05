@@ -24,6 +24,9 @@ void traverse_while_definition(ast_while_definition_t* node, AstFuncPtr pre, Ast
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    if(node->expr != NULL)
+        traverse_expression(node->expr, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

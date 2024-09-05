@@ -24,6 +24,8 @@ void traverse_yield_statement(ast_yield_statement_t* node, AstFuncPtr pre, AstFu
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_compound_reference(node->arg, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

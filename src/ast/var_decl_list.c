@@ -23,7 +23,13 @@ void traverse_var_decl_list(ast_var_decl_list_t* node, AstFuncPtr pre, AstFuncPt
 
     ENTER;
     CALL_NODE_FUNC(pre);
+    
+    ast_var_decl_t* vd;
+    int mark = 0;
 
+    while(NULL != (vd = iterate_ptr_lst(node->list, &mark)))
+        traverse_var_decl(vd, pre, post);
+    
     CALL_NODE_FUNC(post);
     RET;
 }

@@ -24,6 +24,12 @@ void traverse_array_param_list(ast_array_param_list_t* node, AstFuncPtr pre, Ast
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    ast_array_param_t* pa;
+    int mark = 0;
+
+    while(NULL != (pa = iterate_ptr_lst(node->ptr, &mark)))
+        traverse_array_param(pa, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

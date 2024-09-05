@@ -24,6 +24,8 @@ void traverse_type_statement(ast_type_statement_t* node, AstFuncPtr pre, AstFunc
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_compound_reference(node->arg, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

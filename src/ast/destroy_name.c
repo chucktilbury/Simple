@@ -24,6 +24,12 @@ void traverse_destroy_name(ast_destroy_name_t* node, AstFuncPtr pre, AstFuncPtr 
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    Token* tok;
+    int mark = 0;
+
+    while(NULL != (tok = iterate_ptr_lst(node->ident, &mark)))
+        TRACE_TERMINAL(tok);
+
     CALL_NODE_FUNC(post);
     RET;
 }

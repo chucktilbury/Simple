@@ -24,6 +24,12 @@ void traverse_expression_list(ast_expression_list_t* node, AstFuncPtr pre, AstFu
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    ast_expression_t* ex; 
+    int mark = 0;
+
+    while(NULL != (ex = iterate_ptr_lst(node->list, &mark)))
+        traverse_expression(ex, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

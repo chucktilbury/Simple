@@ -24,6 +24,12 @@ void traverse_compound_name(ast_compound_name_t* node, AstFuncPtr pre, AstFuncPt
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    Token* id;
+    int mark = 0;
+
+    while(NULL != (id = iterate_ptr_lst(node->list, &mark)))
+        TRACE_TERMINAL(id);
+
     CALL_NODE_FUNC(post);
     RET;
 }

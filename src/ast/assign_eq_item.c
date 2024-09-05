@@ -25,6 +25,17 @@ void traverse_assign_eq_item(ast_assign_eq_item_t* node, AstFuncPtr pre, AstFunc
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    switch(nterm_type(node->ptr)) {
+        case AST_ASSIGNMENT_ITEM:
+            traverse_assignment_item((ast_assignment_item_t*)(node->ptr), pre, post);
+            break;
+        case AST_COMPOUND_REFERENCE:
+            traverse_compound_reference((ast_compound_reference_t*)(node->ptr), pre, post);
+            break;
+        default:
+            FATAL("unknown ast node type: %s", nterm_type_to_str(node->ptr));
+    }
+
     CALL_NODE_FUNC(post);
     RET;
 }

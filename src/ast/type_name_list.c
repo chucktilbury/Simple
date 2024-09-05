@@ -24,6 +24,12 @@ void traverse_type_name_list(ast_type_name_list_t* node, AstFuncPtr pre, AstFunc
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    ast_type_name_t* tn;
+    int mark = 0;
+
+    while(NULL != (tn = iterate_ptr_lst(node->list, &mark)))
+        traverse_type_name(tn, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

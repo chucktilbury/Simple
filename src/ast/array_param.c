@@ -24,6 +24,8 @@ void traverse_array_param(ast_array_param_t* node, AstFuncPtr pre, AstFuncPtr po
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_array_param_item(node->item, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

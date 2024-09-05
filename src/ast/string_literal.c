@@ -25,6 +25,11 @@ void traverse_string_literal(ast_string_literal_t* node, AstFuncPtr pre, AstFunc
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    if(node->fstr != NULL)        
+        traverse_formatted_strg(node->fstr, pre, post);
+
+    TRACE_TERMINAL(node->lstr);
+
     CALL_NODE_FUNC(post);
     RET;
 }

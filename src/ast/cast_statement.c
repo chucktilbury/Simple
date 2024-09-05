@@ -24,6 +24,9 @@ void traverse_cast_statement(ast_cast_statement_t* node, AstFuncPtr pre, AstFunc
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_type_name(node->type, pre, post);
+    traverse_expression(node->expr, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

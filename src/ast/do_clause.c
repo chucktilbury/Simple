@@ -24,6 +24,9 @@ void traverse_do_clause(ast_do_clause_t* node, AstFuncPtr pre, AstFuncPtr post) 
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_while_definition(node->expr, pre, post);
+    traverse_function_body(node->body, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

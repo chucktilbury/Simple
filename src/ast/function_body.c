@@ -24,6 +24,12 @@ void traverse_function_body(ast_function_body_t* node, AstFuncPtr pre, AstFuncPt
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    ast_function_body_element_t* ele;
+    int mark = 0;
+
+    while(NULL != (ele = iterate_ptr_lst(node->list, &mark)))
+        traverse_function_body_element(ele, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

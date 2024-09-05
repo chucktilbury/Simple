@@ -26,6 +26,20 @@ void traverse_assignment_item(ast_assignment_item_t* node, AstFuncPtr pre, AstFu
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    switch(nterm_type(node->ptr)) {
+        case AST_EXPRESSION:
+            traverse_expression((ast_expression_t*)(node->ptr), pre, post);
+            break;
+        case AST_LIST_INIT:
+            traverse_list_init((ast_list_init_t*)(node->ptr), pre, post);
+            break;
+        case AST_FUNCTION_ASSIGNMENT:
+            traverse_function_assignment((ast_function_assignment_t*)(node->ptr), pre, post);
+            break;
+        default:
+            FATAL("unknown ast node type: %s", nterm_type_to_str(node->ptr));
+    }
+
     CALL_NODE_FUNC(post);
     RET;
 }

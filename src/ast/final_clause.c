@@ -24,6 +24,9 @@ void traverse_final_clause(ast_final_clause_t* node, AstFuncPtr pre, AstFuncPtr 
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE_TERMINAL(node->id1);
+    traverse_function_body(node->body, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

@@ -24,6 +24,9 @@ void traverse_array_reference(ast_array_reference_t* node, AstFuncPtr pre, AstFu
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE_TERMINAL(node->ident);
+    traverse_array_param_list(node->list, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

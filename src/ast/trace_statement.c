@@ -24,6 +24,8 @@ void traverse_trace_statement(ast_trace_statement_t* node, AstFuncPtr pre, AstFu
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_string_literal(node->str, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

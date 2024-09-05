@@ -24,6 +24,17 @@ void traverse_if_clause(ast_if_clause_t* node, AstFuncPtr pre, AstFuncPtr post) 
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_expression(node->expr, pre, post);
+    traverse_function_body(node->body, pre, post);
+
+    ast_else_clause_t* ec;
+    int mark = 0;
+
+    while(NULL != (ec = iterate_ptr_lst(node->ecl, &mark)))
+        traverse_else_clause(ec, pre, post);
+
+    traverse_final_else_clause(node->fecl, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

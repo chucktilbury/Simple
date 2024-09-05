@@ -24,6 +24,10 @@ void traverse_except_clause(ast_except_clause_t* node, AstFuncPtr pre, AstFuncPt
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE_TERMINAL(node->id1);
+    TRACE_TERMINAL(node->id2);
+    traverse_function_body(node->body, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

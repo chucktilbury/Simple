@@ -24,6 +24,12 @@ void traverse_function_definition(ast_function_definition_t* node, AstFuncPtr pr
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE("is_virtual = %s", node->is_virtual? "true": "false");
+    traverse_compound_name(node->name, pre, post);
+    traverse_var_decl_list(node->inp, pre, post);
+    traverse_var_decl_list(node->outp, pre, post);
+    traverse_function_body(node->body, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

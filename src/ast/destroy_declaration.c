@@ -24,6 +24,8 @@ void traverse_destroy_declaration(ast_destroy_declaration_t* node, AstFuncPtr pr
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE("is_virtual = %s", node->is_virtual? "true": "false");
+
     CALL_NODE_FUNC(post);
     RET;
 }

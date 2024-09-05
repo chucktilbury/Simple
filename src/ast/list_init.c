@@ -24,6 +24,12 @@ void traverse_list_init(ast_list_init_t* node, AstFuncPtr pre, AstFuncPtr post) 
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    ast_list_init_element_t* el;
+    int mark = 0;
+
+    while(NULL != (el = iterate_ptr_lst(node->list, &mark)))
+        traverse_list_init_element(el, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

@@ -25,6 +25,8 @@ void traverse_list_init_str(ast_list_init_str_t* node, AstFuncPtr pre, AstFuncPt
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE_TERMINAL(node->str);
+
     CALL_NODE_FUNC(post);
     RET;
 }

@@ -30,6 +30,8 @@ void traverse_literal_type_name(ast_literal_type_name_t* node, AstFuncPtr pre, A
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE_TERMINAL(node->tok);
+
     CALL_NODE_FUNC(post);
     RET;
 }

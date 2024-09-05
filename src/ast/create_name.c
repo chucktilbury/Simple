@@ -24,6 +24,12 @@ void traverse_create_name(ast_create_name_t* node, AstFuncPtr pre, AstFuncPtr po
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    Token* tok;
+    int mark = 0;
+
+    while(NULL != (tok = iterate_ptr_lst(node->ident, &mark)))
+        TRACE_TERMINAL(tok);
+
     CALL_NODE_FUNC(post);
     RET;
 }

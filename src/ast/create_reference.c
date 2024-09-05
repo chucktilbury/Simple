@@ -24,6 +24,9 @@ void traverse_create_reference(ast_create_reference_t* node, AstFuncPtr pre, Ast
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_create_name(node->name, pre, post);
+    traverse_expression_list(node->inp, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

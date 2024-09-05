@@ -24,6 +24,10 @@ void traverse_function_assignment(ast_function_assignment_t* node, AstFuncPtr pr
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_compound_reference(node->name, pre, post);
+    traverse_type_name_list(node->inp, pre, post);
+    traverse_type_name_list(node->outp, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

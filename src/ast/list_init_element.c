@@ -25,6 +25,10 @@ void traverse_list_init_element(ast_list_init_element_t* node, AstFuncPtr pre, A
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    if(node->str != NULL)
+        traverse_list_init_str(node->str, pre, post);
+    traverse_assignment_item(node->item, pre, post);        
+
     CALL_NODE_FUNC(post);
     RET;
 }

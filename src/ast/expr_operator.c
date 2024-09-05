@@ -27,6 +27,8 @@ void traverse_expr_operator(ast_expr_operator_t* node, AstFuncPtr pre, AstFuncPt
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    TRACE_TERMINAL(node->oper);
+
     CALL_NODE_FUNC(post);
     RET;
 }

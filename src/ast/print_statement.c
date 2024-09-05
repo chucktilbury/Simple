@@ -24,6 +24,8 @@ void traverse_print_statement(ast_print_statement_t* node, AstFuncPtr pre, AstFu
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_expression_list(node->ptr, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

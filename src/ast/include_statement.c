@@ -24,6 +24,8 @@ void traverse_include_statement(ast_include_statement_t* node, AstFuncPtr pre, A
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    traverse_formatted_strg(node->str, pre, post);
+
     CALL_NODE_FUNC(post);
     RET;
 }

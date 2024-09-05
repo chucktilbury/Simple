@@ -25,6 +25,17 @@ void traverse_type_name(ast_type_name_t* node, AstFuncPtr pre, AstFuncPtr post) 
     ENTER;
     CALL_NODE_FUNC(pre);
 
+    switch(nterm_type(node->ptr)) {
+        case AST_LITERAL_TYPE_NAME:
+            traverse_literal_type_name((ast_literal_type_name_t*)(node->ptr), pre, post);
+            break;
+        case AST_COMPOUND_NAME:
+            traverse_compound_name((ast_compound_name_t*)(node->ptr), pre, post);
+            break;
+        default:
+            FATAL("unknown ast node type: %s", nterm_type_to_str(node->ptr));
+    }
+
     CALL_NODE_FUNC(post);
     RET;
 }
