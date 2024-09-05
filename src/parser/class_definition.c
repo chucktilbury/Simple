@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * class_definition
- *     : 'class' IDENT ( '(' ( type_name )? ')' )? '{' ( class_item )+ '}'
+ *   : 'class' IDENT ( '(' ( compound_name 'as' IDENT )? ')' )? '{' ( class_item )+ '}'
  *     ;
  */
 ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
@@ -30,7 +30,8 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     Token* name;
-    ast_type_name_t* inher;
+    Token* as_name;
+    ast_compound_name_t* inher;
     PtrLst* list = create_ptr_lst();
     ast_class_item_t* item;
 
@@ -68,19 +69,46 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
                     state = 3;
                 }
                 else
-                    state = 5;
+                    state = 7;
                 break;
 
             case 3:
                 // optional compound name
                 TRACE_STATE;
-                if(NULL != (inher = parse_type_name(pstate)))
+                if(NULL != (inher = parse_compound_name(pstate)))
                     state = 4;
                 else
-                    state = 4; // yep. they at the same
+                    state = 6;
                 break;
 
             case 4:
+                // required AS keyword
+                TRACE_STATE;
+                if(TOK_AS == TTYPE) {
+                    consume_token();
+                    state = 5;
+                }
+                else {
+                    EXPECTED("the 'as' keyword");
+                    state = 102;
+                }
+                break;
+
+            case 5:
+                // required IDENT
+                TRACE_STATE;
+                if(TOK_IDENT == TTYPE) {
+                    as_name = copy_token(get_token());
+                    consume_token();
+                    state = 6;
+                }
+                else {
+                    EXPECTED("an identifier");
+                    state = 102;
+                }
+                break;
+
+            case 6:
                 // required close paren
                 TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
@@ -93,12 +121,12 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
                 }
                 break;
 
-            case 5:
+            case 7:
                 // required open curly brace
                 TRACE_STATE;
                 if(TOK_OCBRACE == TTYPE) {
                     consume_token();
-                    state = 6;
+                    state = 8;
                 }
                 else {
                     EXPECTED("a '{'");
@@ -106,12 +134,12 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
                 }
                 break;
 
-            case 6:
+            case 8:
                 // required first class item
                 TRACE_STATE;
                 if(NULL != (item = parse_class_item(pstate))) {
                     append_ptr_lst(list, item);
-                    state = 7;
+                    state = 9;
                 }
                 else {
                     EXPECTED("a valid class item");
@@ -119,16 +147,16 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
                 }
                 break;
 
-            case 7:
+            case 9:
                 // optional additional class items
                 TRACE_STATE;
                 if(NULL != (item = parse_class_item(pstate)))
                     append_ptr_lst(list, item);
                 else
-                    state = 8;
+                    state = 10;
                 break;
 
-            case 8:
+            case 10:
                 // required close curly brace
                 TRACE_STATE;
                 if(TOK_CCBRACE == TTYPE) {
@@ -146,6 +174,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
                 TRACE_STATE;
                 node = (ast_class_definition_t*)create_ast_node(AST_CLASS_DEFINITION);
                 node->name = name;
+                node->as_name = as_name;
                 node->inher = inher;
                 node->list = list;
                 finished = true;

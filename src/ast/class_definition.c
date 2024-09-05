@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * class_definition
- *     : 'class' IDENT ( '(' ( type_name )? ')' )? '{' ( class_item )+ '}'
+    : 'class' IDENT ( '(' ( type_name 'as' IDENT )? ')' )? '{' ( class_item )+ '}'
  *     ;
  */
 void traverse_class_definition(ast_class_definition_t* node, AstFuncPtr pre, AstFuncPtr post) {

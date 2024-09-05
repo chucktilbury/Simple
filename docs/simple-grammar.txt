@@ -215,7 +215,7 @@ namespace_definition
     ;
 
 class_definition
-    : 'class' IDENT ( '(' ( type_name )? ')' )? '{' ( class_item )+ '}'
+    : 'class' IDENT ( '(' ( compound_name 'as' IDENT )? ')' )? '{' ( class_item )+ '}'
     ;
 
 class_item

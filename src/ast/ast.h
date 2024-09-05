@@ -658,14 +658,15 @@ typedef struct _ast_namespace_definition_ {
  * Grammar production:
  *
  * class_definition
- *     : 'class' IDENT ( '(' ( type_name )? ')' )? '{' ( class_item )+ '}'
+ *   : 'class' IDENT ( '(' ( compound_name 'as' IDENT )? ')' )? '{' ( class_item )+ '}'
  *     ;
  */
 typedef struct _ast_class_definition_ {
     ast_node_t node;
     Token* name;
     // could be NULL
-    struct _ast_type_name_* inher;
+    struct _ast_compound_name_* inher;
+    Token* as_name;
     // list of class items
     PtrLst* list;
 } ast_class_definition_t;

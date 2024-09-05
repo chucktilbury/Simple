@@ -24,6 +24,7 @@
         "PMODE",
         "PSCOPE",
         "squote",
+        "SSTR",
         "STREQUAL",
         "strg",
         "tqueue",
