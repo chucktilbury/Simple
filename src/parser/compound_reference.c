@@ -72,6 +72,7 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE;
                 node = (ast_compound_reference_t*)create_ast_node(AST_COMPOUND_REFERENCE);
+                node->list = list;
                 finished = true;
                 break;
 

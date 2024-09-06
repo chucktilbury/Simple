@@ -30,8 +30,8 @@ ast_string_literal_t* parse_string_literal(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* lstr;
-    ast_formatted_strg_t* fstr;
+    Token* lstr = NULL;
+    ast_formatted_strg_t* fstr = NULL;
 
     while(!finished) {
         switch(state) {

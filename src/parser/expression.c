@@ -38,61 +38,62 @@ static inline TokenType get_oper_type(ast_expr_operator_t* oper) {
  */
 static int get_prec(ast_expr_operator_t* oper) {
 
-    if(oper == NULL)
-        return 1000;
-
+    ENTER;
     int prec = 0;
 
-    switch(get_oper_type(oper)) {
-        case TOK_OR:
-        case TOK_PIPE:
-            prec = 10;
-            break;
-        case TOK_AND:
-        case TOK_AMPERSAND:
-            prec = 20;
-            break;
-        case TOK_EQU:
-        case TOK_NEQU:
-        case TOK_EQUAL_EQUAL:
-        case TOK_BANG_EQUAL:
-            prec = 30;
-            break;
-        case TOK_LTE:
-        case TOK_GTE:
-        case TOK_OPBRACE_EQUAL:
-        case TOK_CPBRACE_EQUAL:
-        case TOK_LT:
-        case TOK_GT:
-        case TOK_OPBRACE:
-        case TOK_CPBRACE:
-            prec = 40;
-            break;
-        case TOK_PLUS:
-        case TOK_MINUS:
-            prec = 50;
-            break;
-        case TOK_SLASH:
-        case TOK_STAR:
-        case TOK_PERCENT:
-            prec = 60;
-            break;
-        case TOK_CARAT:
-            prec = 70;
-            break;
-        case TOK_NOT:
-        case TOK_BANG:
-        case TOK_UNARY_MINUS:
-            prec = 80;
-            break;
-        default:
-            // no precedence
-            TRACE("no precedence");
-            prec = 0;
-            break;
+    if(oper != NULL) {
+        switch(get_oper_type(oper)) {
+            case TOK_OR:
+            case TOK_PIPE:
+                prec = 10;
+                break;
+            case TOK_AND:
+            case TOK_AMPERSAND:
+                prec = 20;
+                break;
+            case TOK_EQU:
+            case TOK_NEQU:
+            case TOK_EQUAL_EQUAL:
+            case TOK_BANG_EQUAL:
+                prec = 30;
+                break;
+            case TOK_LTE:
+            case TOK_GTE:
+            case TOK_OPBRACE_EQUAL:
+            case TOK_CPBRACE_EQUAL:
+            case TOK_LT:
+            case TOK_GT:
+            case TOK_OPBRACE:
+            case TOK_CPBRACE:
+                prec = 40;
+                break;
+            case TOK_PLUS:
+            case TOK_MINUS:
+                prec = 50;
+                break;
+            case TOK_SLASH:
+            case TOK_STAR:
+            case TOK_PERCENT:
+                prec = 60;
+                break;
+            case TOK_CARAT:
+                prec = 70;
+                break;
+            case TOK_NOT:
+            case TOK_BANG:
+            case TOK_UNARY_MINUS:
+                prec = 80;
+                break;
+            default:
+                // no precedence
+                TRACE("no precedence");
+                prec = 0;
+                break;
+        }
     }
+
     TRACE("prec: %d", prec);
-    return prec;
+    RETURN(prec);
 }
 
 /**
@@ -296,13 +297,17 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 }
                 else {
                     ast_expr_operator_t* oper = peek_ptr_lst(stack);
-                    while(oper != NULL && get_oper_type(oper) != TOK_OPAREN) {
-                        if(NULL != (oper = pop_ptr_lst(stack))) {
-                            TRACE("transfer token: %s", token_type_to_str(oper->oper));
-                            append_ptr_lst(queue, oper);
+                    while(oper != NULL) {
+                        oper = pop_ptr_lst(stack);
+                        if(oper != NULL) {
+                            if(get_oper_type(oper) != TOK_OPAREN) {
+                                TRACE("transfer token: %s", token_type_to_str(oper->oper));
+                                append_ptr_lst(queue, oper);
+                            }
+                            else 
+                                break;
                         }
                     }
-                    //pop_ptr_lst(stack);
                     consume_token();
                     state = 6;
                     

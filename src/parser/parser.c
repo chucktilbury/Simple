@@ -72,9 +72,17 @@ ParserScope get_parser_scope(parser_state_t* state) {
 
 ast_module_t* parse(void) {
 
+    if(get_cmdline("tp"))
+        PUSH_TRACE_STATE(TRACE_ON);
+    else
+        PUSH_TRACE_STATE(TRACE_OFF);
+
     parser_state_t* pstate = init_parser();
 
     ast_module_t* module = parse_module(pstate);
+
+    POP_TRACE_STATE();
+    
     return module;
 }
 

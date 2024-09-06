@@ -195,8 +195,8 @@ void* pop_ptr_lst(PtrLst* lst) {
     void* ptr = NULL;
 
     if(lst->len > 0) {
-        ptr = lst->list[lst->len];
         lst->len--;
+        ptr = lst->list[lst->len];
     }
 
     return ptr;
@@ -216,7 +216,7 @@ void* peek_ptr_lst(PtrLst* lst) {
     void* ptr = NULL;
 
     if(lst->len > 0)
-        ptr = lst->list[lst->len];
+        ptr = lst->list[lst->len-1];
 
     return ptr;
 }

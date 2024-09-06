@@ -90,6 +90,7 @@ ast_var_decl_list_t* parse_var_decl_list(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE;
                 node = (ast_var_decl_list_t*)create_ast_node(AST_VAR_DECL_LIST);
+                node->list = list;
                 finished = true;
                 break;
 

@@ -32,8 +32,8 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* literal;
-    ast_string_literal_t* str;
+    Token* literal = NULL;
+    ast_string_literal_t* str = NULL;
 
     while(!finished) {
         switch(state) {
@@ -41,27 +41,33 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
                 // initial state
                 TRACE_STATE;
                 if(TOK_LITERAL_FLOAT == TTYPE) {
+                    TRACE_TOKEN;
                     literal = copy_token(get_token());
                     consume_token();
                     state = 100;
                 }
                 else if(TOK_LITERAL_INTEGER == TTYPE) {
+                    TRACE_TOKEN;
                     literal = copy_token(get_token());
                     consume_token();
                     state = 100;
                 }
                 else if(TOK_LITERAL_TRUE == TTYPE) {
+                    TRACE_TOKEN;
                     literal = copy_token(get_token());
                     consume_token();                    
                     state = 100;
                 }
                 else if(TOK_LITERAL_FALSE == TTYPE) {
+                    TRACE_TOKEN;
                     literal = copy_token(get_token());
                     consume_token();                    
                     state = 100;
                 }
-                else if(NULL != (str = parse_string_literal(pstate))) 
+                else if(NULL != (str = parse_string_literal(pstate))) {
+                    TRACE("parse literal string");
                     state = 100;
+                }
                 else 
                     state = 101;
                 break;

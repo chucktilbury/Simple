@@ -25,7 +25,7 @@ void traverse_array_param_item(ast_array_param_item_t* node, AstFuncPtr pre, Ast
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    switch(nterm_type((ast_node_t*)node)) {
+    switch(nterm_type(node->ptr)) {
         case AST_EXPRESSION:
             traverse_expression((ast_expression_t*)(node->ptr), pre, post);
             break;

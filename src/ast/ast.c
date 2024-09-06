@@ -10,6 +10,7 @@
 #include "trace.h"
 #include "errors.h"
 #include "ast.h"
+#include "cmdline.h"
 
 static size_t node_size(AstNodeType type) {
 
@@ -98,7 +99,14 @@ ast_node_t* create_ast_node(AstNodeType type) {
 
 void traverse_ast(ast_module_t* node, AstFuncPtr pre, AstFuncPtr post) {
 
+    if(get_cmdline("ta"))
+        PUSH_TRACE_STATE(TRACE_ON);
+    else
+        PUSH_TRACE_STATE(TRACE_OFF);
+
     traverse_module(node, pre, post);
+
+    POP_TRACE_STATE();
 }
 
 AstNodeType nterm_type(ast_node_t* node) {
