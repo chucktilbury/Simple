@@ -30,7 +30,7 @@ ast_list_init_str_t* parse_list_init_str(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* str;
+    Token* str = NULL;
 
     while(!finished) {
         switch(state) {

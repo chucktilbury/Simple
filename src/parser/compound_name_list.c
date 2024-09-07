@@ -30,7 +30,7 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     PtrLst* list = create_ptr_lst();
-    ast_compound_name_t* ptr;
+    ast_compound_name_t* ptr = NULL;
 
     while(!finished) {
         switch(state) {

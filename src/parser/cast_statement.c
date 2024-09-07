@@ -29,8 +29,8 @@ ast_cast_statement_t* parse_cast_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_type_name_t* type;
-    ast_expression_t* expr;
+    ast_type_name_t* type = NULL;
+    ast_expression_t* expr = NULL;
 
     while(!finished) {
         switch(state) {

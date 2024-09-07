@@ -29,8 +29,8 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* id1;
-    ast_function_body_t* body;
+    Token* id1 = NULL;
+    ast_function_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {

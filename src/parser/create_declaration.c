@@ -29,8 +29,8 @@ ast_create_declaration_t* parse_create_declaration(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_type_name_list_t* inp;
-    bool is_virtual;
+    ast_type_name_list_t* inp = NULL;
+    bool is_virtual = false;
 
     while(!finished) {
         switch(state) {

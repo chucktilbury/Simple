@@ -29,7 +29,7 @@ ast_include_statement_t* parse_include_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_formatted_strg_t* str;
+    ast_formatted_strg_t* str = NULL;
 
     while(!finished) {
         switch(state) {

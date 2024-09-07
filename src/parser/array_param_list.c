@@ -30,7 +30,7 @@ ast_array_param_list_t* parse_array_param_list(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     PtrLst* list = create_ptr_lst();
-    ast_array_param_t* ptr;
+    ast_array_param_t* ptr = NULL;
 
     while(!finished) {
         switch(state) {

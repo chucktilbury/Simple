@@ -35,7 +35,7 @@ ast_literal_type_name_t* parse_literal_type_name(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* tok;
+    Token* tok = NULL;
 
     while(!finished) {
         switch(state) {

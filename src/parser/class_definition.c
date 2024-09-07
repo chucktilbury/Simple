@@ -29,11 +29,11 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* name;
-    Token* as_name;
-    ast_compound_name_t* inher;
+    Token* name = NULL;
+    Token* as_name = NULL;
+    ast_compound_name_t* inher = NULL;
     PtrLst* list = create_ptr_lst();
-    ast_class_item_t* item;
+    ast_class_item_t* item = NULL;
 
     while(!finished) {
         switch(state) {

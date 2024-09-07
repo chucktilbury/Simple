@@ -29,8 +29,8 @@ ast_create_reference_t* parse_create_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_create_name_t* name;
-    ast_expression_list_t* inp;
+    ast_create_name_t* name = NULL;
+    ast_expression_list_t* inp = NULL;
 
     while(!finished) {
         switch(state) {

@@ -29,7 +29,7 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* tok;
+    Token* tok = NULL;
     PtrLst* list = create_ptr_lst();
 
     while(!finished) {

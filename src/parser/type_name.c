@@ -30,7 +30,7 @@ ast_type_name_t* parse_type_name(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_node_t* ptr;
+    ast_node_t* ptr = NULL;
 
     while(!finished) {
         switch(state) {

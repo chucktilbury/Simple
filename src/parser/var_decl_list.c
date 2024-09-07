@@ -30,7 +30,7 @@ ast_var_decl_list_t* parse_var_decl_list(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     PtrLst* list = create_ptr_lst();
-    ast_var_decl_t* item;
+    ast_var_decl_t* item = NULL;
 
     while(!finished) {
         switch(state) {

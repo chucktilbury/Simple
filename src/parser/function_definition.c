@@ -29,11 +29,11 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    bool is_virtual;
-    ast_compound_name_t* name;
-    ast_var_decl_list_t* inp;
-    ast_var_decl_list_t* outp;
-    ast_function_body_t* body;
+    bool is_virtual = false;
+    ast_compound_name_t* name = NULL;
+    ast_var_decl_list_t* inp = NULL;
+    ast_var_decl_list_t* outp = NULL;
+    ast_function_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {

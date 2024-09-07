@@ -29,8 +29,8 @@ ast_raise_statement_t* parse_raise_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* id;
-    ast_string_literal_t* str;
+    Token* id = NULL;
+    ast_string_literal_t* str = NULL;
 
     while(!finished) {
         switch(state) {

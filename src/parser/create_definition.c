@@ -30,9 +30,9 @@ ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     bool is_virtual = false;
-    ast_create_name_t* name;
-    ast_var_decl_list_t* inp;
-    ast_function_body_t* body;
+    ast_create_name_t* name = NULL;
+    ast_var_decl_list_t* inp = NULL;
+    ast_function_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {

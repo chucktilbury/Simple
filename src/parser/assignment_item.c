@@ -31,7 +31,7 @@ ast_assignment_item_t* parse_assignment_item(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_node_t* ptr;
+    ast_node_t* ptr = NULL;
 
     while(!finished) {
         switch(state) {

@@ -30,8 +30,8 @@ ast_var_definition_t* parse_var_definition(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     bool is_const = false;
-    ast_var_decl_t* decl;
-    ast_assignment_item_t* item;
+    ast_var_decl_t* decl = NULL;
+    ast_assignment_item_t* item = NULL;
 
     while(!finished) {
         switch(state) {

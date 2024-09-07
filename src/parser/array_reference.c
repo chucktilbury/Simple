@@ -29,8 +29,8 @@ ast_array_reference_t* parse_array_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* name;
-    ast_array_param_list_t* list;
+    Token* name = NULL;
+    ast_array_param_list_t* list = NULL;
 
     while(!finished) {
         switch(state) {

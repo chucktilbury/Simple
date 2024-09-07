@@ -30,9 +30,9 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     bool is_virtual = false;
-    Token* name;
-    ast_type_name_list_t* inp;
-    ast_type_name_list_t* outp;
+    Token* name = NULL;
+    ast_type_name_list_t* inp = NULL;
+    ast_type_name_list_t* outp = NULL;
 
     while(!finished) {
         switch(state) {

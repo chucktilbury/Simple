@@ -29,7 +29,7 @@ ast_while_definition_t* parse_while_definition(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_expression_t* expr;
+    ast_expression_t* expr = NULL;
 
     while(!finished) {
         switch(state) {

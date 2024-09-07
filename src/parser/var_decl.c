@@ -29,8 +29,8 @@ ast_var_decl_t* parse_var_decl(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_type_name_t* type;
-    Token* ident;
+    ast_type_name_t* type = NULL;
+    Token* ident = NULL;
 
     while(!finished) {
         switch(state) {

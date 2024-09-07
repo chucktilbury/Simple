@@ -29,8 +29,8 @@ ast_import_statement_t* parse_import_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_formatted_strg_t* str;
-    Token* ident;
+    ast_formatted_strg_t* str = NULL;
+    Token* ident = NULL;
 
     while(!finished) {
         switch(state) {

@@ -29,9 +29,9 @@ ast_destroy_definition_t* parse_destroy_definition(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    bool is_virtual;
-    ast_destroy_name_t* name;
-    ast_function_body_t* body;
+    bool is_virtual = false;
+    ast_destroy_name_t* name = NULL;
+    ast_function_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {

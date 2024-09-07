@@ -34,12 +34,12 @@ ast_try_clause_t* parse_try_clause(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     // function required body
-    ast_function_body_t* body;
+    ast_function_body_t* body = NULL;
     // zero or more final clauses
     ast_final_clause_t* fin = NULL;
     // list of except clauses
     PtrLst* list = create_ptr_lst();
-    ast_except_clause_t* exc;
+    ast_except_clause_t* exc = NULL;
 
     while(!finished) {
         switch(state) {

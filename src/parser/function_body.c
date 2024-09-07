@@ -30,7 +30,7 @@ ast_function_body_t* parse_function_body(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     PtrLst* list = create_ptr_lst();
-    ast_function_body_element_t* ptr;
+    ast_function_body_element_t* ptr = NULL;
 
     while(!finished) {
         switch(state) {

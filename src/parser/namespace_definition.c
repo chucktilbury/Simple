@@ -30,8 +30,8 @@ ast_namespace_definition_t* parse_namespace_definition(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     PtrLst* items = create_ptr_lst();
-    Token* name;
-    ast_namespace_item_t* item;
+    Token* name = NULL;
+    ast_namespace_item_t* item = NULL;
 
     while(!finished) {
         switch(state) {

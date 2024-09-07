@@ -29,7 +29,7 @@ ast_array_param_t* parse_array_param(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_array_param_item_t* ptr;
+    ast_array_param_item_t* ptr = NULL;
 
     while(!finished) {
         switch(state) {

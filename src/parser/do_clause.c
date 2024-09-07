@@ -29,8 +29,8 @@ ast_do_clause_t* parse_do_clause(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_while_definition_t* expr;
-    ast_function_body_t* body;
+    ast_while_definition_t* expr = NULL;
+    ast_function_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {

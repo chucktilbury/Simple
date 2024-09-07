@@ -30,7 +30,7 @@ ast_type_name_list_t* parse_type_name_list(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     PtrLst* list = create_ptr_lst();
-    ast_type_name_t* name;
+    ast_type_name_t* name = NULL;
 
     while(!finished) {
         switch(state) {

@@ -31,8 +31,8 @@ ast_list_init_element_t* parse_list_init_element(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     // this is NULL if there is no str
-    ast_list_init_str_t* str;
-    ast_assignment_item_t* item;
+    ast_list_init_str_t* str = NULL;
+    ast_assignment_item_t* item = NULL;
 
     while(!finished) {
         switch(state) {

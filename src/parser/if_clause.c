@@ -35,7 +35,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
     ast_function_body_t* body = NULL;
     // list of else clauses
     PtrLst* ecl = create_ptr_lst();
-    ast_else_clause_t* ec; 
+    ast_else_clause_t* ec = NULL; 
 
     while(!finished) {
         switch(state) {

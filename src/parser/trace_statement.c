@@ -29,7 +29,7 @@ ast_trace_statement_t* parse_trace_statement(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_string_literal_t* str;
+    ast_string_literal_t* str = NULL;
 
     while(!finished) {
         switch(state) {

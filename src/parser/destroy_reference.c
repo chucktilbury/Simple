@@ -29,7 +29,7 @@ ast_destroy_reference_t* parse_destroy_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_destroy_name_t* name;
+    ast_destroy_name_t* name = NULL;
 
     while(!finished) {
         switch(state) {

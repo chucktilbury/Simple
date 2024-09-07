@@ -29,7 +29,7 @@ ast_module_t* parse_module(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_module_item_t* ptr;
+    ast_module_item_t* ptr = NULL;
     PtrLst* list = create_ptr_lst();
 
     while(!finished) {

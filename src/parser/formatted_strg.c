@@ -29,7 +29,7 @@ ast_formatted_strg_t* parse_formatted_strg(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* str;
+    Token* str = NULL;
     ast_expression_list_t* exprs = NULL;
 
     while(!finished) {

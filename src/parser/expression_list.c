@@ -30,7 +30,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     PtrLst* list = create_ptr_lst();
-    ast_expression_t* expr;
+    ast_expression_t* expr = NULL;
 
     while(!finished) {
         switch(state) {

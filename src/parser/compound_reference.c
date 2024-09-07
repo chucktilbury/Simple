@@ -30,7 +30,7 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     PtrLst* list = create_ptr_lst();
-    ast_compound_ref_item_t* item;
+    ast_compound_ref_item_t* item = NULL;
 
     while(!finished) {
         switch(state) {

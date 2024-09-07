@@ -29,9 +29,9 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_compound_reference_t* name;
-    ast_expression_list_t* inp;
-    ast_compound_name_list_t* outp;
+    ast_compound_reference_t* name = NULL;
+    ast_expression_list_t* inp = NULL;
+    ast_compound_name_list_t* outp = NULL;
 
     while(!finished) {
         switch(state) {

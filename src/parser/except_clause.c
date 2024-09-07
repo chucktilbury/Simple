@@ -29,9 +29,9 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* id1;
-    Token* id2;
-    ast_function_body_t* body;
+    Token* id1 = NULL;
+    Token* id2 = NULL;
+    ast_function_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {

@@ -31,7 +31,7 @@ ast_scope_operator_t* parse_scope_operator(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    Token* tok;
+    Token* tok = NULL;
 
     while(!finished) {
         switch(state) {

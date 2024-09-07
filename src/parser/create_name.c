@@ -30,7 +30,7 @@ ast_create_name_t* parse_create_name(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     PtrLst* ident = create_ptr_lst();
-    Token* ptr;
+    Token* ptr = NULL;
 
     while(!finished) {
         switch(state) {

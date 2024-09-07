@@ -29,7 +29,7 @@ ast_destroy_declaration_t* parse_destroy_declaration(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    bool is_virtual;
+    bool is_virtual = false;
 
     while(!finished) {
         switch(state) {

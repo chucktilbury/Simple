@@ -34,9 +34,9 @@ ast_assignment_t* parse_assignment(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_compound_reference_t* lhs;
-    Token* oper;
-    ast_node_t* rhs;
+    ast_compound_reference_t* lhs = NULL;
+    Token* oper = NULL;
+    ast_node_t* rhs = NULL;
 
     while(!finished) {
         switch(state) {

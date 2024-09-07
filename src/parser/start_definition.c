@@ -29,7 +29,7 @@ ast_start_definition_t* parse_start_definition(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_function_body_t* body;
+    ast_function_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {
