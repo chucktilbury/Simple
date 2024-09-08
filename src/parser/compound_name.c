@@ -68,8 +68,9 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
                     state = 1;
                 }
                 else {
-                    EXPECTED("a valid identifier");
-                    state = 102;
+                    //EXPECTED("a valid identifier");
+                    // could be a create or destroy reference
+                    state = 101;
                 }
                 break;
 

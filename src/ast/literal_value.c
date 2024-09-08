@@ -27,10 +27,11 @@ void traverse_literal_value(ast_literal_value_t* node, AstFuncPtr pre, AstFuncPt
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    if(node->str != NULL)
+    if(node->literal != NULL)
+        TRACE_TERMINAL(node->literal);
+    else if(node->str != NULL)
         traverse_string_literal(node->str, pre, post);
-
-    TRACE_TERMINAL(node->literal);
+    else FATAL("never ever happens");
 
     CALL_NODE_FUNC(post);
     RET;

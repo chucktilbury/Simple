@@ -17,17 +17,17 @@ namespace name {
     private
     protected
 
-    class name (some.name) {
-        var some.name name
-        func a_name()()
+    class name (some.name as blart) {
+        some.name name
+        a_name()()
     }
 
     ; note that the contents of the function is tested elsewhere.
-    func name.a_name()() {}
+    name.a_name()() {}
 
-    func name.create() {}
+    name.create() {}
 
-    func name.destroy {}
+    name.destroy {}
 
-    var some.darn.name name = 123.123
+    some.darn.name name = 123.123
 }

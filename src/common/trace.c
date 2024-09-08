@@ -12,7 +12,7 @@
 #include <stdlib.h>
 #include <stdarg.h>
 
-#define INDENT 4
+#define INDENT 2
 static int indent = 0;
 
 #include "llist.h"

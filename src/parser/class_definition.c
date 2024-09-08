@@ -113,7 +113,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
                 TRACE_STATE;
                 if(TOK_CPAREN == TTYPE) {
                     consume_token();
-                    state = 5;
+                    state = 7;
                 }
                 else {
                     EXPECTED("a ')'");

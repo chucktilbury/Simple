@@ -4,7 +4,7 @@
 
 class name {
 
-    var some.compound.name name
+    some.compound.name name
     namespace name {
         ; empty
     }

@@ -4,6 +4,6 @@
 
 class name {
 
-    var some.compound.name name
-    func start
+    some.compound.name name
+    start
 }

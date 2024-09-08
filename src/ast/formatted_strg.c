@@ -25,7 +25,9 @@ void traverse_formatted_strg(ast_formatted_strg_t* node, AstFuncPtr pre, AstFunc
     CALL_NODE_FUNC(pre);
 
     TRACE_TERMINAL(node->str);
-    traverse_expression_list(node->exprs, pre, post);
+
+    if(node->exprs != NULL)
+        traverse_expression_list(node->exprs, pre, post);
 
     CALL_NODE_FUNC(post);
     RET;

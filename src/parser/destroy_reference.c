@@ -36,7 +36,7 @@ ast_destroy_reference_t* parse_destroy_reference(parser_state_t* pstate) {
             case 0:
                 TRACE_STATE;
                 if(NULL != (name = parse_destroy_name(pstate)))
-                    state = 1;
+                    state = 100;
                 else
                     state = 101;
                 break;

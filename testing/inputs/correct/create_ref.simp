@@ -2,7 +2,7 @@
 ; Correct create example
 ;-------------------------------------------------------------------------------
 
-func name1 ()() {
+name1 ()() {
 
-	asdf.wert.create(123, "str")
+    asdf.wert.create(123, "str")
 }

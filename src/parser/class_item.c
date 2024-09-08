@@ -58,6 +58,7 @@ ast_class_item_t* parse_class_item(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE;
                 node = (ast_class_item_t*)create_ast_node(AST_CLASS_ITEM);
+                node->ptr = ptr;
                 finished = true;
                 break;
 

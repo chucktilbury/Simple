@@ -2,22 +2,22 @@
 ; nested elif
 ;-------------------------------------------------------------------------------
 
-func name()() {
+name()() {
 
     if(comp.name == 0) {
         bulart = 0
     }
-    elif(1 != 2) {
+    else(1 != 2) {
         goop()()
         if(comp.name == 0) {
             bulart = 0
         }
-        elif(1 != 2) {
+        else(1 != 2) {
             goop()()
             if(comp.name == 0) {
                 bulart = 0
             }
-            elif(1 != 2) {
+            else(1 != 2) {
                 goop()()
             }
         }

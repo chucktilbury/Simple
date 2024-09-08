@@ -10,6 +10,6 @@ class some_name () {
     public
 }
 
-class some_name (this.is.a.compound.name) {
+class some_name (this.is.a.compound.name as pookie) {
     public
 }

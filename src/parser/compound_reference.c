@@ -63,8 +63,9 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
                     state = 1;
                 }
                 else {
-                    EXPECTED("a compound reference item");
-                    state = 102;
+                    //EXPECTED("a compound reference item");
+                    // could be a reference to create or destroy
+                    state = 101;
                 }
                 break;
 

@@ -36,6 +36,7 @@ static token_database_t keywords[] = {
     {"if", TOK_IF},
     {"import", TOK_IMPORT},
     {"include", TOK_INCLUDE},
+    {"inline", TOK_INLINE},
     {"integer", TOK_INTEGER},
     {"list", TOK_LIST},
     {"lt", TOK_LT},
@@ -83,11 +84,11 @@ const char* token_to_str(TokenType type) {
         (type == TOK_OPAREN)? "(" :
         (type == TOK_COMMA)? "," :
         (type == TOK_CPAREN)? ")" :
-        (type == TOK_LITERAL_DSTR)? "LITERAL_DSTR" :
-        (type == TOK_LITERAL_SSTR)? "LITERAL_SSTR" :
-        (type == TOK_LITERAL_FLOAT)? "LITERAL_FLOAT" :
-        (type == TOK_LITERAL_INTEGER)? "LITERAL_INTEGER" :
-        (type == TOK_LITERAL_BOOL)? "LITERAL_BOOL" :
+        (type == TOK_LITERAL_DSTR)? "string literal value" :
+        (type == TOK_LITERAL_SSTR)? "string literal value" :
+        (type == TOK_LITERAL_FLOAT)? "float literal value" :
+        (type == TOK_LITERAL_INTEGER)? "integer literal value" :
+        (type == TOK_LITERAL_BOOL)? "boolean literal value" :
         (type == TOK_CONST)? "const" :
         (type == TOK_EQUAL)? "=" :
         (type == TOK_COLON)? ":" :

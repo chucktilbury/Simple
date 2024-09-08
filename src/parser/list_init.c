@@ -47,8 +47,10 @@ ast_list_init_t* parse_list_init(parser_state_t* pstate) {
             case 1:
                 // required element
                 TRACE_STATE;
-                if(NULL != (ptr = parse_list_init_element(pstate)))
+                if(NULL != (ptr = parse_list_init_element(pstate))) {
+                    append_ptr_lst(list, ptr);
                     state = 2;
+                }
                 else {
                     EXPECTED("a list initialization element");
                     state = 102;

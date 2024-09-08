@@ -2,5 +2,5 @@
 ; Mixed symbols and array references
 ;-------------------------------------------------------------------------------
 
-var dict name1 = name2.name3[1][name4.name5['strg']]
+dict name1 = name2.name3[1][name4.name5['strg']]
 

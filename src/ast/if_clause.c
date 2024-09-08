@@ -33,7 +33,8 @@ void traverse_if_clause(ast_if_clause_t* node, AstFuncPtr pre, AstFuncPtr post) 
     while(NULL != (ec = iterate_ptr_lst(node->ecl, &mark)))
         traverse_else_clause(ec, pre, post);
 
-    traverse_final_else_clause(node->fecl, pre, post);
+    if(node->fecl != NULL)
+        traverse_final_else_clause(node->fecl, pre, post);
 
     CALL_NODE_FUNC(post);
     RET;

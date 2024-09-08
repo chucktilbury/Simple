@@ -66,10 +66,19 @@ void error(ErrorType type, Token* tok, const char* func, const char* fmt, ...) {
 void expected(const char* str) {
 
     Token* tok = get_token();
+    const char* got;
+
+    switch(token_type(tok)) {
+        case TOK_IDENT:
+            got = raw_string(tok->str);
+            break;
+        default:
+            got = token_to_str(tok->type);
+            break;
+    }
 
     fprintf(stderr, "ERROR: %s: %d: %d: expected %s but got '%s'",
-            tok->fname, tok->line_no, tok->col_no, str,
-            token_to_str(tok->type));
+            tok->fname, tok->line_no, tok->col_no, str, got);
     errors++;
 
     fputc('\n', stderr);

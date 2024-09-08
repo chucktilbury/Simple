@@ -32,7 +32,8 @@ void traverse_try_clause(ast_try_clause_t* node, AstFuncPtr pre, AstFuncPtr post
     while(NULL != (ec = iterate_ptr_lst(node->list, &mark)))
         traverse_except_clause(ec, pre, post);
 
-    traverse_final_clause(node->fin, pre, post);
+    if(node->fin != NULL)
+        traverse_final_clause(node->fin, pre, post);
 
     CALL_NODE_FUNC(post);
     RET;
