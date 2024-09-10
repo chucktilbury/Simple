@@ -1,8 +1,8 @@
 /**
  *
- * @file class_item.c
+ * @file class_body_item.c
  *
- * @brief Traverse AST for node class_item.
+ * @brief Traverse AST for node class_body_item.
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
@@ -15,7 +15,7 @@
  *
  * Grammar production:
  *
- * class_item
+ * class_body_item
  *     : scope_operator
  *     | var_decl
  *     | function_declaration
@@ -23,7 +23,7 @@
  *     | destroy_declaration
  *     ;
  */
-void traverse_class_item(ast_class_item_t* node, AstFuncPtr pre, AstFuncPtr post) {
+void traverse_class_body_item(ast_class_body_item_t* node, AstFuncPtr pre, AstFuncPtr post) {
 
     ENTER;
     CALL_NODE_FUNC(pre);

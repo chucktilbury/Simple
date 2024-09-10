@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * class_definition
-    : 'class' IDENT ( '(' ( type_name 'as' IDENT )? ')' )? '{' ( class_item )+ '}'
+    : 'class' IDENT ( class_inheritance_list )? class_body
  *     ;
  */
 void traverse_class_definition(ast_class_definition_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -25,16 +25,11 @@ void traverse_class_definition(ast_class_definition_t* node, AstFuncPtr pre, Ast
     CALL_NODE_FUNC(pre);
 
     TRACE_TERMINAL(node->name);
-    if(node->inher != NULL) {
-        traverse_compound_name(node->inher, pre, post);
-        TRACE_TERMINAL(node->as_name);
-    }
 
-    ast_class_item_t* it;
-    int mark = 0;
+    if(node->inher != NULL)
+        traverse_class_inheritance_list(node->inher, pre, post);
 
-    while(NULL != (it = iterate_ptr_lst(node->list, &mark)))
-        traverse_class_item(it, pre, post);
+    traverse_class_body(node->body, pre, post);
 
     CALL_NODE_FUNC(post);
     RET;

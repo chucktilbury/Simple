@@ -1,8 +1,8 @@
 /**
  *
- * @file class_item.c
+ * @file loop_body.c
  *
- * @brief Parse grammar production class_item.
+ * @brief Parse grammar production loop_body.
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
@@ -15,50 +15,54 @@
  *
  * Grammar production:
  *
- * class_item
- *     : scope_operator
- *     | var_decl
- *     | function_declaration
- *     | create_declaration
- *     | destroy_declaration
+ * loop_body
+ *     : '{' ( loop_body_element )* '}'
  *     ;
  */
-ast_class_item_t* parse_class_item(parser_state_t* pstate) {
+ast_loop_body_t* parse_loop_body(parser_state_t* pstate) {
 
     ASSERT(pstate != NULL);
     ENTER;
 
-    ast_class_item_t* node = NULL;
+    ast_loop_body_t* node = NULL;
     int state = 0;
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_node_t* ptr = NULL;
+    PtrLst* list = create_ptr_lst();
+    ast_loop_body_element_t* ptr = NULL;
 
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE;
-                if(NULL != (ptr = (ast_node_t*)parse_scope_operator(pstate)))
-                    state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_var_decl(pstate)))
-                    state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_function_declaration(pstate)))
-                    state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_create_declaration(pstate)))
-                    state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_destroy_declaration(pstate)))
-                    state = 100;
+                if(TOK_OCBRACE == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
                 else
                     state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE;
+                if(NULL != (ptr = parse_loop_body_element(pstate)))
+                    append_ptr_lst(list, ptr);
+                else if(TOK_CCBRACE == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else {
+                    EXPECTED("a loop body statement or a '}'");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE;
-                node = (ast_class_item_t*)create_ast_node(AST_CLASS_ITEM);
-                node->ptr = ptr;
+                node = (ast_loop_body_t*)create_ast_node(AST_LOOP_BODY);
+                node->list = list;
                 finished = true;
                 break;
 

@@ -25,7 +25,7 @@ void traverse_while_clause(ast_while_clause_t* node, AstFuncPtr pre, AstFuncPtr 
     CALL_NODE_FUNC(pre);
 
     traverse_while_definition(node->expr, pre, post);
-    traverse_function_body(node->body, pre, post);
+    traverse_loop_body(node->body, pre, post);
 
     CALL_NODE_FUNC(post);
     RET;

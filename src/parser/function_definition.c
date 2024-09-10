@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * function_definition
- *     : ('virtual' )? compound_name var_decl_list var_decl_list function_body
+ *     : ('iterator' )? compound_name var_decl_list var_decl_list function_body
  *     ;
  */
 ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
@@ -29,7 +29,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    bool is_virtual = false;
+    bool is_iter = false;
     ast_compound_name_t* name = NULL;
     ast_var_decl_list_t* inp = NULL;
     ast_var_decl_list_t* outp = NULL;
@@ -39,8 +39,8 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 TRACE_STATE;
-                if(TOK_VIRTUAL == TTYPE) {
-                    is_virtual = true;
+                if(TOK_ITERATOR == TTYPE) {
+                    is_iter = true;
                     consume_token();
                 }
                 state = 1;
@@ -86,7 +86,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE;
                 node = (ast_function_definition_t*)create_ast_node(AST_FUNCTION_DEFINITION);
-                node->is_virtual = is_virtual;
+                node->is_iter = is_iter;
                 node->name = name;
                 node->inp = inp;
                 node->outp = outp;

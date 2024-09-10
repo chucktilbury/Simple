@@ -54,7 +54,10 @@ static size_t node_size(AstNodeType type) {
     (type == AST_EXPRESSION_LIST)? sizeof(ast_expression_list_t) :
     (type == AST_NAMESPACE_DEFINITION)? sizeof(ast_namespace_definition_t) :
     (type == AST_CLASS_DEFINITION)? sizeof(ast_class_definition_t) :
-    (type == AST_CLASS_ITEM)? sizeof(ast_class_item_t) :
+    (type == AST_CLASS_BODY)? sizeof(ast_class_body_t) :
+    (type == AST_CLASS_BODY_ITEM)? sizeof(ast_class_body_item_t) :
+    (type == AST_CLASS_INHERITANCE_ITEM)? sizeof(ast_class_inheritance_item_t) :
+    (type == AST_CLASS_INHERITANCE_LIST)? sizeof(ast_class_inheritance_list_t) :
     (type == AST_FUNCTION_DECLARATION)? sizeof(ast_function_declaration_t) :
     (type == AST_CREATE_DECLARATION)? sizeof(ast_create_declaration_t) :
     (type == AST_DESTROY_DECLARATION)? sizeof(ast_destroy_declaration_t) :
@@ -64,10 +67,12 @@ static size_t node_size(AstNodeType type) {
     (type == AST_DESTROY_NAME)? sizeof(ast_destroy_name_t) :
     (type == AST_DESTROY_DEFINITION)? sizeof(ast_destroy_definition_t) :
     (type == AST_FUNCTION_BODY)? sizeof(ast_function_body_t) :
+    (type == AST_FUNCTION_BODY_ELEMENT)? sizeof(ast_function_body_element_t) :
+    (type == AST_LOOP_BODY)? sizeof(ast_loop_body_t) :
+    (type == AST_LOOP_BODY_ELEMENT)? sizeof(ast_loop_body_element_t) :
     (type == AST_ASSIGN_EQ_ITEM)? sizeof(ast_assign_eq_item_t) :
     (type == AST_ASSIGN_INC_ITEM)? sizeof(ast_assign_inc_item_t) :
     (type == AST_ASSIGNMENT)? sizeof(ast_assignment_t) :
-    (type == AST_FUNCTION_BODY_ELEMENT)? sizeof(ast_function_body_element_t) :
     (type == AST_BREAK_STATEMENT)? sizeof(ast_break_statement_t) :
     (type == AST_CONTINUE_STATEMENT)? sizeof(ast_continue_statement_t) :
     (type == AST_YIELD_STATEMENT)? sizeof(ast_yield_statement_t) :
@@ -157,7 +162,10 @@ const char* nterm_type_to_str(ast_node_t* node) {
         (type == AST_EXPRESSION_LIST)? "AST_EXPRESSION_LIST" :
         (type == AST_NAMESPACE_DEFINITION)? "AST_NAMESPACE_DEFINITION" :
         (type == AST_CLASS_DEFINITION)? "AST_CLASS_DEFINITION" :
-        (type == AST_CLASS_ITEM)? "AST_CLASS_ITEM" :
+        (type == AST_CLASS_BODY_ITEM)? "AST_CLASS_BODY_ITEM" :
+        (type == AST_CLASS_BODY)? "AST_CLASS_BODY" :
+        (type == AST_CLASS_INHERITANCE_ITEM)? "AST_CLASS_INHERITANCE_ITEM" :
+        (type == AST_CLASS_INHERITANCE_LIST)? "AST_CLASS_INHERITANCE_LIST" :
         (type == AST_FUNCTION_DECLARATION)? "AST_FUNCTION_DECLARATION" :
         (type == AST_CREATE_DECLARATION)? "AST_CREATE_DECLARATION" :
         (type == AST_DESTROY_DECLARATION)? "AST_DESTROY_DECLARATION" :
@@ -167,6 +175,9 @@ const char* nterm_type_to_str(ast_node_t* node) {
         (type == AST_DESTROY_NAME)? "AST_DESTROY_NAME" :
         (type == AST_DESTROY_DEFINITION)? "AST_DESTROY_DEFINITION" :
         (type == AST_FUNCTION_BODY)? "AST_FUNCTION_BODY" :
+        (type == AST_FUNCTION_BODY_ELEMENT)? "AST_FUNCTION_BODY_ELEMENT" :
+        (type == AST_LOOP_BODY)? "AST_LOOP_BODY" :
+        (type == AST_LOOP_BODY_ELEMENT)? "AST_LOOP_BODY_ELEMENT" :
         (type == AST_ASSIGN_EQ_ITEM)? "AST_ASSIGN_EQ_ITEM" :
         (type == AST_ASSIGN_INC_ITEM)? "AST_ASSIGN_INC_ITEM" :
         (type == AST_ASSIGNMENT)? "AST_ASSIGNMENT" :

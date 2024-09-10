@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * function_declaration
- *     : ('virtual' )? IDENT type_name_list type_name_list
+ *     : ( 'iterator' )? IDENT type_name_list type_name_list
  *     ;
  */
 void traverse_function_declaration(ast_function_declaration_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -24,7 +24,7 @@ void traverse_function_declaration(ast_function_declaration_t* node, AstFuncPtr 
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    TRACE("is_virtual = %s",node->is_virtual? "true": "false");
+    TRACE("is_iter = %s", node->is_iter? "true": "false");
     TRACE_TERMINAL(node->name);
     traverse_type_name_list(node->inp, pre, post);
     traverse_type_name_list(node->outp, pre, post);

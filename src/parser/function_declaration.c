@@ -29,8 +29,8 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    bool is_virtual = false;
     Token* name = NULL;
+    bool is_iter = false;
     ast_type_name_list_t* inp = NULL;
     ast_type_name_list_t* outp = NULL;
 
@@ -38,8 +38,8 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
         switch(state) {
             case 0:
                 TRACE_STATE;
-                if(TOK_VIRTUAL == TTYPE) {
-                    is_virtual = true;
+                if(TOK_ITERATOR == TTYPE) {
+                    is_iter = true;
                     consume_token();
                 }
                 state = 1;
@@ -80,10 +80,10 @@ ast_function_declaration_t* parse_function_declaration(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE;
                 node = (ast_function_declaration_t*)create_ast_node(AST_FUNCTION_DECLARATION);
-                node->is_virtual = is_virtual;
                 node->name = name;
                 node->inp = inp;
                 node->outp = outp;
+                node->is_iter = is_iter;
                 finished = true;
                 break;
 

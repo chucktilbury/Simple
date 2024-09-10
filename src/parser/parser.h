@@ -19,12 +19,10 @@ typedef enum {
 } ParserMode;
 
 typedef enum {
-    PSCOPE_PRIVATE,
-    PSCOPE_PUBLIC,
-    PSCOPE_PROTECTED,
-} ParserScope;
-
-#include "symbols.h"
+    SCOPE_PRIVATE,
+    SCOPE_PUBLIC,
+    SCOPE_PROTECTED,
+} ScopeType;
 
 typedef struct {
     LinkList* mode;
@@ -33,6 +31,7 @@ typedef struct {
     struct _symbol_t_* crnt_sym;
 } parser_state_t;
 
+//#include "symbols.h"
 #include "parser_prototypes.h"
 
 #ifdef USE_TRACE
@@ -48,10 +47,10 @@ void push_parser_mode(parser_state_t* state, ParserMode mode);
 ParserMode pop_parser_mode(parser_state_t* state);
 ParserMode get_parser_mode(parser_state_t* state);
 
-void push_parser_scope(parser_state_t* state, ParserScope scope);
-void set_parser_scope(parser_state_t* state, ParserScope scope);
-ParserScope pop_parser_scope(parser_state_t* state);
-ParserScope get_parser_scope(parser_state_t* state);
+void push_parser_scope(parser_state_t* state, ScopeType scope);
+void set_parser_scope(parser_state_t* state, ScopeType scope);
+ScopeType pop_parser_scope(parser_state_t* state);
+ScopeType get_parser_scope(parser_state_t* state);
 
 #endif  /* _PARSER_H_ */
 

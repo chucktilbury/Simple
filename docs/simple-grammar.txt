@@ -214,11 +214,19 @@ namespace_definition
     : 'namespace' IDENT '{' ( namespace_item )+ '}'
     ;
 
-class_definition
-    : 'class' IDENT ( '(' ( compound_name 'as' IDENT )? ')' )? '{' ( class_item )+ '}'
+class_inheritance_item
+    : (scope_operator)? compound_name 'as' IDENT
     ;
 
-class_item
+class_inheritance_list
+    : '(' ( class_inheritance_item (',' class_inheritance_item)* )? ')'
+    ;
+
+class_definition
+    : 'class' IDENT ( class_inheritance_list )? class_body
+    ;
+
+class_body_item
     : scope_operator
     | var_decl
     | function_declaration
@@ -226,20 +234,24 @@ class_item
     | destroy_declaration
     ;
 
+class_body
+    : '{' ( class_body_item )+ '}'
+    ;
+
 function_declaration
-    : ('virtual' )? IDENT type_name_list type_name_list
+    : ('iterator' )? IDENT type_name_list type_name_list
     ;
 
 create_declaration
-    : ('virtual' )? 'create' type_name_list
+    : 'create' type_name_list
     ;
 
 destroy_declaration
-    : ('virtual' )? 'destroy'
+    : 'destroy'
     ;
 
 function_definition
-    : ('virtual' )? compound_name var_decl_list var_decl_list function_body
+    : ('iterator' )? compound_name var_decl_list var_decl_list function_body
     ;
 
 create_name
@@ -247,7 +259,7 @@ create_name
     ;
 
 create_definition
-    : ('virtual' )? create_name var_decl_list function_body
+    : create_name var_decl_list function_body
     ;
 
 destroy_name
@@ -255,12 +267,16 @@ destroy_name
     ;
 
 destroy_definition
-    : ('virtual' )? destroy_name function_body
+    : destroy_name function_body
     ;
 
 
 function_body
     : '{' ( function_body_element )* '}'
+    ;
+
+loop_body
+    : '{' ( loop_body_element )* '}'
     ;
 
 assign_eq_item
@@ -293,10 +309,7 @@ function_body_element
     | for_clause
     | if_clause
     | try_clause
-    | break_statement
-    | continue_statement
     | INLINE
-    | yield_statement
     | type_statement
     | return_statement
     | raise_statement
@@ -305,6 +318,15 @@ function_body_element
     | exit_statement
     | function_body
     ;
+
+loop_body_element
+    : function_body_element
+    | break_statement
+    | continue_statement
+    | yield_statement
+    | loop_body
+    ;
+
 
 break_statement
     : 'break'
@@ -347,7 +369,7 @@ while_definition
     ;
 
 while_clause
-    : while_definition function_body
+    : while_definition loop_body
     ;
 
 do_clause
@@ -355,7 +377,7 @@ do_clause
     ;
 
 for_clause
-    : 'for' ( '(' ( expression 'as' IDENT )? ')' )? function_body
+    : 'for' ( '(' ( expression 'as' IDENT )? ')' )? loop_body
     ;
 
 if_clause

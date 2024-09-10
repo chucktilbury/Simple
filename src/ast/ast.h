@@ -51,7 +51,10 @@ typedef enum {
     AST_EXPRESSION_LIST,
     AST_NAMESPACE_DEFINITION,
     AST_CLASS_DEFINITION,
-    AST_CLASS_ITEM,
+    AST_CLASS_BODY_ITEM,
+    AST_CLASS_BODY,
+    AST_CLASS_INHERITANCE_ITEM,
+    AST_CLASS_INHERITANCE_LIST,
     AST_FUNCTION_DECLARATION,
     AST_CREATE_DECLARATION,
     AST_DESTROY_DECLARATION,
@@ -61,10 +64,12 @@ typedef enum {
     AST_DESTROY_NAME,
     AST_DESTROY_DEFINITION,
     AST_FUNCTION_BODY,
+    AST_FUNCTION_BODY_ELEMENT,
+    AST_LOOP_BODY,
+    AST_LOOP_BODY_ELEMENT,
     AST_ASSIGN_EQ_ITEM,
     AST_ASSIGN_INC_ITEM,
     AST_ASSIGNMENT,
-    AST_FUNCTION_BODY_ELEMENT,
     AST_BREAK_STATEMENT,
     AST_CONTINUE_STATEMENT,
     AST_YIELD_STATEMENT,
@@ -123,6 +128,21 @@ typedef struct _ast_module_item_ {
  *
  * Grammar production:
  *
+ * namespace_definition
+ *     : 'namespace' IDENT '{' ( namespace_item )+ '}'
+ *     ;
+ */
+typedef struct _ast_namespace_definition_ {
+    ast_node_t node;
+    Token* name;
+    // list of namespace items
+    PtrLst* items;
+} ast_namespace_definition_t;
+
+/**
+ *
+ * Grammar production:
+ *
  * start_definition
  *     : 'start' function_body
  *     ;
@@ -131,6 +151,145 @@ typedef struct _ast_start_definition_ {
     ast_node_t node;
     struct _ast_function_body_* body;
 } ast_start_definition_t;
+
+
+/**
+ *
+ * Grammar production:
+ *
+ * class_inheritance_item
+ *     : (scope_operator)? compound_name 'as' IDENT
+ *     ;
+ */
+typedef struct _ast_class_inheritance_item_ {
+    ast_node_t node;
+    struct _ast_scope_operator_* scope; // defaults to private
+    Token* ident;
+    struct _ast_compound_name_* name;
+} ast_class_inheritance_item_t;
+
+/**
+ *
+ * Grammar production:
+ *
+ * class_inheritance_list
+ *     : '(' ( class_inheritance_item (',' class_inheritance_item)* )? ')'
+ *     ;
+ */
+typedef struct _ast_class_inheritance_list_ {
+    ast_node_t node;
+    PtrLst* list;
+} ast_class_inheritance_list_t;
+
+/**
+ *
+ * Grammar production:
+ *
+ * class_definition
+ *   : 'class' IDENT ( class_inheritance_list )? class_definition_body
+ *   ;
+ */
+typedef struct _ast_class_definition_ {
+    ast_node_t node;
+    Token* name;
+    struct _ast_class_inheritance_list_* inher;
+    struct _ast_class_body_* body;
+} ast_class_definition_t;
+
+
+/**
+ *
+ * Grammar production:
+ *
+ * class_definition
+ *   : '{' ( class_body_item )+ '}'
+ *   ;
+ */
+typedef struct _ast_class_body_ {
+    ast_node_t node;
+    // list of class body items
+    PtrLst* list;
+} ast_class_body_t;
+
+/**
+ *
+ * Grammar production:
+ *
+ * class_body_item
+ *     : scope_operator
+ *     | var_decl
+ *     | function_declaration
+ *     | create_declaration
+ *     | destroy_declaration
+ *     ;
+ */
+typedef struct _ast_class_item_ {
+    ast_node_t node;
+    ast_node_t* ptr;
+} ast_class_body_item_t;
+
+
+/**
+ *
+ * Grammar production:
+ *
+ * function_definition
+ *     : ('iterator' )? compound_name var_decl_list var_decl_list function_body
+ *     ;
+ */
+typedef struct _ast_function_definition_ {
+    ast_node_t node;
+    bool is_iter;
+    struct _ast_compound_name_* name;
+    struct _ast_var_decl_list_* inp;
+    struct _ast_var_decl_list_* outp;
+    struct _ast_function_body_* body;
+} ast_function_definition_t;
+
+/**
+ *
+ * Grammar production:
+ *
+ * create_definition
+ *     : create_name var_decl_list function_body
+ *     ;
+ */
+typedef struct _ast_create_definition_ {
+    ast_node_t node;
+    struct _ast_create_name_* name;
+    struct _ast_var_decl_list_* inp;
+    struct _ast_function_body_* body;
+} ast_create_definition_t;
+
+/**
+ *
+ * Grammar production:
+ *
+ * destroy_name
+ *     : IDENT ('.' IDENT)? '.' 'destroy'
+ *     ;
+ */
+typedef struct _ast_destroy_name_ {
+    ast_node_t node;
+    // list of identifiers
+    PtrLst* ident;
+} ast_destroy_name_t;
+
+/**
+ *
+ * Grammar production:
+ *
+ * var_definition
+ *     : ( 'const' )? var_decl ( '=' assignment_item )?
+ *     ;
+ */
+typedef struct _ast_var_definition_ {
+    ast_node_t node;
+    bool is_const;
+    struct _ast_var_decl_* decl;
+    // NULL if there is no assignment
+    struct _ast_assignment_item_* item;
+} ast_var_definition_t;
 
 /**
  *
@@ -344,22 +503,6 @@ typedef struct _ast_assignment_item_ {
     ast_node_t node;
     ast_node_t* ptr;
 } ast_assignment_item_t;
-
-/**
- *
- * Grammar production:
- *
- * var_definition
- *     : ( 'const' )? var_decl ( '=' assignment_item )?
- *     ;
- */
-typedef struct _ast_var_definition_ {
-    ast_node_t node;
-    bool is_const;
-    struct _ast_var_decl_* decl;
-    // NULL if there is no assignment
-    struct _ast_assignment_item_* item;
-} ast_var_definition_t;
 
 /**
  *
@@ -642,63 +785,13 @@ typedef struct _ast_expression_list_ {
  *
  * Grammar production:
  *
- * namespace_definition
- *     : 'namespace' IDENT '{' ( namespace_item )+ '}'
- *     ;
- */
-typedef struct _ast_namespace_definition_ {
-    ast_node_t node;
-    Token* name;
-    // list of namespace items
-    PtrLst* items;
-} ast_namespace_definition_t;
-
-/**
- *
- * Grammar production:
- *
- * class_definition
- *   : 'class' IDENT ( '(' ( compound_name 'as' IDENT )? ')' )? '{' ( class_item )+ '}'
- *     ;
- */
-typedef struct _ast_class_definition_ {
-    ast_node_t node;
-    Token* name;
-    // could be NULL
-    struct _ast_compound_name_* inher;
-    Token* as_name;
-    // list of class items
-    PtrLst* list;
-} ast_class_definition_t;
-
-/**
- *
- * Grammar production:
- *
- * class_item
- *     : scope_operator
- *     | var_decl
- *     | function_declaration
- *     | create_declaration
- *     | destroy_declaration
- *     ;
- */
-typedef struct _ast_class_item_ {
-    ast_node_t node;
-    ast_node_t* ptr;
-} ast_class_item_t;
-
-/**
- *
- * Grammar production:
- *
  * function_declaration
- *     : ('virtual' )? IDENT type_name_list type_name_list
+ *     : ('iterator' )? IDENT type_name_list type_name_list
  *     ;
  */
 typedef struct _ast_function_declaration_ {
     ast_node_t node;
-    bool is_virtual;
+    bool is_iter;
     Token* name;
     struct _ast_type_name_list_* inp;
     struct _ast_type_name_list_* outp;
@@ -709,12 +802,11 @@ typedef struct _ast_function_declaration_ {
  * Grammar production:
  *
  * create_declaration
- *     : ('virtual' )? 'create' type_name_list
+ *     : 'create' type_name_list
  *     ;
  */
 typedef struct _ast_create_declaration_ {
     ast_node_t node;
-    bool is_virtual;
     struct _ast_type_name_list_* inp;
 } ast_create_declaration_t;
 
@@ -723,30 +815,12 @@ typedef struct _ast_create_declaration_ {
  * Grammar production:
  *
  * destroy_declaration
- *     : ('virtual' )? 'destroy'
+ *     : 'destroy'
  *     ;
  */
 typedef struct _ast_destroy_declaration_ {
     ast_node_t node;
-    bool is_virtual;
 } ast_destroy_declaration_t;
-
-/**
- *
- * Grammar production:
- *
- * function_definition
- *     : ('virtual' )? compound_name var_decl_list var_decl_list function_body
- *     ;
- */
-typedef struct _ast_function_definition_ {
-    ast_node_t node;
-    bool is_virtual;
-    struct _ast_compound_name_* name;
-    struct _ast_var_decl_list_* inp;
-    struct _ast_var_decl_list_* outp;
-    struct _ast_function_body_* body;
-} ast_function_definition_t;
 
 /**
  *
@@ -766,43 +840,12 @@ typedef struct _ast_create_name_ {
  *
  * Grammar production:
  *
- * create_definition
- *     : ('virtual' )? create_name var_decl_list function_body
- *     ;
- */
-typedef struct _ast_create_definition_ {
-    ast_node_t node;
-    bool is_virtual;
-    struct _ast_create_name_* name;
-    struct _ast_var_decl_list_* inp;
-    struct _ast_function_body_* body;
-} ast_create_definition_t;
-
-/**
- *
- * Grammar production:
- *
- * destroy_name
- *     : IDENT ('.' IDENT)? '.' 'destroy'
- *     ;
- */
-typedef struct _ast_destroy_name_ {
-    ast_node_t node;
-    // list of identifiers
-    PtrLst* ident;
-} ast_destroy_name_t;
-
-/**
- *
- * Grammar production:
- *
  * destroy_definition
- *     : ('virtual' )? destroy_name function_body
+ *     : destroy_name function_body
  *     ;
  */
 typedef struct _ast_destroy_definition_ {
     ast_node_t node;
-    bool is_virtual;
     struct _ast_destroy_name_* name;
     struct _ast_function_body_* body;
 } ast_destroy_definition_t;
@@ -820,6 +863,20 @@ typedef struct _ast_function_body_ {
     // list of function body elements
     PtrLst* list;
 } ast_function_body_t;
+
+/**
+ *
+ * Grammar production:
+ *
+ * loop_body
+ *     : '{' ( loop_body_element )* '}'
+ *     ;
+ */
+typedef struct _ast_loop_body_ {
+    ast_node_t node;
+    // list of function body elements
+    PtrLst* list;
+} ast_loop_body_t;
 
 /**
  *
@@ -885,10 +942,7 @@ typedef struct _ast_assignment_ {
  *     | if_clause
  *     | try_clause
  *     | switch_clause
- *     | break_statement
- *     | continue_statement
  *     | INLINE
- *     | yield_statement
  *     | type_statement
  *     | return_statement
  *     | raise_statement
@@ -903,6 +957,24 @@ typedef struct _ast_function_body_element_ {
     ast_node_t* ptr;
     Token* inl;
 } ast_function_body_element_t;
+
+/**
+ *
+ * Grammar production:
+ *
+ * loop_body_element
+ *     : function_body_element
+ *     | break_statement
+ *     | continue_statement
+ *     | yield_statement
+ *     | loop_body
+ *     ;
+ */
+typedef struct _ast_loop_body_element_ {
+    ast_node_t node;
+    ast_node_t* ptr;
+    Token* inl;
+} ast_loop_body_element_t;
 
 /**
  *
@@ -1044,7 +1116,7 @@ typedef struct _ast_while_definition_ {
 typedef struct _ast_while_clause_ {
     ast_node_t node;
     struct _ast_while_definition_* expr;
-    struct _ast_function_body_* body;
+    struct _ast_loop_body_* body;
 } ast_while_clause_t;
 
 /**
@@ -1073,7 +1145,7 @@ typedef struct _ast_for_clause_ {
     ast_node_t node;
     Token* ident;
     struct _ast_expression_* expr;
-    struct _ast_function_body_* body;
+    struct _ast_loop_body_* body;
 } ast_for_clause_t;
 
 /**
@@ -1229,7 +1301,10 @@ void traverse_expr_operator(ast_expr_operator_t* node, AstFuncPtr pre, AstFuncPt
 void traverse_expression_list(ast_expression_list_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_namespace_definition(ast_namespace_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_class_definition(ast_class_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_class_item(ast_class_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_class_body_item(ast_class_body_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_class_body(ast_class_body_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_class_inheritance_item(ast_class_inheritance_item_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_class_inheritance_list(ast_class_inheritance_list_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_function_declaration(ast_function_declaration_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_create_declaration(ast_create_declaration_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_destroy_declaration(ast_destroy_declaration_t* node, AstFuncPtr pre, AstFuncPtr post);
@@ -1239,10 +1314,12 @@ void traverse_create_definition(ast_create_definition_t* node, AstFuncPtr pre, A
 void traverse_destroy_name(ast_destroy_name_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_destroy_definition(ast_destroy_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_function_body(ast_function_body_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_function_body_element(ast_function_body_element_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_loop_body(ast_loop_body_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_loop_body_element(ast_loop_body_element_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_assign_eq_item(ast_assign_eq_item_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_assign_inc_item(ast_assign_inc_item_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_assignment(ast_assignment_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_function_body_element(ast_function_body_element_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_break_statement(ast_break_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_continue_statement(ast_continue_statement_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_yield_statement(ast_yield_statement_t* node, AstFuncPtr pre, AstFuncPtr post);

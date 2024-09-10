@@ -65,7 +65,7 @@ typedef enum {
     TOK_OCBRACE,
     TOK_CCBRACE,
     TOK_CLASS,
-    TOK_VIRTUAL,
+    TOK_ITERATOR,
     TOK_CREATE,
     TOK_DESTROY,
     TOK_PLUS_EQUAL,

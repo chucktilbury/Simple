@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * create_definition
- *     : ('virtual' )? create_name var_decl_list function_body
+ *     : create_name var_decl_list function_body
  *     ;
  */
 void traverse_create_definition(ast_create_definition_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -24,7 +24,6 @@ void traverse_create_definition(ast_create_definition_t* node, AstFuncPtr pre, A
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    TRACE("is_virtual = %s", node->is_virtual? "true": "false");
     traverse_create_name(node->name, pre, post);
     traverse_var_decl_list(node->inp, pre, post);
     traverse_function_body(node->body, pre, post);

@@ -16,15 +16,13 @@
  * Grammar production:
  *
  * destroy_declaration
- *     : ('virtual' )? 'destroy'
+ *     : 'destroy'
  *     ;
  */
 void traverse_destroy_declaration(ast_destroy_declaration_t* node, AstFuncPtr pre, AstFuncPtr post) {
 
     ENTER;
     CALL_NODE_FUNC(pre);
-
-    TRACE("is_virtual = %s", node->is_virtual? "true": "false");
 
     CALL_NODE_FUNC(post);
     RET;

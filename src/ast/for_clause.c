@@ -28,7 +28,7 @@ void traverse_for_clause(ast_for_clause_t* node, AstFuncPtr pre, AstFuncPtr post
         TRACE_TERMINAL(node->ident);
         traverse_expression(node->expr, pre, post);
     }
-    traverse_function_body(node->body, pre, post);
+    traverse_loop_body(node->body, pre, post);
 
     CALL_NODE_FUNC(post);
     RET;

@@ -1,10 +1,12 @@
 /**
- *
- * @file function_body.c
- *
- * @brief Parse grammar production function_body.
- * This file was generated on Wed Aug 21 11:39:59 2024.
- *
+ * @file class_inheritance_list.c
+ * @author your name (chucktilbury@gmail.com)
+ * @brief 
+ * @version 0.1
+ * @date 2024-09-10
+ * 
+ * @copyright Copyright (c) 2024
+ * 
  */
 #include "common.h"
 #include "tokens.h"
@@ -12,56 +14,60 @@
 #include "parser.h"
 
 /**
- *
- * Grammar production:
- *
- * function_body
- *     : '{' ( function_body_element )* '}'
+ * @brief Parse the class inheritance list
+ * 
+ * class_inheritance_list
+ *     : '(' ( class_inheritance_item (',' class_inheritance_item)* )? ')'
  *     ;
+ * 
+ * @param pstate 
+ * @return ast_class_inheritance_list_t* 
  */
-ast_function_body_t* parse_function_body(parser_state_t* pstate) {
+ast_class_inheritance_list_t* parse_class_inheritance_list(parser_state_t* pstate) {
 
     ASSERT(pstate != NULL);
     ENTER;
 
-    ast_function_body_t* node = NULL;
+    ast_class_inheritance_list_t* node = NULL;
     int state = 0;
     bool finished = false;
     void* post = post_token_queue();
 
+    ast_class_inheritance_item_t* item = NULL;
     PtrLst* list = create_ptr_lst();
-    ast_function_body_element_t* ptr = NULL;
 
     while(!finished) {
         switch(state) {
             case 0:
                 TRACE_STATE;
-                if(TOK_OCBRACE == TTYPE) {
+                if(TOK_OPAREN == TTYPE) {
                     consume_token();
                     state = 1;
                 }
-                else
+                else 
                     state = 101;
                 break;
 
             case 1:
                 TRACE_STATE;
-                if(NULL != (ptr = parse_function_body_element(pstate)))
-                    append_ptr_lst(list, ptr);
-                else if(TOK_CCBRACE == TTYPE) {
-                    consume_token();
-                    state = 100;
+                if(NULL == (item = parse_class_inheritance_item(pstate))) {
+                    if(TOK_CPAREN == TTYPE) {
+                        consume_token();
+                        state = 100;
+                    }
+                    else {
+                        EXPECTED("a class inheritance item or a ')'");
+                        state = 102;
+                    }
                 }
-                else {
-                    EXPECTED("a function body statement or a '}'");
-                    state = 102;
-                }
+                else 
+                    append_ptr_lst(list, item);
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE;
-                node = (ast_function_body_t*)create_ast_node(AST_FUNCTION_BODY);
+                node = (ast_class_inheritance_list_t*)create_ast_node(AST_CLASS_INHERITANCE_LIST);
                 node->list = list;
                 finished = true;
                 break;
@@ -87,4 +93,6 @@ ast_function_body_t* parse_function_body(parser_state_t* pstate) {
 
     RETURN(node);
 }
+
+
 

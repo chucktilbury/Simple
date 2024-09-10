@@ -11,24 +11,47 @@
 #ifndef _SYMBOLS_H_
 #define _SYMBOLS_H_
 
+// parser includes the ast and common headers
 #include "parser.h"
 
+typedef enum {
+    SYM_NAMESPACE,
+    SYM_CLASS,
+    SYM_VARIABLE,
+    SYM_FUNCTION,
+    SYM_IMPORT,
+    SYM_LOCAL,
+} SymbolType;
+
 typedef struct _symbol_t_ {
-    String* name;
+    SymbolType type;
+    const char* name;
     HashTable* children;
     struct _symbol_t_* parent;
-    ParserScope scope;
-    AstNodeType type;
-    ast_node_t* definition;
+    ast_node_t* node;
 } symbol_t;
 
-/*
-parser_context_t* create_context(parser_context_t* crnt, String* name);
-void push_parser_context(parser_state_t* state, parser_context_t* context);
-parser_context_t* pop_parser_context(parser_state_t* state);
-parser_context_t* get_parser_context(parser_state_t* state);
-String* get_parser_context_string(parser_state_t* state);
-*/
+sym_namespace_t* create_namespace_symbol(ast_node_t* node);
+
+sym_class_t* create_class_symbol(ast_node_t* node);
+
+sym_variable_t* create_variable_symbol(ast_node_t* node);
+
+sym_function_t* create_function_symbol(ast_node_t* node);
+
+symbol_t* create_import_symbol(ast_node_t* node);
+
+symbol_t* create_local_symbol(ast_node_t* node);
+
+void add_global_symbol(parser_state_t* pstate, symbol_t* sym);
+void set_symbol_context(parser_state_t* pstate, symbol_t* sym);
+symbol_t* lookup_symbol_name(ast_compound_name_t* name);
+symbol_t* lookup_symbol_ref(ast_compound_reference_t* name);
+void add_local_symbol(ast_function_definition_t* func, symbol_t* sym);
+symbol_t* lookup_local_symbol(ast_function_definition_t* func, const char* name);
+const char* decorate_func_decl(ast_function_declaration_t* func);
+const char* decorate_func_ref(ast_function_reference_t* func);
+const char* decorate_func_def(ast_function_definition_t* func);
 
 #endif /* _SYMBOLS_H_ */
 

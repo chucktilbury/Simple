@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * destroy_definition
- *     : ('virtual' )? destroy_name function_body
+ *     : destroy_name function_body
  *     ;
  */
 void traverse_destroy_definition(ast_destroy_definition_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -24,7 +24,6 @@ void traverse_destroy_definition(ast_destroy_definition_t* node, AstFuncPtr pre,
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    TRACE("is_virtual = %s", node->is_virtual? "true": "false");
     traverse_destroy_name(node->name, pre, post);
     traverse_function_body(node->body, pre, post);
 

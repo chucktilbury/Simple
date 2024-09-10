@@ -38,6 +38,7 @@ static token_database_t keywords[] = {
     {"include", TOK_INCLUDE},
     {"inline", TOK_INLINE},
     {"integer", TOK_INTEGER},
+    {"iterator", TOK_ITERATOR},
     {"list", TOK_LIST},
     {"lt", TOK_LT},
     {"lte", TOK_LTE},
@@ -58,7 +59,6 @@ static token_database_t keywords[] = {
     {"true", TOK_LITERAL_TRUE},
     {"try", TOK_TRY},
     {"type", TOK_TYPE},
-    {"virtual", TOK_VIRTUAL},
     {"while", TOK_WHILE},
     {"yield", TOK_YIELD},
 };
@@ -120,7 +120,7 @@ const char* token_to_str(TokenType type) {
         (type == TOK_OCBRACE)? "{" :
         (type == TOK_CCBRACE)? "}" :
         (type == TOK_CLASS)? "class" :
-        (type == TOK_VIRTUAL)? "virtual" :
+        (type == TOK_ITERATOR)? "iterator" :
         (type == TOK_CREATE)? "create" :
         (type == TOK_DESTROY)? "destroy" :
         (type == TOK_PLUS_EQUAL)? "+=" :
@@ -213,7 +213,7 @@ const char* token_type_to_str(Token* tok) {
         (type == TOK_OCBRACE)? "TOK_OCBRACE" :
         (type == TOK_CCBRACE)? "TOK_CCBRACE" :
         (type == TOK_CLASS)? "TOK_CLASS" :
-        (type == TOK_VIRTUAL)? "TOK_VIRTUAL" :
+        (type == TOK_ITERATOR)? "TOK_ITERATOR" :
         (type == TOK_CREATE)? "TOK_CREATE" :
         (type == TOK_DESTROY)? "TOK_DESTROY" :
         (type == TOK_PLUS_EQUAL)? "TOK_PLUS_EQUAL" :

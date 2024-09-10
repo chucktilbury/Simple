@@ -16,8 +16,9 @@
  * Grammar production:
  *
  * class_definition
- *   : 'class' IDENT ( '(' ( compound_name 'as' IDENT )? ')' )? '{' ( class_item )+ '}'
+ *     : 'class' IDENT ( class_inheritance_list )? class_body
  *     ;
+ *
  */
 ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
@@ -30,10 +31,8 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     Token* name = NULL;
-    Token* as_name = NULL;
-    ast_compound_name_t* inher = NULL;
-    PtrLst* list = create_ptr_lst();
-    ast_class_item_t* item = NULL;
+    ast_class_inheritance_list_t* inher = NULL;
+    ast_class_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {
@@ -62,109 +61,17 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
                 break;
 
             case 2:
-                // optional parentheses
                 TRACE_STATE;
-                if(TOK_OPAREN == TTYPE) {
-                    consume_token();
-                    state = 3;
-                }
-                else
-                    state = 7;
+                inher = parse_class_inheritance_list(pstate);
+                state = 3;
                 break;
 
             case 3:
-                // optional compound name
                 TRACE_STATE;
-                if(NULL != (inher = parse_compound_name(pstate)))
-                    state = 4;
-                else
-                    state = 6;
-                break;
-
-            case 4:
-                // required AS keyword
-                TRACE_STATE;
-                if(TOK_AS == TTYPE) {
-                    consume_token();
-                    state = 5;
-                }
-                else {
-                    EXPECTED("the 'as' keyword");
-                    state = 102;
-                }
-                break;
-
-            case 5:
-                // required IDENT
-                TRACE_STATE;
-                if(TOK_IDENT == TTYPE) {
-                    as_name = copy_token(get_token());
-                    consume_token();
-                    state = 6;
-                }
-                else {
-                    EXPECTED("an identifier");
-                    state = 102;
-                }
-                break;
-
-            case 6:
-                // required close paren
-                TRACE_STATE;
-                if(TOK_CPAREN == TTYPE) {
-                    consume_token();
-                    state = 7;
-                }
-                else {
-                    EXPECTED("a ')'");
-                    state = 102;
-                }
-                break;
-
-            case 7:
-                // required open curly brace
-                TRACE_STATE;
-                if(TOK_OCBRACE == TTYPE) {
-                    consume_token();
-                    state = 8;
-                }
-                else {
-                    EXPECTED("a '{'");
-                    state = 102;
-                }
-                break;
-
-            case 8:
-                // required first class item
-                TRACE_STATE;
-                if(NULL != (item = parse_class_item(pstate))) {
-                    append_ptr_lst(list, item);
-                    state = 9;
-                }
-                else {
-                    EXPECTED("a valid class item");
-                    state = 102;
-                }
-                break;
-
-            case 9:
-                // optional additional class items
-                TRACE_STATE;
-                if(NULL != (item = parse_class_item(pstate)))
-                    append_ptr_lst(list, item);
-                else
-                    state = 10;
-                break;
-
-            case 10:
-                // required close curly brace
-                TRACE_STATE;
-                if(TOK_CCBRACE == TTYPE) {
-                    consume_token();
+                if(NULL != (body = parse_class_body(pstate))) 
                     state = 100;
-                }
                 else {
-                    EXPECTED("a '}'");
+                    EXPECTED("a class body");
                     state = 102;
                 }
                 break;
@@ -174,9 +81,8 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
                 TRACE_STATE;
                 node = (ast_class_definition_t*)create_ast_node(AST_CLASS_DEFINITION);
                 node->name = name;
-                node->as_name = as_name;
                 node->inher = inher;
-                node->list = list;
+                node->body = body;
                 finished = true;
                 break;
 

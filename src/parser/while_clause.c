@@ -30,7 +30,7 @@ ast_while_clause_t* parse_while_clause(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     ast_while_definition_t* expr = NULL;
-    ast_function_body_t* body = NULL;
+    ast_loop_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {
@@ -44,10 +44,10 @@ ast_while_clause_t* parse_while_clause(parser_state_t* pstate) {
 
             case 1:
                 TRACE_STATE;
-                if(NULL != (body = parse_function_body(pstate))) 
+                if(NULL != (body = parse_loop_body(pstate))) 
                     state = 100;
                 else {
-                    EXPECTED("a function body");
+                    EXPECTED("a loop body");
                     state = 102;
                 }
                 break;

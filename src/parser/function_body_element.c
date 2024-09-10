@@ -76,12 +76,6 @@ ast_function_body_element_t* parse_function_body_element(parser_state_t* pstate)
                     state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_try_clause(pstate)))
                     state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_break_statement(pstate)))
-                    state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_continue_statement(pstate)))
-                    state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_yield_statement(pstate)))
-                    state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_type_statement(pstate)))
                     state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_return_statement(pstate)))

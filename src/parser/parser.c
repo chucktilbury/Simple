@@ -22,8 +22,8 @@ parser_state_t* init_parser(void) {
     push_link_list(pstate->mode, _DUP_DS(&mode, ParserMode));
 
     pstate->scope = create_link_list();
-    ParserScope scope = PSCOPE_PRIVATE;
-    push_link_list(pstate->scope, _DUP_DS(&scope, ParserScope));
+    ScopeType scope = SCOPE_PRIVATE;
+    push_link_list(pstate->scope, _DUP_DS(&scope, ScopeType));
 
     init_scanner(get_cmdline("list of files"));
 
@@ -47,26 +47,26 @@ ParserMode get_parser_mode(parser_state_t* state) {
     return *mode;
 }
 
-void push_parser_scope(parser_state_t* state, ParserScope scope) {
+void push_parser_scope(parser_state_t* state, ScopeType scope) {
 
-    push_link_list(state->scope, _DUP_DS(&scope, ParserScope));
+    push_link_list(state->scope, _DUP_DS(&scope, ScopeType));
 }
 
-void set_parser_scope(parser_state_t* state, ParserScope scope) {
+void set_parser_scope(parser_state_t* state, ScopeType scope) {
 
     pop_link_list(state->scope);
-    push_link_list(state->scope, _DUP_DS(&scope, ParserScope));
+    push_link_list(state->scope, _DUP_DS(&scope, ScopeType));
 }
 
-ParserScope pop_parser_scope(parser_state_t* state) {
+ScopeType pop_parser_scope(parser_state_t* state) {
 
-    ParserScope* scope = pop_link_list(state->scope);
+    ScopeType* scope = pop_link_list(state->scope);
     return *scope;
 }
 
-ParserScope get_parser_scope(parser_state_t* state) {
+ScopeType get_parser_scope(parser_state_t* state) {
 
-    ParserScope* scope = peek_link_list(state->scope);
+    ScopeType* scope = peek_link_list(state->scope);
     return *scope;
 }
 
