@@ -4,60 +4,38 @@
 ## Things to fix.
 This is a list of things that I actually intend to do in order of priority. When an item is complete, move it to the end of the list.
 
-* Need to differentiate between a loop body and a function body. A loop body adds the keywords of ``break``, and ``continue``. Those cannot appear outside of a loop. Also note that the ``yield`` keyword has a different meaning inside a loop than it does outside of it. Maybe it is a loop-only construct. Yield keyword is for implementing iterators and it may not have a meaning outside of a loop. 
-    - [x] grammar 
-    - [x] scanner 
-    - [x] parser 
-    - [x] ast
-    - [] test
-* Inheritance specifications need to include the scope of the symbol for example, ``public some.class.name as name``.
-    * List of inheritance specifications can appear as part of a class definition to support multiple inheritance using a class pointer array in a class. 
-    - [x] grammar 
-    - [x] scanner 
-    - [x] parser 
-    - [x] ast
-    - [] test
-* Need an ``iterator`` keyword to describe a function that can use the ``yield`` keyword. If the function does not use ``yield`` it should still operate as a normal function, but if a function is not an iterator and it uses ``yield`` then that should be an error.
-    * Checking for the ``iterator`` and the ``yield`` in a function are done as AST passes.
-    - [x] grammar 
-    - [x] scanner 
-    - [x] parser 
-    - [x] ast
-    - [] test
 * Allow function definitions inside a class definition. There is no notion of an inline function because all function are held as pointers in the class and functions cannot be inlined if a pointer to them exists. 
     * This depends on reworking how the AST stores names. 
     * Function parameters require a variable name for definitions, but for declarations, the name should be optional.
     * The function definition node in the AST is the same for a declaration or a definition except that for a declaration, the function body is not defined.
-    - [] grammar 
-    - [] scanner 
-    - [] parser 
-    - [] ast
-    - [] test
+    - ``[]`` grammar ``[]`` scanner ``[]`` parser ``[]`` ast ``[]`` test
 * Function prototypes have to have the input and output parameters differentiated so that the AST traverse functions can tell them apart. Probably just add a flag of some kind.
-    - [] grammar 
-    - [] scanner 
-    - [] parser 
-    - [] ast
-    - [] test
+    - ``[]`` grammar ``[]`` scanner ``[]`` parser ``[]`` ast ``[]`` test
 * Directives for include paths, compiler options, and linker options. Could be new keywords that start with a ``.``.
-    - [] grammar 
-    - [] scanner 
-    - [] parser 
-    - [] ast
-    - [] test
+    - ``[]`` grammar ``[]`` scanner ``[]`` parser ``[]`` ast ``[]`` test
 * Built in class functions such as the ones in Python that handle stringalation, typealation, and comparisons.
     * Look into operator overloads. Monkey patch implications.
-    - [] grammar 
-    - [] scanner 
-    - [] parser 
-    - [] ast
-    - [] test
+    - ``[]`` grammar ``[]`` scanner ``[]`` parser ``[]`` ast ``[]`` test
 * Make tracing controllable from the command line. Unify the testing functionality into the main executable. The trace capability needs to be a stack so that the different subsystems can be isolated for trace. Separate test programs for AST, parser, and scanner become obsolete.
-    - [x] grammar 
-    - [x] scanner 
-    - [x] parser 
-    - [x] ast
-    - [x] test
+    - ``[x]`` grammar ``[x]`` scanner ``[x]`` parser ``[x]`` ast ``[x]`` test
+* Need to differentiate between a loop body and a function body. A loop body adds the keywords of ``break``, and ``continue``. Those cannot appear outside of a loop. Also note that the ``yield`` keyword has a different meaning inside a loop than it does outside of it. Maybe it is a loop-only construct. Yield keyword is for implementing iterators and it may not have a meaning outside of a loop. 
+    - ``[x]`` grammar ``[x]`` scanner ``[x]`` parser ``[x]`` ast ``[x]`` test
+* Inheritance specifications need to include the scope of the symbol for example, ``public some.class.name as name``.
+    * List of inheritance specifications can appear as part of a class definition to support multiple inheritance using a class pointer array in a class. 
+    - ``[x]`` grammar ``[x]`` scanner ``[x]`` parser ``[x]`` ast ``[x]`` test
+* Need an ``iterator`` keyword to describe a function that can use the ``yield`` keyword. If the function does not use ``yield`` it should still operate as a normal function, but if a function is not an iterator and it uses ``yield`` then that should be an error.
+    * Checking for the ``iterator`` and the ``yield`` in a function are done as AST passes.
+    - ``[x]`` grammar ``[x]`` scanner ``[x]`` parser ``[x]`` ast ``[x]`` test
+    * **update:** Removed the iterator keyword. Will mark the function as an iterator if the yield keyword is found in a loop.
+
+## Function declaration vs. function definition
+I want to be able to define a function inside a class as well as out side of it. When a func is defined inside the class then the declaration and the definition are the same object. When a func is declared in the class and defined outside of it then they are 2 different objects. In any case, when a function is defined for a class, the class body needs to be in the class parser object before any attempt is made to emit the function. 
+
+A function does not need to be attached to a class. It's scope is set by the current scope and it could be imported by an import statement if the scope is set tp public. In this case the declaration and the definition are the same parser object. Functions that are defined outside of a class are all ready bound to their implementation. 
+
+A function is ultimately a stand-alone entity that could have access to local variables defined in a class. Why can't I use exactly the same data structure everywhere? 
+
+A function definition has a hash table for local variables. Those also include the input and output parameters, which have special rules attached to them. Input parameters are read-only and output parameters are write-only and become read-write outside of the function they are called with. Others that are defined inside a function are local to that function and are read-write unless declared as ``const``.
 
 ## Re-thinking the AST definition.
 The way the current AST is configure is that it follows the syntax of the input closely with the idea that subsequent passes will refine it to be closer to what is actually emitted. But now I am thinking that it should be compressed even further. Notice that there are similarities between the AST and the symbol table. They both essentially hold data in nodes that describe a nexus in the syntax that defines an identifier. So it seems as if a more targeted data structure than the generic boilerplate is beneficial. This new data structure will be centered around the names that are created, rather than the links to other nodes in the syntax tree. Instead of a list of nodes representing children, use a hash table instead. Nodes in the hash table have the children given by name in no particular order, so when order does matter, such as lines in a function definition, a hierarchy of lists must still be used.

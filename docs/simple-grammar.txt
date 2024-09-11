@@ -239,7 +239,7 @@ class_body
     ;
 
 function_declaration
-    : ('iterator' )? IDENT type_name_list type_name_list
+    : IDENT type_name_list type_name_list
     ;
 
 create_declaration
@@ -251,7 +251,7 @@ destroy_declaration
     ;
 
 function_definition
-    : ('iterator' )? compound_name var_decl_list var_decl_list function_body
+    : compound_name var_decl_list var_decl_list function_body
     ;
 
 create_name

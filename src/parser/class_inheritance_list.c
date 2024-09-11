@@ -50,18 +50,41 @@ ast_class_inheritance_list_t* parse_class_inheritance_list(parser_state_t* pstat
 
             case 1:
                 TRACE_STATE;
-                if(NULL == (item = parse_class_inheritance_item(pstate))) {
-                    if(TOK_CPAREN == TTYPE) {
-                        consume_token();
-                        state = 100;
-                    }
-                    else {
-                        EXPECTED("a class inheritance item or a ')'");
-                        state = 102;
-                    }
-                }
-                else 
+                if(NULL != (item = parse_class_inheritance_item(pstate))) {
                     append_ptr_lst(list, item);
+                    state = 2;
+                }
+                else    
+                    state = 4;
+                break;
+
+            case 2:
+                TRACE_STATE;
+                if(TOK_COMMA == TTYPE) {
+                    consume_token();
+                    state = 1;
+                }
+                else if(TOK_CPAREN) {
+                    consume_token();
+                    state = 100;
+                }
+                else {
+                    EXPECTED("a ')' or a ','");
+                    state = 102;
+                }
+                break;
+
+            case 4:
+                // mandatory ')'
+                TRACE_STATE;
+                if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else {
+                    EXPECTED("a ')'");
+                    state = 102;
+                }
                 break;
 
             case 100:

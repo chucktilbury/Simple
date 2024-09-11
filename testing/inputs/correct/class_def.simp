@@ -1,0 +1,11 @@
+;-------------------------------------------------------------------------------
+;
+; Various ways to define the class declaration.
+;
+;-------------------------------------------------------------------------------
+
+class name ( asdf as er, public kdjf as poipoi) {
+    public
+}
+
+class name {}

@@ -25,7 +25,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
     ENTER;
 
     ast_function_definition_t* node = NULL;
-    int state = 0;
+    int state = 1;
     bool finished = false;
     void* post = post_token_queue();
 
@@ -37,14 +37,14 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
 
     while(!finished) {
         switch(state) {
-            case 0:
-                TRACE_STATE;
-                if(TOK_ITERATOR == TTYPE) {
-                    is_iter = true;
-                    consume_token();
-                }
-                state = 1;
-                break;
+            // case 0:
+            //     TRACE_STATE;
+            //     if(TOK_ITERATOR == TTYPE) {
+            //         is_iter = true;
+            //         consume_token();
+            //     }
+            //     state = 1;
+            //     break;
 
             case 1:
                 TRACE_STATE;

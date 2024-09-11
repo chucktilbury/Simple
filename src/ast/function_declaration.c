@@ -24,7 +24,7 @@ void traverse_function_declaration(ast_function_declaration_t* node, AstFuncPtr 
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    TRACE("is_iter = %s", node->is_iter? "true": "false");
+    //TRACE("is_iter = %s", node->is_iter? "true": "false");
     TRACE_TERMINAL(node->name);
     traverse_type_name_list(node->inp, pre, post);
     traverse_type_name_list(node->outp, pre, post);

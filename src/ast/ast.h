@@ -234,7 +234,7 @@ typedef struct _ast_class_item_ {
  * Grammar production:
  *
  * function_definition
- *     : ('iterator' )? compound_name var_decl_list var_decl_list function_body
+ *     : compound_name var_decl_list var_decl_list function_body
  *     ;
  */
 typedef struct _ast_function_definition_ {
@@ -786,7 +786,7 @@ typedef struct _ast_expression_list_ {
  * Grammar production:
  *
  * function_declaration
- *     : ('iterator' )? IDENT type_name_list type_name_list
+ *     : IDENT type_name_list type_name_list
  *     ;
  */
 typedef struct _ast_function_declaration_ {

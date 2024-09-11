@@ -31,7 +31,7 @@ ast_destroy_declaration_t* parse_destroy_declaration(parser_state_t* pstate) {
 
     while(!finished) {
         switch(state) {
-            case 1:
+            case 0:
                 TRACE_STATE;
                 if(TOK_DESTROY == TTYPE) { 
                     consume_token();
