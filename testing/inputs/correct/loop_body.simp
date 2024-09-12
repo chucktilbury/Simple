@@ -15,6 +15,7 @@ name() () {
     if (1 == 2) {
         if(3 == 5) {
             asdf()()
+            break ; syntax error
         }
     }
 }
