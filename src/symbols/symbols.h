@@ -25,23 +25,12 @@ typedef enum {
 
 typedef struct _symbol_t_ {
     SymbolType type;
-    const char* name;
+    String* name;
     HashTable* children;
     struct _symbol_t_* parent;
-    ast_node_t* node;
 } symbol_t;
 
-sym_namespace_t* create_namespace_symbol(ast_node_t* node);
-
-sym_class_t* create_class_symbol(ast_node_t* node);
-
-sym_variable_t* create_variable_symbol(ast_node_t* node);
-
-sym_function_t* create_function_symbol(ast_node_t* node);
-
-symbol_t* create_import_symbol(ast_node_t* node);
-
-symbol_t* create_local_symbol(ast_node_t* node);
+void init_symbol(symbol_t* sym, SymbolType type, String* name);
 
 void add_global_symbol(parser_state_t* pstate, symbol_t* sym);
 void set_symbol_context(parser_state_t* pstate, symbol_t* sym);
@@ -51,7 +40,10 @@ void add_local_symbol(ast_function_definition_t* func, symbol_t* sym);
 symbol_t* lookup_local_symbol(ast_function_definition_t* func, const char* name);
 const char* decorate_func_decl(ast_function_declaration_t* func);
 const char* decorate_func_ref(ast_function_reference_t* func);
-const char* decorate_func_def(ast_function_definition_t* func);
+String* decorate_func_def(ast_function_definition_t* func);
+
+String* decorate_compound_name(ast_compound_name_t* name);
+String* generate_uuid(void);
 
 #endif /* _SYMBOLS_H_ */
 

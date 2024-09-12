@@ -11,6 +11,7 @@
 #include "errors.h"
 #include "parser.h"
 
+String* decorate_func_def(ast_function_definition_t* func);
 /**
  *
  * Grammar production:
@@ -91,6 +92,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
                 node->inp = inp;
                 node->outp = outp;
                 node->body = body;
+                decorate_func_def(node);
                 finished = true;
                 break;
 

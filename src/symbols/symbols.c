@@ -8,7 +8,7 @@
  * @copyright Copyright (c) 2024
  * 
  */
-
+#include <time.h>
 #include "symbols.h"
 
 /**
@@ -17,13 +17,14 @@
  * @param node 
  * @return symbol_t* 
  */
-symbol_t* create_symbol(ast_node_t* node) {
+void init_symbol(symbol_t* sym, SymbolType type, String* name) {
 
     ENTER;
-    ASSERT(node != NULL);
-    symbol_t* sym = _ALLOC_DS(symbol_t);
+    sym->type = type;
+    sym->name = copy_string(name);
 
-    RETURN(sym);
+    sym->children = create_hashtable();
+    sym->parent = NULL;
 }
 
 /**
@@ -152,19 +153,57 @@ const char* decorate_func_ref(ast_function_reference_t* func) {
 }
 
 /**
- * @brief Return the decorated name of the function, but using var 
- * definitions instead of simple type names.
+ * @brief Generate a name suitable for storage in the hash table from a 
+ * ast_compound_name_t data structure. This is used by the variable functions. 
+ * The function decorator has it's own version.
  * 
- * @param func 
- * @return const char* 
+ * @param name 
+ * @return String* 
  */
-const char* decorate_func_def(ast_function_definition_t* func) {
+String* decorate_compound_name(ast_compound_name_t* name) {
 
     ENTER;
-    ASSERT(func != NULL);
+    ASSERT(name != NULL);
+
+    int mark = 0;
     String* str = create_string(NULL);
 
-    RETURN(_DUP_STR(raw_string(str)));
+    Token* item = iterate_ptr_lst(name->list, &mark);
+    if(item != NULL) {
+        append_string_string(str, item->str);
+
+        while(NULL != (item = iterate_ptr_lst(name->list, &mark))) {
+            append_string_char(str, '.');
+            append_string_string(str, item->str);
+        }
+    }
+    
+    RETURN(str);
 }
 
+/**
+ * @brief Generate a cheap UUID from rand()
+ * 
+ * @return String* 
+ */
+String* generate_uuid(void) {
+    
+    ENTER;
+    srand(time(NULL));
+    
+    // Generate four 32-bit random numbers
+    unsigned int num1 = rand();
+    unsigned int num2 = rand();
+    unsigned int num3 = rand();
+    unsigned int num4 = rand();
+    
+    // Convert the random numbers to a string
+    String* str = create_string(NULL);
+    append_string_fmt(str, "%08x-%04x-%04x-%04x-%08x%04x",
+            num1, num2 >> 16, num2 & 0xFFFF,
+            num3 >> 16, num3 & 0xFFFF, num4);
+
+    TRACE("UUID = %s", raw_string(str));
+    RETURN(str);
+}
 

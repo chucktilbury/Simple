@@ -9,7 +9,7 @@ set(EXECUTABLE_OUTPUT_PATH "${PROJECT_SOURCE_DIR}/bin")
 find_package(Doxygen)
 
 add_subdirectory(src)
-add_subdirectory(testing) # EXCLUDE_FROM_ALL)
+add_subdirectory(testing EXCLUDE_FROM_ALL)
 add_subdirectory(docs EXCLUDE_FROM_ALL)
 
 file(GLOB_RECURSE format_xxfiles
