@@ -58,10 +58,6 @@ type_name
     | compound_name
     ;
 
-type_name_list
-    : '(' ( type_name (',' type_name )* )? ')'
-    ;
-
 formatted_strg
     : LITERAL_DSTR ( expression_list )?
     ;
@@ -82,8 +78,12 @@ var_decl
     : type_name IDENT
     ;
 
-var_decl_list
-    : '(' ( var_decl ( ',' var_decl )* )? ')'
+func_parm_decl
+    : typename ( IDENT )?
+    ;
+
+func_parm_decl_list
+    : '(' ( func_parm_decl ( ',' func_parm_decl )* )? ')'
     ;
 
 assignment_item
@@ -127,15 +127,15 @@ array_reference
     ;
 
 function_reference
-    : compound_reference expression_list compound_name_list
+    : compound_name expression_list compound_name_list
     ;
 
 create_reference
-    : create_name expression_list
+    : compound_name '.' 'create' expression_list
     ;
 
 destroy_reference
-    : destroy_name
+    : compound_name '.' 'destroy'
     ;
 
 compound_name
@@ -229,47 +229,30 @@ class_definition
 class_body_item
     : scope_operator
     | var_decl
-    | function_declaration
-    | create_declaration
-    | destroy_declaration
+    | function_definition
+    | create_definition
+    | destroy_definition
     ;
 
 class_body
     : '{' ( class_body_item )+ '}'
     ;
 
-function_declaration
-    : IDENT type_name_list type_name_list
-    ;
-
-create_declaration
-    : 'create' type_name_list
-    ;
-
-destroy_declaration
-    : 'destroy'
+function_membership
+    : compound_name ':'
     ;
 
 function_definition
-    : compound_name var_decl_list var_decl_list function_body
-    ;
-
-create_name
-    : IDENT ('.' IDENT)? '.' 'create'
+    : ( function_membership )? IDENT func_parm_decl_list func_parm_decl_list ( function_body )?
     ;
 
 create_definition
-    : create_name var_decl_list function_body
-    ;
-
-destroy_name
-    : IDENT ('.' IDENT)? '.' 'destroy'
+    : ( function_membership )? 'create' func_parm_decl_list ( function_body )?
     ;
 
 destroy_definition
-    : destroy_name function_body
+    : ( function_membership )? 'destroy' ( function_body )?
     ;
-
 
 function_body
     : '{' ( function_body_element )* '}'

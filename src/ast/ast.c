@@ -93,6 +93,8 @@ static size_t node_size(AstNodeType type) {
     (type == AST_EXCEPT_CLAUSE)? sizeof(ast_except_clause_t) :
     (type == AST_FINAL_CLAUSE)? sizeof(ast_final_clause_t) :
     (type == AST_ALIAS_DEFINITION)? sizeof(ast_alias_definition_t) :
+    (type == AST_FUNC_PARM_DECL)? sizeof(ast_func_parm_decl_t) :
+    (type == AST_FUNC_PARM_DECL_LIST)? sizeof(ast_func_parm_decl_list_t) :
     0; // error if we reach here
 }
 
@@ -202,6 +204,8 @@ const char* nterm_type_to_str(ast_node_t* node) {
         (type == AST_FINAL_ELSE_CLAUSE)? "AST_FINAL_ELSE_CLAUSE" :
         (type == AST_TRY_CLAUSE)? "AST_TRY_CLAUSE" :
         (type == AST_EXCEPT_CLAUSE)? "AST_EXCEPT_CLAUSE" :
+        (type == AST_FUNC_PARM_DECL)? "AST_FUNC_PARM_DECL" :
+        (type == AST_FUNC_PARM_DECL_LIST)? "AST_FUNC_PARM_DECL_LIST" :
         (type == AST_FINAL_CLAUSE)? "AST_FINAL_CLAUSE" : "UNKNOWN";
 
 }

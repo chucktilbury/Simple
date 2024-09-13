@@ -18,9 +18,9 @@
  * class_body_item
  *     : scope_operator
  *     | var_decl
- *     | function_declaration
- *     | create_declaration
- *     | destroy_declaration
+ *     | function_definition
+ *     | create_definition
+ *     | destroy_definition
  *     ;
  */
 void traverse_class_body_item(ast_class_body_item_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -35,14 +35,14 @@ void traverse_class_body_item(ast_class_body_item_t* node, AstFuncPtr pre, AstFu
         case AST_VAR_DECL:
             traverse_var_decl((ast_var_decl_t*)(node->ptr), pre, post);
             break;
-        case AST_FUNCTION_DECLARATION:
-            traverse_function_declaration((ast_function_declaration_t*)(node->ptr), pre, post);
+        case AST_FUNCTION_DEFINITION:
+            traverse_function_definition((ast_function_definition_t*)(node->ptr), pre, post);
             break;
-        case AST_CREATE_DECLARATION:
-            traverse_create_declaration((ast_create_declaration_t*)(node->ptr), pre, post);
+        case AST_CREATE_DEFINITION:
+            traverse_create_definition((ast_create_definition_t*)(node->ptr), pre, post);
             break;
-        case AST_DESTROY_DECLARATION:
-            traverse_destroy_declaration((ast_destroy_declaration_t*)(node->ptr), pre, post);
+        case AST_DESTROY_DEFINITION:
+            traverse_destroy_definition((ast_destroy_definition_t*)(node->ptr), pre, post);
             break;
         default:
             FATAL("unknown ast node type: %s", nterm_type_to_str(node->ptr));

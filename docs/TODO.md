@@ -18,6 +18,15 @@ This is a list of things that I actually intend to do in order of priority. When
 
 * Compress the AST structure so that it can be used as a symbol table. That means to concentrate all of the required information for a name into a single data structure and reference the children of the name by name instead of elements in an anonymous list. That way the AST can be used to look up names.
 
+* Comprehensive testing.
+
+* Change function declarations
+    * get rid of the function_declaration non-terminal
+    * make a new nterm where the var name in a parm decl is optional, with the list.
+    * Switch over the definitions.
+    * function body becomes optional
+    * differentiate when there is a single name in the compound name for decl vs definition
+
 
 ## Done
 * Implement aliases. An alias can appear anywhere in a module and it has the syntax of ``compound_name 'as' IDENT``. All it does is check the existence of the compound name and makes an entry in the symbol table that maps the IDENT to that name. An alias is required to define an inheritance specification, for example.

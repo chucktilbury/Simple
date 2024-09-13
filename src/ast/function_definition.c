@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * function_definition
- *     : ( 'iterator' )? compound_name var_decl_list var_decl_list function_body
+ *     : ( function_membership )? IDENT func_parm_decl_list func_parm_decl_list ( function_body )?
  *     ;
  */
 void traverse_function_definition(ast_function_definition_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -25,9 +25,9 @@ void traverse_function_definition(ast_function_definition_t* node, AstFuncPtr pr
     CALL_NODE_FUNC(pre);
 
     //TRACE("is_iter = %s", node->is_iter? "true": "false");
-    traverse_compound_name(node->name, pre, post);
-    traverse_var_decl_list(node->inp, pre, post);
-    traverse_var_decl_list(node->outp, pre, post);
+    traverse_function_membership(node->name, pre, post);
+    traverse_func_parm_decl_list(node->inp, pre, post);
+    traverse_func_parm_decl_list(node->outp, pre, post);
     traverse_function_body(node->body, pre, post);
 
     CALL_NODE_FUNC(post);

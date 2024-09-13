@@ -18,9 +18,9 @@
  * class_body_item
  *     : scope_operator
  *     | var_decl
- *     | function_declaration
- *     | create_declaration
- *     | destroy_declaration
+ *     | function_definition
+ *     | create_definition
+ *     | destroy_definition
  *     ;
  */
 ast_class_body_item_t* parse_class_body_item(parser_state_t* pstate) {
@@ -44,11 +44,11 @@ ast_class_body_item_t* parse_class_body_item(parser_state_t* pstate) {
                     state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_var_decl(pstate)))
                     state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_function_declaration(pstate)))
+                else if(NULL != (ptr = (ast_node_t*)parse_function_definition(pstate)))
                     state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_create_declaration(pstate)))
+                else if(NULL != (ptr = (ast_node_t*)parse_create_definition(pstate)))
                     state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_destroy_declaration(pstate)))
+                else if(NULL != (ptr = (ast_node_t*)parse_destroy_definition(pstate)))
                     state = 100;
                 else
                     state = 101;

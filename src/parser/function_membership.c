@@ -1,10 +1,12 @@
 /**
- *
- * @file destroy_declaration.c
- *
- * @brief Parse grammar production destroy_declaration.
- * This file was generated on Wed Aug 21 11:39:59 2024.
- *
+ * @file function_membership.c
+ * @author Chuck Tilbury (chucktilbury@gmail.com)
+ * @brief 
+ * @version 0.1
+ * @date 2024-09-13
+ * 
+ * @copyright Copyright (c) 2024
+ * 
  */
 #include "common.h"
 #include "tokens.h"
@@ -15,36 +17,46 @@
  *
  * Grammar production:
  *
- * destroy_declaration
- *     : 'destroy'
+ * function_membership
+ *     : compound_name ':'
  *     ;
  */
-ast_destroy_declaration_t* parse_destroy_declaration(parser_state_t* pstate) {
+ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
 
     ASSERT(pstate != NULL);
     ENTER;
 
-    ast_destroy_declaration_t* node = NULL;
+    ast_function_membership_t* node = NULL;
     int state = 0;
     bool finished = false;
     void* post = post_token_queue();
+
 
     while(!finished) {
         switch(state) {
             case 0:
                 TRACE_STATE;
-                if(TOK_DESTROY == TTYPE) { 
+                if(NULL != (name = parse_compound_name(pstate)))
+                    state = 1;
+                else 
+                    state = 101;
+                break;
+
+            case 1:
+                TRACE_STATE;
+                if(TOK_COLON == TTYPE) {
                     consume_token();
                     state = 100;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE;
-                node = (ast_destroy_declaration_t*)create_ast_node(AST_DESTROY_DECLARATION);
+                node = (ast_function_membership_t*)create_ast_node(AST_FUNCTION_MEMBERSHIP);
+                node->name = name;
                 finished = true;
                 break;
 

@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * destroy_definition
- *     : destroy_name function_body
+ *     : ( compound_name ':' )? 'destroy' ( function_body )?
  *     ;
  */
 ast_destroy_definition_t* parse_destroy_definition(parser_state_t* pstate) {

@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * create_definition
- *     : create_name var_decl_list function_body
+ *     : ( compound_name ':' )? 'create' func_parm_decl_list ( function_body )?
  *     ;
  */
 void traverse_create_definition(ast_create_definition_t* node, AstFuncPtr pre, AstFuncPtr post) {

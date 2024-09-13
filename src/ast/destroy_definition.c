@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * destroy_definition
- *     : destroy_name function_body
+ *     : ( compound_name ':' )? 'destroy' ( function_body )?
  *     ;
  */
 void traverse_destroy_definition(ast_destroy_definition_t* node, AstFuncPtr pre, AstFuncPtr post) {

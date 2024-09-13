@@ -1,9 +1,11 @@
 /**
+ * @file func_parm_decl.c
+ * @author Chuck Tilbury (chucktilbury@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2024-09-13
  *
- * @file create_declaration.c
- *
- * @brief Parse grammar production create_declaration.
- * This file was generated on Wed Aug 21 11:39:59 2024.
+ * @copyright Copyright (c) 2024
  *
  */
 #include "common.h"
@@ -15,50 +17,49 @@
  *
  * Grammar production:
  *
- * create_declaration
- *     : 'create' type_name_list
+ * func_parm_decl
+ *     : type_name ( IDENT )?
  *     ;
  */
-ast_create_declaration_t* parse_create_declaration(parser_state_t* pstate) {
+ast_func_parm_decl_t* parse_func_parm_decl(parser_state_t* pstate) {
 
     ASSERT(pstate != NULL);
     ENTER;
 
-    ast_create_declaration_t* node = NULL;
+    ast_func_parm_decl_t* node = NULL;
     int state = 0;
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_type_name_list_t* inp = NULL;
+    Token* ident = NULL;
+    ast_type_name_t* type = NULL;
 
     while(!finished) {
         switch(state) {
             case 0:
                 TRACE_STATE;
-                if(TOK_CREATE == TTYPE) { 
-                    consume_token();
+                if(NULL != (type = parse_type_name(pstate)))
                     state = 1;
-                }
-                else 
+                else
                     state = 101;
                 break;
 
             case 1:
+                // optional IDENT
                 TRACE_STATE;
-                if(NULL != (inp = parse_type_name_list(pstate))) {
-                    state = 100;
+                if(TOK_IDENT == TTYPE) {
+                    ident = copy_token(get_token());
+                    consume_token()
                 }
-                else {
-                    EXPECTED("a parameter list");
-                    state = 102;
-                }
+                state = 100;
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE;
-                node = (ast_create_declaration_t*)create_ast_node(AST_CREATE_DECLARATION);
-                node->inp = inp;
+                node = (ast_func_parm_decl_t*)create_ast_node(AST_FUNC_PARM_DECL);
+                node->str = str;
+                node->exprs = exprs;
                 finished = true;
                 break;
 

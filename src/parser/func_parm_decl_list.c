@@ -1,9 +1,11 @@
 /**
+ * @file func_parm_decl_list.c
+ * @author Chuck Tilbury (chucktilbury@gmail.com)
+ * @brief
+ * @version 0.1
+ * @date 2024-09-13
  *
- * @file create_name.c
- *
- * @brief Parse grammar production create_name.
- * This file was generated on Wed Aug 21 11:39:59 2024.
+ * @copyright Copyright (c) 2024
  *
  */
 #include "common.h"
@@ -15,32 +17,29 @@
  *
  * Grammar production:
  *
- * create_name
- *     : IDENT ('.' IDENT)? '.' 'create'
+ * func_parm_decl_list
+ *     : '(' ( func_parm_decl ( ',' func_parm_decl )* )? ')'
  *     ;
  */
-ast_create_name_t* parse_create_name(parser_state_t* pstate) {
+ast_func_parm_decl_list_t* parse_func_parm_decl_list(parser_state_t* pstate) {
 
     ASSERT(pstate != NULL);
     ENTER;
 
-    ast_create_name_t* node = NULL;
+    ast_func_parm_decl_list_t* node = NULL;
     int state = 0;
     bool finished = false;
     void* post = post_token_queue();
 
-    PtrLst* ident = create_ptr_lst();
-    Token* ptr = NULL;
+    ast_func_parm_decl_t* item = NULL;
+    PtrLst* list = create_ptr_lst();
 
     while(!finished) {
         switch(state) {
             case 0:
-                // initial state
                 TRACE_STATE;
-                if(TOK_IDENT == TTYPE) {
-                    ptr = copy_token(get_token());
+                if(TOK_OPAREN == TTYPE) {
                     consume_token();
-                    append_ptr_lst(ident, ptr);
                     state = 1;
                 }
                 else
@@ -48,40 +47,44 @@ ast_create_name_t* parse_create_name(parser_state_t* pstate) {
                 break;
 
             case 1:
-                // if we have a dot then proceed. otherwise, not a match.
-                TRACE_STATE;
-                if(TOK_DOT == TTYPE) {
-                    consume_token();
+                TRACE_STATE:
+                if(NULL != (item = parse_func_parm_decl(pstate)))
                     state = 2;
-                }
-                else 
+                else
                     state = 101;
                 break;
 
             case 2:
-                // After the dot, must have a TOK_IDENT or TOK_CREATE. If 
-                // it's not then it's not a match. A syntax error may be 
-                // caught during another production. 
                 TRACE_STATE;
-                if(TOK_IDENT == TTYPE) {
-                    ptr = copy_token(get_token());
-                    consume_token();
-                    append_ptr_lst(ident, ptr);
-                    state = 1;
-                }
-                else if(TOK_CREATE == TTYPE) {
+                if(TOK_CPAREN == TTYPE) {
                     consume_token();
                     state = 100;
                 }
-                else
-                    state = 101;
+                else if(TOK_COMMA == TTYPE) {
+                    consume_token();
+                    state = 3;
+                }
+                else {
+                    EXPECTED("a ',' or a ')'");
+                    state = 102;
+                }
+                break;
+
+            case 3:
+                TRACE_STATE;
+                if(NULL != (item = parse_func_parm_decl(pstate)))
+                    state = 2;
+                else {
+                    EXPECTED("a function parameter declaration");
+                    state = 102;
+                }
                 break;
 
             case 100:
                 // production recognized
                 TRACE_STATE;
-                node = (ast_create_name_t*)create_ast_node(AST_CREATE_NAME);
-                node->ident = ident;
+                node = (ast_func_parm_decl_list_t*)create_ast_node(AST_FUNC_PARM_DECL_LIST);
+                node->list = list;
                 finished = true;
                 break;
 
