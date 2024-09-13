@@ -18,7 +18,6 @@
  * assignment_item
  *     : expression
  *     | list_init
- *     | function_assignment
  *     ;
  */
 ast_assignment_item_t* parse_assignment_item(parser_state_t* pstate) {
@@ -38,9 +37,7 @@ ast_assignment_item_t* parse_assignment_item(parser_state_t* pstate) {
             case 0:
                 // initial state
                 TRACE_STATE;
-                if(NULL != (ptr = (ast_node_t*)parse_function_assignment(pstate)))
-                    state = 100;
-                else if(NULL != (ptr = (ast_node_t*)parse_list_init(pstate)))
+                if(NULL != (ptr = (ast_node_t*)parse_list_init(pstate)))
                     state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_expression(pstate)))
                     state = 100;

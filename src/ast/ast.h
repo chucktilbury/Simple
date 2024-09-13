@@ -1292,7 +1292,6 @@ void traverse_string_literal(ast_string_literal_t* node, AstFuncPtr pre, AstFunc
 void traverse_literal_value(ast_literal_value_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_var_decl(ast_var_decl_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_var_decl_list(ast_var_decl_list_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_function_assignment(ast_function_assignment_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_assignment_item(ast_assignment_item_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_var_definition(ast_var_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_list_init_str(ast_list_init_str_t* node, AstFuncPtr pre, AstFuncPtr post);

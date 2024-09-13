@@ -24,7 +24,6 @@ ast_string_literal_t* parse_string_literal(parser_state_t* pstate);
 ast_literal_value_t* parse_literal_value(parser_state_t* pstate);
 ast_var_decl_t* parse_var_decl(parser_state_t* pstate);
 ast_var_decl_list_t* parse_var_decl_list(parser_state_t* pstate);
-ast_function_assignment_t* parse_function_assignment(parser_state_t* pstate);
 ast_assignment_item_t* parse_assignment_item(parser_state_t* pstate);
 ast_var_definition_t* parse_var_definition(parser_state_t* pstate);
 ast_list_init_str_t* parse_list_init_str(parser_state_t* pstate);

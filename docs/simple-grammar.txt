@@ -86,14 +86,9 @@ var_decl_list
     : '(' ( var_decl ( ',' var_decl )* )? ')'
     ;
 
-function_assignment
-    : compound_reference type_name_list type_name_list
-    ;
-
 assignment_item
     : expression
     | list_init
-    | function_assignment
     ;
 
 var_definition
