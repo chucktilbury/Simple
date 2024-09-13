@@ -2,6 +2,8 @@
 
 This is a list of things that I actually intend to do in order of priority. When an item is complete, move it to the **Done** section.
 
+* Switch the hashtable library to use String* as keys.
+
 * Allow function definitions inside a class definition. There is no notion of an inline function because all function are held as pointers in the class and functions cannot be inlined if a pointer to them exists. 
     * This depends on reworking how the AST stores names. 
     * Function parameters require a variable name for definitions, but for declarations, the name should be optional.

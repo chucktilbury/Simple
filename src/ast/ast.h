@@ -89,6 +89,7 @@ typedef enum {
     AST_TRY_CLAUSE,
     AST_EXCEPT_CLAUSE,
     AST_FINAL_CLAUSE,
+    AST_ALIAS_DEFINITION,
 } AstNodeType;
 
 typedef struct _ast_node_ {
@@ -319,6 +320,19 @@ typedef struct _ast_include_statement_ {
 } ast_include_statement_t;
 
 /**
+ * Grammar production:
+ *
+ * alias_definition
+ *      : compound_name 'as' IDENT
+ *      ;
+ */
+typedef struct _ast_alias_definition_ {
+    ast_node_t node;
+    struct _ast_compound_name_* target;
+    Token* ident;
+} ast_alias_definition_t;
+
+/**
  *
  * Grammar production:
  *
@@ -330,6 +344,7 @@ typedef struct _ast_include_statement_ {
  *     | create_definition
  *     | destroy_definition
  *     | var_definition
+ *     | alias_definition
  *     ;
  */
 typedef struct _ast_namespace_item_ {
@@ -1339,5 +1354,6 @@ void traverse_final_else_clause(ast_final_else_clause_t* node, AstFuncPtr pre, A
 void traverse_try_clause(ast_try_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_except_clause(ast_except_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_final_clause(ast_final_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_alias_definition(ast_alias_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 
 #endif  /* _AST_H_ */

@@ -13,6 +13,7 @@
         "fecl",
         "fstr",
         "ftable",
+        "hashtable",
         "identitfier",
         "inher",
         "lstr",

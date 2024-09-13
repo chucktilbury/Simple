@@ -22,6 +22,10 @@ include_statement
     : 'include' formatted_strg
     ;
 
+alias_definition
+    : compound_name 'as' IDENT
+    ;
+
 namespace_item
     : scope_operator
     | namespace_definition
@@ -30,6 +34,7 @@ namespace_item
     | create_definition
     | destroy_definition
     | var_definition
+    | alias_definition
     ;
 
 scope_operator

@@ -128,7 +128,7 @@ typedef struct _token_t_ {
 } Token;
 
 const char* token_to_str(TokenType type);
-const char* token_type_to_str(Token* tok);
+const char* token_type_to_str(const Token* tok);
 token_database_t* find_keyword(const char* str);
 
 #endif  /* _TOKEN_DEFS_H_ */

@@ -23,6 +23,7 @@
  *     | create_definition
  *     | destroy_definition
  *     | var_definition
+ *     | alias_definition
  *     ;
  */
 void traverse_namespace_item(ast_namespace_item_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -51,6 +52,9 @@ void traverse_namespace_item(ast_namespace_item_t* node, AstFuncPtr pre, AstFunc
             break;
         case AST_VAR_DEFINITION:
             traverse_var_definition((ast_var_definition_t*)(node->ptr), pre, post);
+            break;
+        case AST_ALIAS_DEFINITION:
+            traverse_alias_definition((ast_alias_definition_t*)(node->ptr), pre, post);
             break;
         default:
             FATAL("unknown ast node type: %s", nterm_type_to_str(node->ptr));

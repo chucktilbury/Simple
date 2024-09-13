@@ -21,7 +21,6 @@ add_definitions(
     -Wpedantic
 	-Wno-gnu-zero-variadic-macro-arguments
     -pedantic
-    -DUSE_GARBAGE_COLLECTION
 )
 
 if(CMAKE_BUILD_TYPE STREQUAL "debug")

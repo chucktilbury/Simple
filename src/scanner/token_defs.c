@@ -156,7 +156,7 @@ const char* token_to_str(TokenType type) {
         (type == TOK_ERROR)? "ERROR" : "UNKNOWN";
 }
 
-const char* token_type_to_str(Token* tok) {
+const char* token_type_to_str(const Token* tok) {
 
     TokenType type = token_type(tok);
     return (type == TOK_START)? "TOK_START" :

@@ -23,6 +23,7 @@
  *     | create_definition
  *     | destroy_definition
  *     | var_definition
+ *     | alias_definition
  *     ;
  */
 ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate) {
@@ -54,6 +55,8 @@ ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate) {
                 else if(NULL != (ptr = (ast_node_t*)parse_destroy_definition(pstate)))
                     state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_var_definition(pstate)))
+                    state = 100;
+                else if(NULL != (ptr = (ast_node_t*)parse_alias_definition(pstate)))
                     state = 100;
                 else 
                     state = 101;

@@ -92,6 +92,7 @@ static size_t node_size(AstNodeType type) {
     (type == AST_TRY_CLAUSE)? sizeof(ast_try_clause_t) :
     (type == AST_EXCEPT_CLAUSE)? sizeof(ast_except_clause_t) :
     (type == AST_FINAL_CLAUSE)? sizeof(ast_final_clause_t) :
+    (type == AST_ALIAS_DEFINITION)? sizeof(ast_alias_definition_t) :
     0; // error if we reach here
 }
 
@@ -192,6 +193,7 @@ const char* nterm_type_to_str(ast_node_t* node) {
         (type == AST_PRINT_STATEMENT)? "AST_PRINT_STATEMENT" :
         (type == AST_EXIT_STATEMENT)? "AST_EXIT_STATEMENT" :
         (type == AST_WHILE_DEFINITION)? "AST_WHILE_DEFINITION" :
+        (type == AST_ALIAS_DEFINITION)? "AST_ALIAS_DEFINITION" :
         (type == AST_WHILE_CLAUSE)? "AST_WHILE_CLAUSE" :
         (type == AST_DO_CLAUSE)? "AST_DO_CLAUSE" :
         (type == AST_FOR_CLAUSE)? "AST_FOR_CLAUSE" :

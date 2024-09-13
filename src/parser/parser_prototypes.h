@@ -86,6 +86,7 @@ ast_final_else_clause_t* parse_final_else_clause(parser_state_t* pstate);
 ast_try_clause_t* parse_try_clause(parser_state_t* pstate);
 ast_except_clause_t* parse_except_clause(parser_state_t* pstate);
 ast_final_clause_t* parse_final_clause(parser_state_t* pstate);
+ast_alias_definition_t* parse_alias_definition(parser_state_t* pstate);
 
 #endif  /* _PARSER_PROTOTYPES_H_ */
 

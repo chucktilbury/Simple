@@ -39,7 +39,7 @@
  * @return TokenType
  *
  */
-TokenType token_type(Token* tok);
+TokenType token_type(const Token* tok);
 
 /**
  * @brief Get the token object. This returns the current token, which is a

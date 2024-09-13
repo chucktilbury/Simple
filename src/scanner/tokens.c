@@ -124,7 +124,7 @@ void close_file(void) {
  * @param tok 
  * @return TokenType 
  */
-TokenType token_type(Token* tok) {
+TokenType token_type(const Token* tok) {
 
     if(tok != NULL)
         return tok->type;
@@ -163,8 +163,10 @@ Token* get_token(void) {
  */
 Token* copy_token(const Token* tok) {
 
+    ENTER;
     ASSERT(tok != NULL);
-
+    TRACE("%s '%s': %d: %d: %s", token_type_to_str(tok), raw_string(tok->str), tok->line_no, tok->col_no, tok->fname); 
+    
     Token* ntok;
 
     ntok          = _ALLOC_DS(Token);
@@ -174,7 +176,7 @@ Token* copy_token(const Token* tok) {
     ntok->col_no  = tok->col_no;
     ntok->type    = tok->type;
 
-    return ntok;
+    RETURN(ntok);
 }
 
 /**
