@@ -16,13 +16,14 @@ This is a list of things that I actually intend to do in order of priority. When
 * Built in class functions such as the ones in Python that handle stringalation, typealation, and comparisons.
     * Look into operator overloads. Monkey patch implications.
 
-* Implement aliases. An alias can appear anywhere in a module and it has the syntax of ``compound_name 'as' IDENT``. All it does is check the existence of the compound name and makes an entry in the symbol table that maps the IDENT to that name. An alias is required to define an inheritance specification, for example.
-
 * Compress the AST structure so that it can be used as a symbol table. That means to concentrate all of the required information for a name into a single data structure and reference the children of the name by name instead of elements in an anonymous list. That way the AST can be used to look up names.
+
+
+## Done
+* Implement aliases. An alias can appear anywhere in a module and it has the syntax of ``compound_name 'as' IDENT``. All it does is check the existence of the compound name and makes an entry in the symbol table that maps the IDENT to that name. An alias is required to define an inheritance specification, for example.
 
 * Take function assignment to variables out of the syntax.
 
-## Done
 * Make tracing controllable from the command line. Unify the testing functionality into the main executable. The trace capability needs to be a stack so that the different subsystems can be isolated for trace. Separate test programs for AST, parser, and scanner become obsolete.
 
 * Need to differentiate between a loop body and a function body. A loop body adds the keywords of ``break``, and ``continue``. Those cannot appear outside of a loop. Also note that the ``yield`` keyword has a different meaning inside a loop than it does outside of it. Maybe it is a loop-only construct. Yield keyword is for implementing iterators and it may not have a meaning outside of a loop. 
