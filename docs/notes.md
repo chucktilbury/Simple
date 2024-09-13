@@ -1,41 +1,66 @@
 
 # Problems and thoughts...
 
-## Things to fix.
-This is a list of things that I actually intend to do in order of priority. When an item is complete, move it to the end of the list.
-
-* Allow function definitions inside a class definition. There is no notion of an inline function because all function are held as pointers in the class and functions cannot be inlined if a pointer to them exists. 
-    * This depends on reworking how the AST stores names. 
-    * Function parameters require a variable name for definitions, but for declarations, the name should be optional.
-    * The function definition node in the AST is the same for a declaration or a definition except that for a declaration, the function body is not defined.
-    - ``[]`` grammar ``[]`` scanner ``[]`` parser ``[]`` ast ``[]`` test
-* Function prototypes have to have the input and output parameters differentiated so that the AST traverse functions can tell them apart. Probably just add a flag of some kind.
-    - ``[]`` grammar ``[]`` scanner ``[]`` parser ``[]`` ast ``[]`` test
-* Directives for include paths, compiler options, and linker options. Could be new keywords that start with a ``.``.
-    - ``[]`` grammar ``[]`` scanner ``[]`` parser ``[]`` ast ``[]`` test
-* Built in class functions such as the ones in Python that handle stringalation, typealation, and comparisons.
-    * Look into operator overloads. Monkey patch implications.
-    - ``[]`` grammar ``[]`` scanner ``[]`` parser ``[]`` ast ``[]`` test
-* Make tracing controllable from the command line. Unify the testing functionality into the main executable. The trace capability needs to be a stack so that the different subsystems can be isolated for trace. Separate test programs for AST, parser, and scanner become obsolete.
-    - ``[x]`` grammar ``[x]`` scanner ``[x]`` parser ``[x]`` ast ``[x]`` test
-* Need to differentiate between a loop body and a function body. A loop body adds the keywords of ``break``, and ``continue``. Those cannot appear outside of a loop. Also note that the ``yield`` keyword has a different meaning inside a loop than it does outside of it. Maybe it is a loop-only construct. Yield keyword is for implementing iterators and it may not have a meaning outside of a loop. 
-    - ``[x]`` grammar ``[x]`` scanner ``[x]`` parser ``[x]`` ast ``[x]`` test
-* Inheritance specifications need to include the scope of the symbol for example, ``public some.class.name as name``.
-    * List of inheritance specifications can appear as part of a class definition to support multiple inheritance using a class pointer array in a class. 
-    - ``[x]`` grammar ``[x]`` scanner ``[x]`` parser ``[x]`` ast ``[x]`` test
-* Need an ``iterator`` keyword to describe a function that can use the ``yield`` keyword. If the function does not use ``yield`` it should still operate as a normal function, but if a function is not an iterator and it uses ``yield`` then that should be an error.
-    * Checking for the ``iterator`` and the ``yield`` in a function are done as AST passes.
-    - ``[x]`` grammar ``[x]`` scanner ``[x]`` parser ``[x]`` ast ``[x]`` test
-    * **update:** Removed the iterator keyword. Will mark the function as an iterator if the yield keyword is found in a loop.
-
 ## Function declaration vs. function definition
-I want to be able to define a function inside a class as well as out side of it. When a func is defined inside the class then the declaration and the definition are the same object. When a func is declared in the class and defined outside of it then they are 2 different objects. In any case, when a function is defined for a class, the class body needs to be in the class parser object before any attempt is made to emit the function. 
+There are function declarations and function definitions. A function declaration does not have a body defined. It may have a single identitfier as it's symbol table name, or it could be a compound name. Also, the function parameters may have names and it may not, but the parameter types are always required because they are used to decorate the name. A function declaration always creates a symbol table entry. When a function declaration has a compound name, that name has to be looked up in the symbol table and the name has have already been declared. in the context specified by the name.
 
-A function does not need to be attached to a class. It's scope is set by the current scope and it could be imported by an import statement if the scope is set tp public. In this case the declaration and the definition are the same parser object. Functions that are defined outside of a class are all ready bound to their implementation. 
+### Example 1:
+```
+class tha_name {
+    defunct(integer)(string)
+}
 
-A function is ultimately a stand-alone entity that could have access to local variables defined in a class. Why can't I use exactly the same data structure everywhere? 
+...
 
-A function definition has a hash table for local variables. Those also include the input and output parameters, which have special rules attached to them. Input parameters are read-only and output parameters are write-only and become read-write outside of the function they are called with. Others that are defined inside a function are local to that function and are read-write unless declared as ``const``.
+tha_name.defunct(integer num)(string str) {
+    ; the function body
+    integer a_number = num
+    str = "formatted string %d"(a_number)
+}
+```
+In this example, when the class is parsed, the function name is created in the symbol table without a body but with a complete name. When the function definition is encountered by the parser, the class name is found and the function signature is found to be a child of that class and so instead of creating a new symbol in the symbol table, the existing symbol gets the parameter names in its local table and the body is assigned to to the name.
+
+### Example 2:
+```
+class tha_name (public poppa.bear as pops) {
+    defunct(integer)(string)
+    pops.defunct(integer)(string)
+}
+
+...
+
+tha_name.defunct(integer num)(string str) {
+    pops.defunct(num)(str)
+    str = "formatted string %d"(num)
+}
+```
+This example is a syntax error because there is no implementation of ``pops.defunct(integer)(string)``. The reference inside the other function is valid as far as it goes. For this to be valid, another function definition would be required such as ``tha_name.pops.defunct(integer iname)(string oname) { ... } `` to implement the function. Also in this example, the function name ``pops.defunct`` is an alias for a function that has already been defined in the class name ``poppa.bear``. This class would be found in a namespace ``poppa`` because classes cannot be nested. If that function has not been declared, then a syntax error is published because **this declaration is a reference**. But note that the function does not need to be implemented. It could just be a declaration as part of an interface. The syntax (runtime?) error arises when the function is referenced with no implementation.
+
+### Example 3:
+```
+some_func(integer)(string)
+
+...
+
+some_func(integer num)(string str) {
+    integer a_number = num
+    str = "formatted string %d"(a_number)
+}
+```
+In this example, we have a forward declaration of a function with the implementation following after some other code. Similar to the declaration inside a class, the actual parameter names and function body is assigned to the original declaration instead of creating a new symbol in the symbol table.
+
+### Example 4:
+```
+class tha_name {
+    defunct(integer num)(string str) {
+        ; the function body
+        integer a_number = num
+        str = "formatted string %d"(a_number)
+    }
+}
+```
+In this example, the function declaration and the definition are totally within the class. This has exactly the same effect as in Example 1. 
+
 
 ## Re-thinking the AST definition.
 The way the current AST is configure is that it follows the syntax of the input closely with the idea that subsequent passes will refine it to be closer to what is actually emitted. But now I am thinking that it should be compressed even further. Notice that there are similarities between the AST and the symbol table. They both essentially hold data in nodes that describe a nexus in the syntax that defines an identifier. So it seems as if a more targeted data structure than the generic boilerplate is beneficial. This new data structure will be centered around the names that are created, rather than the links to other nodes in the syntax tree. Instead of a list of nodes representing children, use a hash table instead. Nodes in the hash table have the children given by name in no particular order, so when order does matter, such as lines in a function definition, a hierarchy of lists must still be used.
@@ -59,6 +84,7 @@ This is a description of the types of names that **could be** present in a type 
 * function -- No global objects can be defined in or by a function. Functions can create objects and return them through a return parameter.
     * local name definitions only
 * variable -- Denotes actual memory storage in a naming and object context.
+* alias -- Where one name is used to reference another name, normally this is introduced with the ``as`` keyword but the import also aliases names.
 * import -- Used to bring in data from another module into it's own mandatory name space so that the names can be accessed in the current module.
 
 The nodes that represent the syntax that is being parsed are stored in the hash table instead of a list. All of the names themselves are global but their scope could be limited by the scope operators. This allows error messages to be generated and simplifies the code. Note that in Simple, a name does not need to be defined before it is referenced. Any name that is in the current symbolic scope can be referenced. The dot operator acts much like a path operator (i.e. a '/' or a '\\' in winders) for a file system when specifying a specific name to access.

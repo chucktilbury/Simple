@@ -3,5 +3,5 @@
 ;-------------------------------------------------------------------------------
 
 the.func.name(string blart, integer bacon)(float number, asd.qwer poot) {
-    integer name
+    integer name = 123.123.123
 }
