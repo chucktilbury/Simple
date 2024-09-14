@@ -38,12 +38,9 @@ symbol_t* lookup_symbol_name(ast_compound_name_t* name);
 symbol_t* lookup_symbol_ref(ast_compound_reference_t* name);
 void add_local_symbol(ast_function_definition_t* func, symbol_t* sym);
 symbol_t* lookup_local_symbol(ast_function_definition_t* func, const char* name);
-const char* decorate_func_decl(ast_function_declaration_t* func);
-const char* decorate_func_ref(ast_function_reference_t* func);
-String* decorate_func_def(ast_function_definition_t* func);
 
 String* decorate_compound_name(ast_compound_name_t* name);
 String* generate_uuid(void);
 
-#endif /* _SYMBOLS_H_ */
+#endif  /* _SYMBOLS_H_ */
 

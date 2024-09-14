@@ -21,7 +21,7 @@
  *     : compound_name ':'
  *     ;
  */
-ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
+ast_function_membership_t* parse_function_membership(parser_state_t* pstate) {
 
     ASSERT(pstate != NULL);
     ENTER;
@@ -31,7 +31,8 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-
+    ast_compound_name_t* name = NULL;
+    
     while(!finished) {
         switch(state) {
             case 0:

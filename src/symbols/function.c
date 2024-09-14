@@ -12,7 +12,7 @@
 #include "function.h"
 #include "errors.h"
 
-String* decorate_var_decl(ast_var_decl_t* decl) {
+String* decorate_func_parm_decl(ast_func_parm_decl_t* decl) {
 
     ast_node_t* type = ((ast_type_name_t*)(decl->type))->ptr;
     if(nterm_type(type) == AST_LITERAL_TYPE_NAME) 
@@ -25,22 +25,27 @@ String* decorate_var_decl(ast_var_decl_t* decl) {
     return NULL; // never can happen
 }
 
-String* decorate_var_decl_list(ast_var_decl_list_t* lst) {
+String* decorate_func_parm_decl_list(ast_func_parm_decl_list_t* lst) {
 
     String* str = create_string(NULL);
     int mark = 0;
 
-    ast_var_decl_t* decl = iterate_ptr_lst(lst->list, &mark);
+    ast_func_parm_decl_t* decl = iterate_ptr_lst(lst->list, &mark);
     if(decl != NULL) {
-        append_string_string(str, decorate_var_decl(decl));
+        append_string_string(str, decorate_func_parm_decl(decl));
 
         while(NULL != (decl = iterate_ptr_lst(lst->list, &mark))) {
             append_string_char(str, ',');
-            append_string_string(str, decorate_var_decl(decl));
+            append_string_string(str, decorate_func_parm_decl(decl));
         }
     }
 
     return str; // could be empty
+}
+
+String* decorate_membership(ast_function_membership_t* ptr) {
+    
+    return decorate_compound_name(ptr->name);
 }
 
 /**
@@ -56,20 +61,39 @@ String* decorate_func_def(ast_function_definition_t* func) {
     ASSERT(func != NULL);
     String* str = create_string(NULL);
 
-    append_string_string(str, decorate_compound_name(func->name));
+    append_string_string(str, decorate_membership(func->member));
+    append_string_char(str, ':');
+    append_string_string(str, func->name->str);
     append_string_char(str, '(');
     // func->inp is the input parameters of type ast_var_decl_list_t*
-    append_string_string(str, decorate_var_decl_list(func->inp));
+    append_string_string(str, decorate_func_parm_decl_list(func->inp));
     append_string_char(str, ')');
 
     append_string_char(str, '(');
     // func->outp is the input parameters of type ast_var_decl_list_t*
-    append_string_string(str, decorate_var_decl_list(func->outp));
+    append_string_string(str, decorate_func_parm_decl_list(func->outp));
     append_string_char(str, ')');
 
     TRACE("decorated function name: %s", raw_string(str));
     RETURN(str);
 }
+
+/**
+ * @brief Return the decorated name of a function reference. This has to 
+ * look up the types of the parameters to know the name of the function.
+ * 
+ * @param func 
+ * @return const char* 
+ */
+String* decorate_func_ref(ast_function_reference_t* func) {
+
+    ENTER;
+    ASSERT(func != NULL);
+    String* str = create_string(NULL);
+
+    RETURN(str);
+}
+
 
 /**
  * @brief Create a function symbol object

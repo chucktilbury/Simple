@@ -121,38 +121,6 @@ symbol_t* lookup_local_symbol(ast_function_definition_t* func, const char* name)
 }
 
 /**
- * @brief Return the decorated name of the function declaration. This simply 
- * uses the type names.
- * 
- * @param func 
- * @return const char* 
- */
-const char* decorate_func_decl(ast_function_declaration_t* func) {
-
-    ENTER;
-    ASSERT(func != NULL);
-    String* str = create_string(NULL);
-
-    RETURN(_DUP_STR(raw_string(str)));
-}
-
-/**
- * @brief Return the decorated name of a function reference. This has to 
- * look up the types of the parameters to know the name of the function.
- * 
- * @param func 
- * @return const char* 
- */
-const char* decorate_func_ref(ast_function_reference_t* func) {
-
-    ENTER;
-    ASSERT(func != NULL);
-    String* str = create_string(NULL);
-
-    RETURN(_DUP_STR(raw_string(str)));
-}
-
-/**
  * @brief Generate a name suitable for storage in the hash table from a 
  * ast_compound_name_t data structure. This is used by the variable functions. 
  * The function decorator has it's own version.

@@ -20,6 +20,8 @@ typedef struct {
 } sym_function_t;
 
 sym_function_t* create_function_symbol(ast_function_definition_t* node);
+String* decorate_func_ref(ast_function_reference_t* func);
+String* decorate_func_def(ast_function_definition_t* func);
 
-#endif /* _FUNCTION_H_ */
+#endif  /* _FUNCTION_H_ */
 

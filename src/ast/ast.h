@@ -86,6 +86,7 @@ typedef enum {
     AST_ALIAS_DEFINITION,
     AST_FUNC_PARM_DECL,
     AST_FUNC_PARM_DECL_LIST,
+    AST_FUNCTION_MEMBERSHIP,
 } AstNodeType;
 
 typedef struct _ast_node_ {
@@ -235,7 +236,7 @@ typedef struct _ast_class_item_ {
  */
 typedef struct _ast_function_membership_ {
     ast_node_t node;
-    ast_compound_name_t* ptr;
+    struct _ast_compound_name_* name;
 } ast_function_membership_t;
 
 /**
@@ -632,12 +633,12 @@ typedef struct _ast_function_reference_ {
  * Grammar production:
  *
  * create_reference
- *     : create_name expression_list
+ *     : IDENT ( '.' IDENT )* '.' 'create' expression_list
  *     ;
  */
 typedef struct _ast_create_reference_ {
     ast_node_t node;
-    struct _ast_create_name_* name;
+    PtrLst* name;
     struct _ast_expression_list_* inp;
 } ast_create_reference_t;
 
@@ -646,12 +647,12 @@ typedef struct _ast_create_reference_ {
  * Grammar production:
  *
  * destroy_reference
- *     : destroy_name
+ *     : IDENT ( '.' IDENT )* '.' 'destroy'
  *     ;
  */
 typedef struct _ast_destroy_reference_ {
     ast_node_t node;
-    struct _ast_destroy_name_* name;
+    PtrLst* name;
 } ast_destroy_reference_t;
 
 /**
@@ -1215,7 +1216,6 @@ void traverse_formatted_strg(ast_formatted_strg_t* node, AstFuncPtr pre, AstFunc
 void traverse_string_literal(ast_string_literal_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_literal_value(ast_literal_value_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_var_decl(ast_var_decl_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_var_decl_list(ast_var_decl_list_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_assignment_item(ast_assignment_item_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_var_definition(ast_var_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_list_init_str(ast_list_init_str_t* node, AstFuncPtr pre, AstFuncPtr post);
@@ -1273,5 +1273,8 @@ void traverse_try_clause(ast_try_clause_t* node, AstFuncPtr pre, AstFuncPtr post
 void traverse_except_clause(ast_except_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_final_clause(ast_final_clause_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_alias_definition(ast_alias_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_func_parm_decl(ast_func_parm_decl_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_func_parm_decl_list(ast_func_parm_decl_list_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_function_membership(ast_function_membership_t* node, AstFuncPtr pre, AstFuncPtr post);
 
 #endif  /* _AST_H_ */

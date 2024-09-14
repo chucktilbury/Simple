@@ -131,11 +131,11 @@ function_reference
     ;
 
 create_reference
-    : compound_name '.' 'create' expression_list
+    : IDENT ( '.' IDENT )* '.' 'create' expression_list
     ;
 
 destroy_reference
-    : compound_name '.' 'destroy'
+    : IDENT ( '.' IDENT )* '.' 'destroy'
     ;
 
 compound_name

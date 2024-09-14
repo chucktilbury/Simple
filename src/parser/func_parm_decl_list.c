@@ -47,7 +47,7 @@ ast_func_parm_decl_list_t* parse_func_parm_decl_list(parser_state_t* pstate) {
                 break;
 
             case 1:
-                TRACE_STATE:
+                TRACE_STATE;
                 if(NULL != (item = parse_func_parm_decl(pstate)))
                     state = 2;
                 else

@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * create_definition
- *     : ( compound_name ':' )? 'create' func_parm_decl_list ( function_body )?
+ *     : ( function_membership )? 'create' func_parm_decl_list ( function_body )?
  *     ;
  */
 ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
@@ -29,31 +29,41 @@ ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_create_name_t* name = NULL;
-    ast_var_decl_list_t* inp = NULL;
+    ast_function_membership_t* member = NULL;
+    ast_func_parm_decl_list_t* inp = NULL;
     ast_function_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {
             case 0:
+                // optional membership
                 TRACE_STATE;
-                if(NULL != (name = parse_create_name(pstate))) 
-                    state = 1;
-                else 
-                    state = 101;
+                member = parse_function_membership(pstate);
+                state = 1;
                 break;
 
             case 1:
                 TRACE_STATE;
-                if(NULL != (inp = parse_var_decl_list(pstate)))
+                if(TOK_CREATE == TTYPE) {
+                    consume_token();
                     state = 2;
+                }
+                else 
+                    // could be destroy or something else, even if member != NULL
+                    state = 101;
+                break;
+
+            case 2:
+                TRACE_STATE;
+                if(NULL != (inp = parse_func_parm_decl_list(pstate)))
+                    state = 3;
                 else {
-                    EXPECTED("the input definitions");
+                    EXPECTED("the function parameter list");
                     state = 102;
                 }
                 break;
             
-            case 2:
+            case 3:
                 TRACE_STATE;
                 if(NULL != (body = parse_function_body(pstate)))
                     state = 100;
@@ -67,7 +77,7 @@ ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE;
                 node = (ast_create_definition_t*)create_ast_node(AST_CREATE_DEFINITION);
-                node->name = name;
+                node->member = member;
                 node->inp = inp;
                 node->body = body;
                 finished = true;

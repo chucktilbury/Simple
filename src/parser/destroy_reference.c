@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * destroy_reference
- *     : destroy_name
+ *     : IDENT ( '.' IDENT )* '.' 'destroy'
  *     ;
  */
 ast_destroy_reference_t* parse_destroy_reference(parser_state_t* pstate) {
@@ -29,15 +29,44 @@ ast_destroy_reference_t* parse_destroy_reference(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_destroy_name_t* name = NULL;
+    PtrLst* name = create_ptr_lst();
 
     while(!finished) {
         switch(state) {
             case 0:
                 TRACE_STATE;
-                if(NULL != (name = parse_destroy_name(pstate)))
-                    state = 100;
+                if(TOK_IDENT == TTYPE) {
+                    append_ptr_lst(name, copy_token(get_token()));
+                    consume_token();
+                    state = 1;
+                }
                 else
+                    state = 101;
+                break;
+
+            case 1:
+                // mandatory '.'
+                TRACE_STATE;
+                if(TOK_DOT == TTYPE) {
+                    consume_token();
+                    state = 2;
+                }
+                else 
+                    state = 101;
+                break;
+                
+            case 2:
+                TRACE_STATE;
+                if(TOK_IDENT == TTYPE) {
+                    append_ptr_lst(name, copy_token(get_token()));
+                    consume_token();
+                    state = 1;
+                }
+                else if(TOK_DESTROY == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else 
                     state = 101;
                 break;
 

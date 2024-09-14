@@ -29,7 +29,7 @@ void traverse_func_parm_decl(ast_func_parm_decl_t* node, AstFuncPtr pre, AstFunc
      ENTER;
     CALL_NODE_FUNC(pre);
 
-    traverse_typename(node->type, pre, post);
+    traverse_type_name(node->type, pre, post);
     if(node->ident != NULL)
         TRACE_TERMINAL(node->ident);
     else 

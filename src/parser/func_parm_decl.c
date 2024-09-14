@@ -49,7 +49,7 @@ ast_func_parm_decl_t* parse_func_parm_decl(parser_state_t* pstate) {
                 TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
                     ident = copy_token(get_token());
-                    consume_token()
+                    consume_token();
                 }
                 state = 100;
                 break;
@@ -58,8 +58,8 @@ ast_func_parm_decl_t* parse_func_parm_decl(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE;
                 node = (ast_func_parm_decl_t*)create_ast_node(AST_FUNC_PARM_DECL);
-                node->str = str;
-                node->exprs = exprs;
+                node->ident = ident;
+                node->type = type;
                 finished = true;
                 break;
 

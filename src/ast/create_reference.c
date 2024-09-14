@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * create_reference
- *     : create_name expression_list
+ *     : IDENT ( '.' IDENT )* '.' 'create' expression_list
  *     ;
  */
 void traverse_create_reference(ast_create_reference_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -24,7 +24,11 @@ void traverse_create_reference(ast_create_reference_t* node, AstFuncPtr pre, Ast
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    traverse_create_name(node->name, pre, post);
+    int mark = 0;
+    Token* ident;
+    
+    while(NULL != (ident = iterate_ptr_lst(node->name, &mark)))
+        TRACE_TERMINAL(ident);
     traverse_expression_list(node->inp, pre, post);
 
     CALL_NODE_FUNC(post);

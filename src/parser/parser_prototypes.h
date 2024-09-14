@@ -18,12 +18,10 @@ ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate);
 ast_scope_operator_t* parse_scope_operator(parser_state_t* pstate);
 ast_literal_type_name_t* parse_literal_type_name(parser_state_t* pstate);
 ast_type_name_t* parse_type_name(parser_state_t* pstate);
-ast_type_name_list_t* parse_type_name_list(parser_state_t* pstate);
 ast_formatted_strg_t* parse_formatted_strg(parser_state_t* pstate);
 ast_string_literal_t* parse_string_literal(parser_state_t* pstate);
 ast_literal_value_t* parse_literal_value(parser_state_t* pstate);
 ast_var_decl_t* parse_var_decl(parser_state_t* pstate);
-ast_var_decl_list_t* parse_var_decl_list(parser_state_t* pstate);
 ast_assignment_item_t* parse_assignment_item(parser_state_t* pstate);
 ast_var_definition_t* parse_var_definition(parser_state_t* pstate);
 ast_list_init_str_t* parse_list_init_str(parser_state_t* pstate);
@@ -81,6 +79,8 @@ ast_try_clause_t* parse_try_clause(parser_state_t* pstate);
 ast_except_clause_t* parse_except_clause(parser_state_t* pstate);
 ast_final_clause_t* parse_final_clause(parser_state_t* pstate);
 ast_alias_definition_t* parse_alias_definition(parser_state_t* pstate);
-
+ast_function_membership_t* parse_function_membership(parser_state_t* pstate);
+ast_func_parm_decl_list_t* parse_func_parm_decl_list(parser_state_t* pstate);
+ast_func_parm_decl_t* parse_func_parm_decl(parser_state_t* pstate);
 #endif  /* _PARSER_PROTOTYPES_H_ */
 

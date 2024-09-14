@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * destroy_reference
- *     : destroy_name
+ *     : IDENT ( '.' IDENT )* '.' 'destroy'
  *     ;
  */
 void traverse_destroy_reference(ast_destroy_reference_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -24,7 +24,11 @@ void traverse_destroy_reference(ast_destroy_reference_t* node, AstFuncPtr pre, A
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    traverse_destroy_name(node->name, pre, post);
+    int mark = 0;
+    Token* ident;
+    
+    while(NULL != (ident = iterate_ptr_lst(node->name, &mark)))
+        TRACE_TERMINAL(ident);
 
     CALL_NODE_FUNC(post);
     RET;

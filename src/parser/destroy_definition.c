@@ -16,7 +16,7 @@
  * Grammar production:
  *
  * destroy_definition
- *     : ( compound_name ':' )? 'destroy' ( function_body )?
+ *     : ( function_membership )? 'destroy' ( function_body )?
  *     ;
  */
 ast_destroy_definition_t* parse_destroy_definition(parser_state_t* pstate) {
@@ -29,20 +29,30 @@ ast_destroy_definition_t* parse_destroy_definition(parser_state_t* pstate) {
     bool finished = false;
     void* post = post_token_queue();
 
-    ast_destroy_name_t* name = NULL;
+    ast_function_membership_t* member = NULL;
     ast_function_body_t* body = NULL;
 
     while(!finished) {
         switch(state) {
             case 0:
+                // optional membership
                 TRACE_STATE;
-                if(NULL != (name = parse_destroy_name(pstate))) 
-                    state = 1;
-                else 
-                    state = 101;
+                member = parse_function_membership(pstate);
+                state = 1;
                 break;
 
             case 1:
+                TRACE_STATE;
+                if(TOK_DESTROY == TTYPE) {
+                    consume_token();
+                    state = 2;
+                }
+                else 
+                    // could be destroy or something else, even if member != NULL
+                    state = 101;
+                break;
+
+            case 2:
                 TRACE_STATE;
                 if(NULL != (body = parse_function_body(pstate)))
                     state = 100;
@@ -56,7 +66,7 @@ ast_destroy_definition_t* parse_destroy_definition(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE;
                 node = (ast_destroy_definition_t*)create_ast_node(AST_DESTROY_DEFINITION);
-                node->name = name;
+                node->member = member;
                 node->body = body;
                 finished = true;
                 break;
