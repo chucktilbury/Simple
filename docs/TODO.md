@@ -2,6 +2,9 @@
 
 This is a list of things that I actually intend to do in order of priority. When an item is complete, move it to the [**Done**](#Done) section.
 
+* Embed symbol table into parser state and begin adding the calls to create the symbols in the table.
+   * Add the code to traverse (and test) the symbol table.
+     
 * Switch the hashtable library to use String* as keys.
 
 * Directives for include paths, compiler options, and linker options. Could be new keywords that start with a ``.``.
