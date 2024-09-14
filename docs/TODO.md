@@ -1,6 +1,6 @@
 # TODO list
 
-This is a list of things that I actually intend to do in order of priority. When an item is complete, move it to the (**Done**)[#Done] section.
+This is a list of things that I actually intend to do in order of priority. When an item is complete, move it to the [**Done**](#Done) section.
 
 * Switch the hashtable library to use String* as keys.
 
