@@ -13,6 +13,7 @@ This is a list of things that I actually intend to do in order of priority. When
 
 * Comprehensive testing.
 
+## Done
 * Change function declarations
     * get rid of the function_declaration non-terminal
     * make a new nterm where the var name in a parm decl is optional, with the list.
@@ -20,8 +21,6 @@ This is a list of things that I actually intend to do in order of priority. When
     * function body becomes optional
     * differentiate when there is a single name in the compound name for decl vs definition
 
-
-## Done
 * Allow function definitions inside a class definition. There is no notion of an inline function because all function are held as pointers in the class and functions cannot be inlined if a pointer to them exists. 
     * This depends on reworking how the AST stores names. 
     * Function parameters require a variable name for definitions, but for declarations, the name should be optional.
