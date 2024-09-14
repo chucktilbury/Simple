@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -68,7 +68,7 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
             case 3:
                 TRACE_STATE;
-                if(NULL != (body = parse_class_body(pstate))) 
+                if(NULL != (body = parse_class_body(pstate)))
                     state = 100;
                 else {
                     EXPECTED("a class body");
@@ -107,4 +107,3 @@ ast_class_definition_t* parse_class_definition(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

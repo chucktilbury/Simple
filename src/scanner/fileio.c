@@ -20,9 +20,9 @@
 #include <stdlib.h>
 #include <string.h>
 
-#include "trace.h"
 #include "common.h"
 #include "fileio.h"
+#include "trace.h"
 
 struct _file_ptr_ {
     FILE* fp;
@@ -46,7 +46,7 @@ void pop_input_file(void) {
     if(file_stack != NULL) {
         fclose(file_stack->fp);
         struct _file_ptr_* tmp = file_stack;
-        file_stack             = tmp->next;
+        file_stack = tmp->next;
         destroy_string(tmp->fname);
         _FREE(tmp);
     }
@@ -64,16 +64,17 @@ void push_input_file(const char* fname) {
     TRACE("input file: %s", fname);
     FILE* fp = fopen(fname, "r");
     if(fp == NULL) {
-        fprintf(stderr, "File Error: cannot open input file: %s: %s\n", fname, strerror(errno));
+        fprintf(stderr, "File Error: cannot open input file: %s: %s\n", fname,
+                strerror(errno));
         exit(1);
     }
 
     struct _file_ptr_* ptr = _ALLOC_DS(struct _file_ptr_);
-    ptr->fp                = fp;
-    ptr->fname             = create_string(fname);
-    ptr->line_no           = 1;
-    ptr->col_no            = 1;
-    ptr->next              = NULL;
+    ptr->fp = fp;
+    ptr->fname = create_string(fname);
+    ptr->line_no = 1;
+    ptr->col_no = 1;
+    ptr->next = NULL;
     // prime the pump
     ptr->ch = fgetc(ptr->fp);
 
@@ -163,4 +164,3 @@ const char* get_fname(void) {
     else
         return NULL;
 }
-

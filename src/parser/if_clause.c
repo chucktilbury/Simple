@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -35,7 +35,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
     ast_function_body_t* body = NULL;
     // list of else clauses
     PtrLst* ecl = create_ptr_lst();
-    ast_else_clause_t* ec = NULL; 
+    ast_else_clause_t* ec = NULL;
 
     while(!finished) {
         switch(state) {
@@ -45,7 +45,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -96,7 +96,7 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
             case 5:
                 // optional list of else clauses
                 TRACE_STATE;
-                if(NULL != (ec = parse_else_clause(pstate))) 
+                if(NULL != (ec = parse_else_clause(pstate)))
                     append_ptr_lst(ecl, ec); // no state change
                 else
                     state = 6;
@@ -143,4 +143,3 @@ ast_if_clause_t* parse_if_clause(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

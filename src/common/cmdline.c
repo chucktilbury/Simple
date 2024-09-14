@@ -119,15 +119,15 @@ _cmd_opt_t_* search_no_name(void) {
 void init_cmdline(const char* intro, const char* outtro, const char* name, const char* version) {
 
     _cmdline_t_* ptr = _ALLOC_DS(_cmdline_t_);
-    ptr->prog        = NULL;
-    ptr->intro       = _DUP_STR(intro);
-    ptr->outtro      = _DUP_STR(outtro);
-    ptr->name        = _DUP_STR(name);
-    ptr->version     = _DUP_STR(version);
-    ptr->cmd_opts    = create_ptr_lst();
-    ptr->sopts       = create_string(NULL);
+    ptr->prog = NULL;
+    ptr->intro = _DUP_STR(intro);
+    ptr->outtro = _DUP_STR(outtro);
+    ptr->name = _DUP_STR(name);
+    ptr->version = _DUP_STR(version);
+    ptr->cmd_opts = create_ptr_lst();
+    ptr->sopts = create_string(NULL);
     append_string_str(ptr->sopts, "-:");
-    ptr->flag     = 0;
+    ptr->flag = 0;
     ptr->min_reqd = 0;
 
     cmdline = ptr;
@@ -203,13 +203,13 @@ void add_cmdline(int short_opt,
 
     // capture the help and all.
     _cmd_opt_t_* ptr = _ALLOC_DS(_cmd_opt_t_);
-    ptr->short_opt   = short_opt;
-    ptr->long_opt    = _DUP_STR(long_opt); // opt->name;
-    ptr->help        = _DUP_STR(help);
-    ptr->name        = _DUP_STR(name);
-    ptr->values      = create_str_lst();
-    ptr->flag        = flag;
-    ptr->callback    = cb;
+    ptr->short_opt = short_opt;
+    ptr->long_opt = _DUP_STR(long_opt); // opt->name;
+    ptr->help = _DUP_STR(help);
+    ptr->name = _DUP_STR(name);
+    ptr->values = create_str_lst();
+    ptr->flag = flag;
+    ptr->callback = cb;
     if(value != NULL)
         append_str_lst(ptr->values, create_string(value));
 

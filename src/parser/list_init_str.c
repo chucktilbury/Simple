@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -46,7 +46,7 @@ ast_list_init_str_t* parse_list_init_str(parser_state_t* pstate) {
                     consume_token();
                     state = 100;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -79,4 +79,3 @@ ast_list_init_str_t* parse_list_init_str(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

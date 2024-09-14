@@ -6,9 +6,9 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "ast.h"
 #include "parser.h"
+#include "ast.h"
+#include "common.h"
 #include "tokens.h"
 
 #include "cmdline.h"
@@ -82,7 +82,6 @@ ast_module_t* parse(void) {
     ast_module_t* module = parse_module(pstate);
 
     POP_TRACE_STATE();
-    
+
     return module;
 }
-

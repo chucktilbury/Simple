@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -48,4 +48,3 @@ void traverse_assignment(ast_assignment_t* node, AstFuncPtr pre, AstFuncPtr post
     CALL_NODE_FUNC(post);
     RET;
 }
-

@@ -22,6 +22,8 @@
         "ntok",
         "OCBRACE",
         "Ofast",
+        "oldcap",
+        "oldtab",
         "OPAREN",
         "OPBRACE",
         "OSBRACE",

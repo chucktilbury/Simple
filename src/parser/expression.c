@@ -10,9 +10,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 // This is used to detect unary operators. If it is true, and an operator is
 // found then it could be unary. Only the '!' and the '-' can be unary, all
@@ -109,9 +109,9 @@ static bool get_assoc(ast_expr_operator_t* oper) {
         case TOK_BANG:
         case TOK_UNARY_MINUS:
         case TOK_CARAT:
-            return false;   // right to left
+            return false; // right to left
         default:
-            return true;    // left to right
+            return true; // left to right
     }
 }
 
@@ -142,7 +142,7 @@ static ast_expr_operator_t* check_operator(ast_expr_operator_t* oper) {
         default:
             if(flag) {
                 SYNTAX("the \"%s\" operator cannot be unary",
-                    token_to_str(get_oper_type(oper)));
+                       token_to_str(get_oper_type(oper)));
                 return NULL;
             }
     }
@@ -162,17 +162,13 @@ static ast_expr_operator_t* check_operator(ast_expr_operator_t* oper) {
  *   If it's a operand add it to output queue
  *   If it's an operator:
  *     If the operator is right associative:
- *       While there's an operator on the stack with equal or greater precedence:
- *         Pop operators from the stack onto the output queue
- *     Else:
- *       While there's an operator on the stack with greater precedence:
- *         Pop operators from the stack onto the output queue
- *     Push the current operator onto the stack
- *   If it's a left paren push it onto the operator stack
- *   If it's a right paren
- *     While there's not a left paren at the top of the stack:
- *       Pop operators from the stack onto the output queue.
- *     Pop the left paren from the stack and discard it
+ *       While there's an operator on the stack with equal or greater
+ * precedence: Pop operators from the stack onto the output queue Else: While
+ * there's an operator on the stack with greater precedence: Pop operators from
+ * the stack onto the output queue Push the current operator onto the stack If
+ * it's a left paren push it onto the operator stack If it's a right paren While
+ * there's not a left paren at the top of the stack: Pop operators from the
+ * stack onto the output queue. Pop the left paren from the stack and discard it
  * While there are operators on the stack, pop them to the queue
  *
  * @return ast_expression_t*
@@ -203,10 +199,10 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                     flag = false;
                     state = 1;
                 }
-                else if(NULL != (operator = parse_expr_operator(pstate))) {
+                else if(NULL != (operator= parse_expr_operator(pstate))) {
                     if(NULL == check_operator(operator))
                         state = 102;
-                    else if(TOK_CPAREN == get_oper_type(operator)) 
+                    else if(TOK_CPAREN == get_oper_type(operator))
                         state = 101;
                     else
                         state = 2;
@@ -278,7 +274,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                         TRACE("transfer token: %s", token_type_to_str(oper->oper));
                         append_ptr_lst(queue, oper);
                     }
-                    else 
+                    else
                         break;
                 }
                 TRACE("push token: %s", token_type_to_str(operator->oper));
@@ -287,10 +283,10 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 state = 6;
                 break;
 
-            case 5: 
+            case 5:
                 // handle close paren
                 TRACE_STATE;
-                TRACE("paren count = %d",paren_count);
+                TRACE("paren count = %d", paren_count);
                 if(paren_count < 0) {
                     // end of the expression
                     state = 100;
@@ -304,13 +300,12 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                                 TRACE("transfer token: %s", token_type_to_str(oper->oper));
                                 append_ptr_lst(queue, oper);
                             }
-                            else 
+                            else
                                 break;
                         }
                     }
                     consume_token();
                     state = 6;
-                    
                 }
                 break;
 
@@ -321,7 +316,7 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                     flag = false;
                     state = 1;
                 }
-                else if(NULL != (operator = parse_expr_operator(pstate))) {
+                else if(NULL != (operator= parse_expr_operator(pstate))) {
                     if(NULL == check_operator(operator))
                         state = 102;
                     else
@@ -336,10 +331,10 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
             case 7:
                 // only an operator is correct after an operand.
                 TRACE_STATE;
-                if(NULL != (operator = parse_expr_operator(pstate))) {
+                if(NULL != (operator= parse_expr_operator(pstate))) {
                     if(NULL == check_operator(operator))
                         state = 102;
-                    else 
+                    else
                         state = 2;
                 }
                 else {
@@ -383,4 +378,3 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

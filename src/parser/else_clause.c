@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -40,7 +40,7 @@ ast_else_clause_t* parse_else_clause(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -51,14 +51,14 @@ ast_else_clause_t* parse_else_clause(parser_state_t* pstate) {
                     state = 2;
                 }
                 else {
-                    //EXPECTED("a '('");
+                    // EXPECTED("a '('");
                     state = 101;
                 }
                 break;
 
             case 2:
                 TRACE_STATE;
-                if(NULL != (expr = parse_expression(pstate))) 
+                if(NULL != (expr = parse_expression(pstate)))
                     state = 3;
                 else {
                     EXPECTED("an expression");
@@ -80,7 +80,7 @@ ast_else_clause_t* parse_else_clause(parser_state_t* pstate) {
 
             case 4:
                 TRACE_STATE;
-                if(NULL != (body = parse_function_body(pstate))) 
+                if(NULL != (body = parse_function_body(pstate)))
                     state = 100;
                 else {
                     EXPECTED("a function body");
@@ -118,4 +118,3 @@ ast_else_clause_t* parse_else_clause(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

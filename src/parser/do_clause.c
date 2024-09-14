@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -94,4 +94,3 @@ ast_do_clause_t* parse_do_clause(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

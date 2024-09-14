@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -24,7 +24,7 @@ void traverse_function_definition(ast_function_definition_t* node, AstFuncPtr pr
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    //TRACE("is_iter = %s", node->is_iter? "true": "false");
+    // TRACE("is_iter = %s", node->is_iter? "true": "false");
     TRACE_TERMINAL(node->name);
     if(node->member != NULL)
         traverse_function_membership(node->member, pre, post);
@@ -36,4 +36,3 @@ void traverse_function_definition(ast_function_definition_t* node, AstFuncPtr pr
     CALL_NODE_FUNC(post);
     RET;
 }
-

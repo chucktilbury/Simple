@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -39,7 +39,7 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
                 TRACE_STATE;
                 if(NULL != (name = parse_compound_reference(pstate)))
                     state = 1;
-                else 
+                else
                     state = 101;
                 break;
 
@@ -92,4 +92,3 @@ ast_function_reference_t* parse_function_reference(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

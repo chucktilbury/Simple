@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -84,4 +84,3 @@ ast_array_reference_t* parse_array_reference(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

@@ -1,12 +1,12 @@
 /**
  * @file symbols.h
  * @author your name (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-05
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #ifndef _SYMBOLS_H_
 #define _SYMBOLS_H_
@@ -42,5 +42,4 @@ symbol_t* lookup_local_symbol(ast_function_definition_t* func, const char* name)
 String* decorate_compound_name(ast_compound_name_t* name);
 String* generate_uuid(void);
 
-#endif  /* _SYMBOLS_H_ */
-
+#endif /* _SYMBOLS_H_ */

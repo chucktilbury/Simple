@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -25,7 +25,7 @@ void traverse_string_literal(ast_string_literal_t* node, AstFuncPtr pre, AstFunc
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    if(node->fstr != NULL)        
+    if(node->fstr != NULL)
         traverse_formatted_strg(node->fstr, pre, post);
 
     TRACE_TERMINAL(node->lstr);
@@ -33,4 +33,3 @@ void traverse_string_literal(ast_string_literal_t* node, AstFuncPtr pre, AstFunc
     CALL_NODE_FUNC(post);
     RET;
 }
-

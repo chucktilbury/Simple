@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -58,11 +58,11 @@ ast_var_definition_t* parse_var_definition(parser_state_t* pstate) {
                     consume_token();
                     state = 3;
                 }
-                else 
+                else
                     state = 100;
                 break;
 
-            case 3: 
+            case 3:
                 TRACE_STATE;
                 {
                     void* p = post_token_queue();
@@ -103,4 +103,3 @@ ast_var_definition_t* parse_var_definition(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

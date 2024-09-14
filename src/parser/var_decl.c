@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -49,7 +49,7 @@ ast_var_decl_t* parse_var_decl(parser_state_t* pstate) {
                     consume_token();
                     state = 100;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -59,7 +59,7 @@ ast_var_decl_t* parse_var_decl(parser_state_t* pstate) {
                 node = (ast_var_decl_t*)create_ast_node(AST_VAR_DECL);
                 node->type = type;
                 node->ident = ident;
-               finished = true;
+                finished = true;
                 break;
 
             case 101:
@@ -83,4 +83,3 @@ ast_var_decl_t* parse_var_decl(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

@@ -12,10 +12,10 @@
  * @date 01-07-2024
  * @copyright Copyright (c) 2024
  */
+#include "tokens.h"
 #include "common.h"
 #include "fileio.h"
 #include "scanner.h"
-#include "tokens.h"
 #include "trace.h"
 
 static unsigned serial = 0;
@@ -49,14 +49,14 @@ void append_token(Token* tok) {
 
     TokQueueItem* item;
 
-    item         = _ALLOC_DS(TokQueueItem);
-    item->tok    = copy_token(tok);
+    item = _ALLOC_DS(TokQueueItem);
+    item->tok = copy_token(tok);
     item->serial = serial++;
-    item->used   = false;
+    item->used = false;
 
     if(tqueue->tail != NULL) {
         tqueue->tail->next = item;
-        tqueue->tail       = item;
+        tqueue->tail = item;
     }
     else {
         tqueue->head = item;
@@ -120,9 +120,9 @@ void close_file(void) {
 
 /**
  * @brief Return the token type safely.
- * 
- * @param tok 
- * @return TokenType 
+ *
+ * @param tok
+ * @return TokenType
  */
 TokenType token_type(const Token* tok) {
 
@@ -130,7 +130,7 @@ TokenType token_type(const Token* tok) {
         return tok->type;
     else
         return TOK_END_OF_INPUT;
-} 
+}
 
 /**
  * @brief Get the token object. This returns the current token, which is a
@@ -165,16 +165,17 @@ Token* copy_token(const Token* tok) {
 
     ENTER;
     ASSERT(tok != NULL);
-    TRACE("%s '%s': %d: %d: %s", token_type_to_str(tok), raw_string(tok->str), tok->line_no, tok->col_no, tok->fname); 
-    
+    TRACE("%s '%s': %d: %d: %s", token_type_to_str(tok), raw_string(tok->str),
+          tok->line_no, tok->col_no, tok->fname);
+
     Token* ntok;
 
-    ntok          = _ALLOC_DS(Token);
-    ntok->fname   = _DUP_STR(tok->fname);
-    ntok->str     = copy_string(tok->str);
+    ntok = _ALLOC_DS(Token);
+    ntok->fname = _DUP_STR(tok->fname);
+    ntok->str = copy_string(tok->str);
     ntok->line_no = tok->line_no;
-    ntok->col_no  = tok->col_no;
-    ntok->type    = tok->type;
+    ntok->col_no = tok->col_no;
+    ntok->type = tok->type;
 
     RETURN(ntok);
 }
@@ -220,7 +221,7 @@ void finalize_token_queue(void) {
     ENTER;
 
     TokQueue* tqueue = peek_link_list(tqueue_stack);
-    tqueue->head     = tqueue->crnt;
+    tqueue->head = tqueue->crnt;
 
     RET;
 }
@@ -230,9 +231,9 @@ void kill_token_queue(void) {
     ENTER;
 
     TokQueue* tqueue = peek_link_list(tqueue_stack);
-    tqueue->head     = NULL;
-    tqueue->crnt     = NULL;
-    tqueue->tail     = NULL;
+    tqueue->head = NULL;
+    tqueue->crnt = NULL;
+    tqueue->tail = NULL;
     append_token(scan_token());
 
     RET;
@@ -268,11 +269,11 @@ void reset_token_queue(void* post) {
     ENTER;
 
     // if(!get_recovery_state()) {
-        TRACE("recover the queue");
-        TokQueue* tqueue = peek_link_list(tqueue_stack);
-        ASSERT(tqueue != NULL);
+    TRACE("recover the queue");
+    TokQueue* tqueue = peek_link_list(tqueue_stack);
+    ASSERT(tqueue != NULL);
 
-        tqueue->crnt = (TokQueueItem*)post;
+    tqueue->crnt = (TokQueueItem*)post;
     // }
     RET;
 }

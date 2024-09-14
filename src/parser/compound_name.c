@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -68,8 +68,8 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
                     state = 1;
                 }
                 else {
-                    //EXPECTED("a valid identifier");
-                    // could be a create or destroy reference
+                    // EXPECTED("a valid identifier");
+                    //  could be a create or destroy reference
                     state = 101;
                 }
                 break;
@@ -103,4 +103,3 @@ ast_compound_name_t* parse_compound_name(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

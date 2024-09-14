@@ -1,17 +1,17 @@
 /**
  * @file alias_definition.c
  * @author Chuck Tilbury (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-13
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  * Grammar production:
@@ -31,5 +31,3 @@ void traverse_alias_definition(ast_alias_definition_t* node, AstFuncPtr pre, Ast
     CALL_NODE_FUNC(post);
     RET;
 }
-
-

@@ -19,9 +19,9 @@
  * @date 01-07-2024
  * @copyright Copyright (c) 2024
  */
+#include "scanner.h"
 #include "common.h"
 #include "fileio.h"
-#include "scanner.h"
 #include "trace.h"
 
 extern void dump_token_queue(void);
@@ -176,7 +176,7 @@ static void scan_number(void) {
                     }
                     else if(isspace(ch) || ispunct(ch) || ch == EOF) {
                         token.type = TOK_LITERAL_INTEGER;
-                        finished   = true;
+                        finished = true;
                     }
                     else {
                         token.type = TOK_ERROR;
@@ -499,13 +499,13 @@ static void scan_squote_str(void) {
  */
 static void scan_dquote_str(void) {
 
-    int ch        = consume_char(); // consume the '\"'
+    int ch = consume_char(); // consume the '\"'
     bool finished = false;
 
     while(!finished) {
         ch = get_char();
         if(ch == '\"') {
-            finished   = true;
+            finished = true;
             token.type = TOK_LITERAL_DSTR;
             consume_char();
         }
@@ -558,9 +558,9 @@ static void scan_dquote_str(void) {
                     break;
                 case 'x': { // the next 2 characters must be hex digits
                     char buf[5] = "0x";
-                    buf[2]      = consume_char();
-                    buf[3]      = consume_char();
-                    buf[4]      = 0;
+                    buf[2] = consume_char();
+                    buf[3] = consume_char();
+                    buf[4] = 0;
                     if(isxdigit(buf[2]) && isxdigit(buf[3])) {
                         append_string_char(token.str, (int)strtol(buf, NULL, 16));
                     }
@@ -569,7 +569,7 @@ static void scan_dquote_str(void) {
                         token.type = TOK_ERROR;
                         clear_string(token.str);
                         append_string_fmt(token.str, "invalid string. expected a hex number but got \\x%c%c",
-                                       buf[2], buf[3]);
+                                          buf[2], buf[3]);
                         finished = true;
                     }
                 } break;
@@ -598,7 +598,7 @@ static void scan_dquote_str(void) {
 static void finish_token(void) {
 
     token.line_no = get_line_no();
-    token.col_no  = get_col_no();
+    token.col_no = get_col_no();
     const char* s = get_fname();
     if(s != NULL) {
         const char* tmp = strrchr(s, '/');
@@ -664,11 +664,11 @@ Token* scan_token(void) {
         // the file stack.
         else if(ch == END_OF_FILE) {
             token.type = TOK_END_OF_FILE;
-            finished   = true;
+            finished = true;
         }
         else if(ch == END_OF_INPUT) {
             token.type = TOK_END_OF_INPUT;
-            finished   = true;
+            finished = true;
         }
     }
 
@@ -698,4 +698,3 @@ void init_scanner(const char* fname) {
 Token* sneak_token(void) {
     return &token;
 }
-

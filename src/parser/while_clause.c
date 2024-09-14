@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -38,13 +38,13 @@ ast_while_clause_t* parse_while_clause(parser_state_t* pstate) {
                 TRACE_STATE;
                 if(NULL != (expr = parse_while_definition(pstate)))
                     state = 1;
-                else 
+                else
                     state = 101;
                 break;
 
             case 1:
                 TRACE_STATE;
-                if(NULL != (body = parse_loop_body(pstate))) 
+                if(NULL != (body = parse_loop_body(pstate)))
                     state = 100;
                 else {
                     EXPECTED("a loop body");
@@ -57,7 +57,7 @@ ast_while_clause_t* parse_while_clause(parser_state_t* pstate) {
                 TRACE_STATE;
                 node = (ast_while_clause_t*)create_ast_node(AST_WHILE_CLAUSE);
                 node->expr = expr;
-                node->body = body;                
+                node->body = body;
                 finished = true;
                 break;
 
@@ -82,4 +82,3 @@ ast_while_clause_t* parse_while_clause(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

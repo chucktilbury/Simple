@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -33,4 +33,3 @@ void traverse_create_definition(ast_create_definition_t* node, AstFuncPtr pre, A
     CALL_NODE_FUNC(post);
     RET;
 }
-

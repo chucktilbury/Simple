@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -68,7 +68,7 @@ ast_expr_operator_t* parse_expr_operator(parser_state_t* pstate) {
                     case TOK_CPAREN:
                         tok = copy_token(get_token());
                         TRACE_TOKEN;
-                        //consume_token();
+                        // consume_token();
                         state = 100;
                         break;
                     default:
@@ -106,4 +106,3 @@ ast_expr_operator_t* parse_expr_operator(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

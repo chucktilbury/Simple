@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -24,7 +24,7 @@ void traverse_var_definition(ast_var_definition_t* node, AstFuncPtr pre, AstFunc
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    TRACE("is_const = %s", node->is_const? "true": "false");
+    TRACE("is_const = %s", node->is_const ? "true" : "false");
     traverse_var_decl(node->decl, pre, post);
     if(node->item != NULL)
         traverse_assignment_item(node->item, pre, post);
@@ -32,4 +32,3 @@ void traverse_var_definition(ast_var_definition_t* node, AstFuncPtr pre, AstFunc
     CALL_NODE_FUNC(post);
     RET;
 }
-

@@ -1,12 +1,12 @@
 /**
  * @file tokens.h
  * @author your name (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-08-19
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #ifndef _TOKENS_H_
 #define _TOKENS_H_
@@ -15,18 +15,18 @@
  * This header contains a sorted list of the actual keywords that are
  * scanned in the scanner.
  */
-#include "token_defs.h"
 #include "scanner.h"
+#include "token_defs.h"
 
 #define TTYPE (token_type(get_token()))
 
 #ifdef USE_TRACE
 #include "trace.h"
-#define TRACE_TOKEN do { \
-        Token* t = get_token(); \
-        TRACE("%s '%s': %d: %d: %s", token_type_to_str(t), \
-                raw_string(t->str), \
-                t->line_no, t->col_no, t->fname); \
+#define TRACE_TOKEN                                                            \
+    do {                                                                       \
+        Token* t = get_token();                                                \
+        TRACE("%s '%s': %d: %d: %s", token_type_to_str(t), raw_string(t->str), \
+              t->line_no, t->col_no, t->fname);                                \
     } while(0)
 #else
 #define TRACE_TOKEN
@@ -97,5 +97,4 @@ void reset_token_queue(void* post);
  */
 void* post_token_queue(void);
 
-#endif  /* _TOKENS_H_ */
-
+#endif /* _TOKENS_H_ */

@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -27,9 +27,8 @@ void traverse_list_init_element(ast_list_init_element_t* node, AstFuncPtr pre, A
 
     if(node->str != NULL)
         traverse_list_init_str(node->str, pre, post);
-    traverse_assignment_item(node->item, pre, post);        
+    traverse_assignment_item(node->item, pre, post);
 
     CALL_NODE_FUNC(post);
     RET;
 }
-

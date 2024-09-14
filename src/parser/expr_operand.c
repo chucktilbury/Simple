@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -77,4 +77,3 @@ ast_expr_operand_t* parse_expr_operand(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

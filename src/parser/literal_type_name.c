@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -76,7 +76,7 @@ ast_literal_type_name_t* parse_literal_type_name(parser_state_t* pstate) {
                     consume_token();
                     state = 100;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -109,4 +109,3 @@ ast_literal_type_name_t* parse_literal_type_name(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

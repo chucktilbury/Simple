@@ -1,27 +1,27 @@
 /**
  * @file class_inheritance_list.c
  * @author your name (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-10
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  * @brief Parse the class inheritance list
- * 
+ *
  * class_inheritance_list
  *     : '(' ( class_inheritance_item (',' class_inheritance_item)* )? ')'
  *     ;
- * 
- * @param pstate 
- * @return ast_class_inheritance_list_t* 
+ *
+ * @param pstate
+ * @return ast_class_inheritance_list_t*
  */
 ast_class_inheritance_list_t* parse_class_inheritance_list(parser_state_t* pstate) {
 
@@ -44,7 +44,7 @@ ast_class_inheritance_list_t* parse_class_inheritance_list(parser_state_t* pstat
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -54,7 +54,7 @@ ast_class_inheritance_list_t* parse_class_inheritance_list(parser_state_t* pstat
                     append_ptr_lst(list, item);
                     state = 2;
                 }
-                else    
+                else
                     state = 4;
                 break;
 
@@ -116,6 +116,3 @@ ast_class_inheritance_list_t* parse_class_inheritance_list(parser_state_t* pstat
 
     RETURN(node);
 }
-
-
-

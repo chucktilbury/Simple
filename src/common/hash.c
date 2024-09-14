@@ -38,7 +38,7 @@
 static uint32_t hash_func(const char* key) {
 
     uint32_t hash = 2166136261u;
-    int slen      = strlen(key);
+    int slen = strlen(key);
 
     for(int i = 0; i < slen; i++) {
         hash ^= (uint8_t)key[i];
@@ -51,8 +51,8 @@ static uint32_t hash_func(const char* key) {
 static int find_slot(HashTable* tab, const char* key) {
 
     uint32_t hash = hash_func(key) & (tab->cap - 1);
-    int inc       = hash & 0x0F;
-    inc           = (inc == 0) ? 1 : inc;
+    int inc = hash & 0x0F;
+    inc = (inc == 0) ? 1 : inc;
 
     if(tab->table[hash] == NULL) {
         tab->count++;
@@ -86,12 +86,12 @@ static int find_slot(HashTable* tab, const char* key) {
 static void rehash_table(HashTable* tab) {
 
     if(tab->count * 1.75 > tab->cap) {
-        int oldcap          = tab->cap;
+        int oldcap = tab->cap;
         _hash_node** oldtab = tab->table;
         tab->cap <<= 1; // double the capacity
         tab->tombstones = 0;
-        tab->count      = 0;
-        tab->table      = _ALLOC_DS_ARRAY(_hash_node*, tab->cap);
+        tab->count = 0;
+        tab->table = _ALLOC_DS_ARRAY(_hash_node*, tab->cap);
         for(int i = 0; i < tab->cap; i++)
             tab->table[i] = NULL;
 
@@ -99,7 +99,7 @@ static void rehash_table(HashTable* tab) {
 
         for(int i = 0; i < oldcap; i++) {
             if(oldtab[i] != NULL && oldtab[i]->key != NULL) {
-                slot             = find_slot(tab, oldtab[i]->key);
+                slot = find_slot(tab, oldtab[i]->key);
                 tab->table[slot] = oldtab[i];
             }
         }
@@ -112,7 +112,7 @@ HashTable* create_hashtable(void) {
     HashTable* tab = _ALLOC_DS(HashTable);
 
     tab->count = 0;
-    tab->cap   = 0x01 << 3;
+    tab->cap = 0x01 << 3;
 
     tab->table = _ALLOC_DS_ARRAY(_hash_node*, tab->cap);
     for(int i = 0; i < tab->cap; i++)
@@ -196,7 +196,7 @@ HashResult remove_hashtable(HashTable* tab, const char* key) {
         if(strcmp(tab->table[slot]->key, key) == 0) {
             _FREE(tab->table[slot]->data);
             _FREE(tab->table[slot]->key);
-            tab->table[slot]->key  = NULL;
+            tab->table[slot]->key = NULL;
             tab->table[slot]->data = NULL;
             tab->table[slot]->size = 0;
             tab->count--;

@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -58,7 +58,7 @@ ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate) {
                     state = 100;
                 else if(NULL != (ptr = (ast_node_t*)parse_alias_definition(pstate)))
                     state = 100;
-                else 
+                else
                     state = 101;
                 TRACE_STATE;
                 break;
@@ -92,4 +92,3 @@ ast_namespace_item_t* parse_namespace_item(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

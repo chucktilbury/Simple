@@ -1,15 +1,15 @@
 /**
  * @file class.c
  * @author Chuck Tilbury (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-12
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
-#include "common.h"
 #include "class.h"
+#include "common.h"
 
 sym_class_t* create_class_symbol(ast_class_definition_t* node) {
 
@@ -21,4 +21,3 @@ sym_class_t* create_class_symbol(ast_class_definition_t* node) {
 
     RETURN(sym);
 }
-

@@ -22,7 +22,7 @@
     do {                                                                                   \
         if(!(e)) {                                                                         \
             fprintf(stderr, "ASSERT: %s: %d: %s: %s: ", __FILE__, __LINE__, __func__, #e); \
-            fprintf(stderr, m, ##__VA_ARGS__);                                 \
+            fprintf(stderr, m, ##__VA_ARGS__);                                             \
             fprintf(stderr, "\n");                                                         \
             abort();                                                                       \
         }                                                                                  \

@@ -1,17 +1,17 @@
 /**
  * @file class_body.c
  * @author your name (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-10
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -20,7 +20,7 @@
  * class_body
  *    : '{' ( class_body_item )+ '}'
  *    ;
-*/
+ */
 ast_class_body_t* parse_class_body(parser_state_t* pstate) {
 
     ASSERT(pstate != NULL);
@@ -42,7 +42,7 @@ ast_class_body_t* parse_class_body(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -58,7 +58,7 @@ ast_class_body_t* parse_class_body(parser_state_t* pstate) {
                         state = 102;
                     }
                 }
-                else 
+                else
                     append_ptr_lst(list, item);
                 break;
 
@@ -91,4 +91,3 @@ ast_class_body_t* parse_class_body(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

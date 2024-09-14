@@ -37,9 +37,9 @@ void init_scanner(const char* fname);
 
 /**
  * @brief Scan a token from the input.
- * 
- * @return Token* 
+ *
+ * @return Token*
  */
 Token* scan_token(void);
 
-#endif  /* _SCANNER_H_ */
+#endif /* _SCANNER_H_ */

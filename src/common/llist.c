@@ -18,11 +18,11 @@
  */
 LinkList* create_link_list(void) {
 
-    LinkList* lst   = _ALLOC_DS(LinkList);
-    lst->first      = NULL;
-    lst->last       = NULL;
+    LinkList* lst = _ALLOC_DS(LinkList);
+    lst->first = NULL;
+    lst->last = NULL;
     lst->is_changed = true;
-    lst->length     = 0;
+    lst->length = 0;
 
     return lst;
 }
@@ -51,14 +51,14 @@ void append_link_list(LinkList* lst, void* data) {
     ASSERT(data != NULL);
 
     LinkListElem* elem = _ALLOC_DS(LinkListElem);
-    elem->data         = data;
+    elem->data = data;
 
     if(lst->last == NULL)
         lst->first = elem;
     else
         lst->last->next = elem;
 
-    lst->last       = elem;
+    lst->last = elem;
     lst->is_changed = true;
     lst->length++;
 }
@@ -76,7 +76,7 @@ void prepend_link_list(LinkList* lst, void* data) {
     ASSERT(data != NULL);
 
     LinkListElem* elem = _ALLOC_DS(LinkListElem);
-    elem->data         = data;
+    elem->data = data;
 
     if(lst->first == NULL)
         lst->last = elem;
@@ -106,9 +106,9 @@ void* iter_link_list(LinkList* lst, void** post) {
     LinkListElem* crnt = (LinkListElem*)(*post);
 
     if(crnt == NULL) {
-        crnt            = lst->first;
+        crnt = lst->first;
         lst->is_changed = false;
-        *post           = crnt;
+        *post = crnt;
         if(crnt != NULL)
             return crnt->data;
     }
@@ -163,7 +163,7 @@ void* pop_link_list(LinkList* lst) {
     void* data = NULL;
 
     if(lst->first != NULL) {
-        data       = lst->first->data;
+        data = lst->first->data;
         lst->first = lst->first->next;
     }
     else {

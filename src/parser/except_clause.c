@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -41,7 +41,7 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -121,9 +121,9 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
                 // production recognized
                 TRACE_STATE;
                 node = (ast_except_clause_t*)create_ast_node(AST_EXCEPT_CLAUSE);
-                node->id1= id1;
-                node->id2= id2;
-                node->body= body;
+                node->id1 = id1;
+                node->id2 = id2;
+                node->body = body;
                 finished = true;
                 break;
 
@@ -148,4 +148,3 @@ ast_except_clause_t* parse_except_clause(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

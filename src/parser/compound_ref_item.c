@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -39,7 +39,7 @@ ast_compound_ref_item_t* parse_compound_ref_item(parser_state_t* pstate) {
                 // initial state
                 TRACE_STATE;
                 TRACE_TOKEN;
-                if(NULL != (ref = parse_array_reference(pstate))) 
+                if(NULL != (ref = parse_array_reference(pstate)))
                     state = 100;
                 else if(TOK_IDENT == TTYPE) {
                     name = copy_token(get_token());
@@ -80,4 +80,3 @@ ast_compound_ref_item_t* parse_compound_ref_item(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

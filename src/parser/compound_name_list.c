@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -83,7 +83,7 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
                 else {
                     EXPECTED("a compound name");
                     state = 102;
-                }   
+                }
                 break;
 
             case 4:
@@ -98,7 +98,7 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
                     state = 102;
                 }
                 break;
-           
+
             case 100:
                 // production recognized
                 TRACE_STATE;
@@ -128,4 +128,3 @@ ast_compound_name_list_t* parse_compound_name_list(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

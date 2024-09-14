@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -39,7 +39,9 @@
  *     | function_body
  *     ;
  */
-void traverse_function_body_element(ast_function_body_element_t* node, AstFuncPtr pre, AstFuncPtr post) {
+void traverse_function_body_element(ast_function_body_element_t* node,
+                                    AstFuncPtr pre,
+                                    AstFuncPtr post) {
 
     ENTER;
     CALL_NODE_FUNC(pre);
@@ -53,7 +55,8 @@ void traverse_function_body_element(ast_function_body_element_t* node, AstFuncPt
                 traverse_var_definition((ast_var_definition_t*)(node->ptr), pre, post);
                 break;
             case AST_FUNCTION_REFERENCE:
-                traverse_function_reference((ast_function_reference_t*)(node->ptr), pre, post);
+                traverse_function_reference((ast_function_reference_t*)(node->ptr),
+                                            pre, post);
                 break;
             case AST_CREATE_REFERENCE:
                 traverse_create_reference((ast_create_reference_t*)(node->ptr), pre, post);
@@ -86,7 +89,8 @@ void traverse_function_body_element(ast_function_body_element_t* node, AstFuncPt
                 traverse_exit_statement((ast_exit_statement_t*)(node->ptr), pre, post);
                 break;
             case AST_CONTINUE_STATEMENT:
-                traverse_continue_statement((ast_continue_statement_t*)(node->ptr), pre, post);
+                traverse_continue_statement((ast_continue_statement_t*)(node->ptr),
+                                            pre, post);
                 break;
             case AST_YIELD_STATEMENT:
                 traverse_yield_statement((ast_yield_statement_t*)(node->ptr), pre, post);
@@ -110,11 +114,10 @@ void traverse_function_body_element(ast_function_body_element_t* node, AstFuncPt
                 traverse_function_body((ast_function_body_t*)(node->ptr), pre, post);
                 break;
             default:
-                FATAL("unknown ast node type: %s", nterm_type_to_str(node->ptr));            
+                FATAL("unknown ast node type: %s", nterm_type_to_str(node->ptr));
         }
     }
 
     CALL_NODE_FUNC(post);
     RET;
 }
-

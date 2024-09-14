@@ -1,15 +1,15 @@
 /**
  * @file variable.c
  * @author Chuck Tilbury (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-12
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
-#include "common.h"
 #include "variable.h"
+#include "common.h"
 
 sym_variable_t* create_variable_symbol(ast_var_definition_t* node) {
 

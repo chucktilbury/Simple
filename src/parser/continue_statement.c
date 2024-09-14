@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -70,4 +70,3 @@ ast_continue_statement_t* parse_continue_statement(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -40,7 +40,7 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -83,14 +83,14 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
 
             case 4:
                 TRACE_STATE;
-                if(NULL != (body = parse_function_body(pstate))) 
+                if(NULL != (body = parse_function_body(pstate)))
                     state = 100;
                 else {
                     EXPECTED("a function body");
                     state = 102;
                 }
                 break;
-            
+
             case 100:
                 // production recognized
                 TRACE_STATE;
@@ -121,4 +121,3 @@ ast_final_clause_t* parse_final_clause(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

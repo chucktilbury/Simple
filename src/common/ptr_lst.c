@@ -65,9 +65,9 @@ static inline void grow_list(PtrLst* lst) {
 PtrLst* create_ptr_lst(void) {
 
     PtrLst* ptr = _ALLOC_DS(PtrLst);
-    ptr->len    = 0;
-    ptr->cap    = 0x01 << 3;
-    ptr->list   = _ALLOC_DS_ARRAY(void*, ptr->cap);
+    ptr->len = 0;
+    ptr->cap = 0x01 << 3;
+    ptr->list = _ALLOC_DS_ARRAY(void*, ptr->cap);
 
     return ptr;
 }
@@ -132,7 +132,7 @@ void* get_ptr_lst(PtrLst* lst, int idx) {
     ASSERT(lst != NULL);
 
     void* ptr = NULL;
-    int i     = normalize_index(lst, idx);
+    int i = normalize_index(lst, idx);
 
     if(i >= 0)
         ptr = lst->list[i];
@@ -216,7 +216,7 @@ void* peek_ptr_lst(PtrLst* lst) {
     void* ptr = NULL;
 
     if(lst->len > 0)
-        ptr = lst->list[lst->len-1];
+        ptr = lst->list[lst->len - 1];
 
     return ptr;
 }
@@ -238,7 +238,7 @@ void* iterate_ptr_lst(PtrLst* lst, int* post) {
     ASSERT(post != NULL);
 
     void* ptr = get_ptr_lst(lst, *post);
-    *post     = *post + 1;
+    *post = *post + 1;
 
     return ptr;
 }
@@ -266,9 +266,9 @@ void del_ptr_lst(PtrLst* lst, int idx) {
 
 /**
  * @brief Return the number of items in the list.
- * 
- * @param lst 
- * @return int 
+ *
+ * @param lst
+ * @return int
  */
 int length_ptr_lst(PtrLst* lst) {
 

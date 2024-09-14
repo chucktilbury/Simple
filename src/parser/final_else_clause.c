@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -39,7 +39,7 @@ ast_final_else_clause_t* parse_final_else_clause(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -102,4 +102,3 @@ ast_final_else_clause_t* parse_final_else_clause(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

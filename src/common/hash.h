@@ -39,4 +39,4 @@ HashResult remove_hashtable(HashTable* tab, const char* key);
 
 void dump_hashtable(HashTable* tab);
 
-#endif
+#endif /* _HASH_H_ */

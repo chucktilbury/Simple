@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -28,7 +28,7 @@ ast_list_init_t* parse_list_init(parser_state_t* pstate) {
     int state = 0;
     bool finished = false;
     void* post = post_token_queue();
-    
+
     ast_list_init_element_t* ptr = NULL;
     PtrLst* list = create_ptr_lst();
 
@@ -103,4 +103,3 @@ ast_list_init_t* parse_list_init(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

@@ -1,24 +1,25 @@
 /*
  *
  */
-#include "common.h"
 #include "cmdline.h"
-#include "trace.h"
+#include "common.h"
 #include "parser.h"
+#include "trace.h"
 
 void init_simple(int argc, char** argv) {
 
     ENTER;
     init_cmdline("Simple Language Compiler", "", "Simple", "0.0.0");
 
-    add_cmdline('i', NULL, "incl", "add an include search directory", "./", NULL, CMD_STR|CMD_RARG);
+    add_cmdline('i', NULL, "incl", "add an include search directory", "./",
+                NULL, CMD_STR | CMD_RARG);
 
     // verbosity level, values 0-10
     add_cmdline('v', "verbosity", "verbo", "control how much text is displayed during execution",
                 "0", NULL, CMD_NUM | CMD_RARG);
 
-    add_cmdline(0, "ptrace", "tp", "trace parser execution", NULL, NULL, CMD_NARG|CMD_BOOL);
-    add_cmdline(0, "atrace", "ta", "trace the AST execution", NULL, NULL, CMD_NARG|CMD_BOOL);
+    add_cmdline(0, "ptrace", "tp", "trace parser execution", NULL, NULL, CMD_NARG | CMD_BOOL);
+    add_cmdline(0, "atrace", "ta", "trace the AST execution", NULL, NULL, CMD_NARG | CMD_BOOL);
 
     // standard options that control the command line parser behaviors
     add_cmdline('V', "version", NULL, "show the version", NULL, show_version, CMD_NARG);

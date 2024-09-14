@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -44,7 +44,7 @@ ast_string_literal_t* parse_string_literal(parser_state_t* pstate) {
                 }
                 else if(NULL != (fstr = parse_formatted_strg(pstate)))
                     state = 100;
-                else 
+                else
                     state = 101;
                 break;
 
@@ -78,4 +78,3 @@ ast_string_literal_t* parse_string_literal(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

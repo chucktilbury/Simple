@@ -34,8 +34,8 @@ typedef enum {
     CMD_OARG = 0x02, // args are optional
 
     // data type helpers
-    CMD_STR  = 0x04, // type is a string
-    CMD_NUM  = 0x10, // type is a number
+    CMD_STR = 0x04,  // type is a string
+    CMD_NUM = 0x10,  // type is a number
     CMD_BOOL = 0x20, // type is bool
     CMD_LIST = 0x08, // a list is accepted by the arg
 
@@ -66,4 +66,4 @@ const char* iterate_cmdline(const char* name, int* post);
 void show_help(void);
 void show_version(void);
 
-#endif  /* _CMDLINE_H_ */
+#endif /* _CMDLINE_H_ */

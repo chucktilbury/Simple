@@ -9,9 +9,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -84,4 +84,3 @@ ast_func_parm_decl_t* parse_func_parm_decl(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

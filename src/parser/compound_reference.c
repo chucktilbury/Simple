@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -41,7 +41,7 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
                     append_ptr_lst(list, item);
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -53,7 +53,7 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
                     state = 2;
                 }
                 else
-                    state = 100; // finished 
+                    state = 100; // finished
                 break;
 
             case 2:
@@ -63,8 +63,8 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
                     state = 1;
                 }
                 else {
-                    //EXPECTED("a compound reference item");
-                    // could be a reference to create or destroy
+                    // EXPECTED("a compound reference item");
+                    //  could be a reference to create or destroy
                     state = 101;
                 }
                 break;
@@ -98,4 +98,3 @@ ast_compound_reference_t* parse_compound_reference(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

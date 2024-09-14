@@ -1,35 +1,49 @@
 /**
  * @file trace.h
  * @author Chuck Tilbury (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-08-19
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
- #ifndef _TRACE_H_
- #define _TRACE_H_
+#ifndef _TRACE_H_
+#define _TRACE_H_
 
 typedef enum {
     TRACE_OFF,
     TRACE_ON,
-} TraceState; 
+} TraceState;
 
-#ifdef USE_TRACE 
+#ifdef USE_TRACE
 #define INIT_TRACE() init_trace()
-#define ENTER   trace_enter(__func__)
-#define RET     do {trace_return_noval(__func__); return; } while(0)
-#define RETURN(v) do { trace_return(__func__, (size_t)(v)); return (v); } while(0)
+#define ENTER trace_enter(__func__)
+#define RET                           \
+    do {                              \
+        trace_return_noval(__func__); \
+        return;                       \
+    } while(0)
+#define RETURN(v)                            \
+    do {                                     \
+        trace_return(__func__, (size_t)(v)); \
+        return (v);                          \
+    } while(0)
 #define TRACE(fmt, ...) trace(__func__, fmt, ##__VA_ARGS__)
 #define PUSH_TRACE_STATE(v) push_trace_state(v)
 #define POP_TRACE_STATE() pop_trace_state()
 #else
 #define INIT_TRACE()
 #define ENTER
-#define RET     do { return; } while(0)
-#define RETURN(v) do { return (v); } while(0)
-#define TRACE(fmt, ...) 
+#define RET     \
+    do {        \
+        return; \
+    } while(0)
+#define RETURN(v)   \
+    do {            \
+        return (v); \
+    } while(0)
+#define TRACE(fmt, ...)
 #define PUSH_TRACE_STATE(v)
 #define POP_TRACE_STATE()
 #endif
@@ -43,4 +57,3 @@ void push_trace_state(TraceState val);
 TraceState pop_trace_state(void);
 
 #endif /* _TRACE_H_ */
-

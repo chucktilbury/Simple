@@ -224,7 +224,7 @@ void replace_string_fmt(String* ptr, const char* find, const char* fmt, ...) {
  */
 void clear_string(String* str) {
 
-    str->length    = 0;
+    str->length = 0;
     str->buffer[0] = '\0';
 }
 
@@ -330,9 +330,9 @@ const char* tokenize_string(String* str, int* post, const char* mark) {
     if(*post == 0) {
         if(ptr != NULL)
             _FREE(ptr);
-        ptr   = _DUP_STR((const char*)str->buffer);
+        ptr = _DUP_STR((const char*)str->buffer);
         *post = 1;
-        retv  = strtok((char*)ptr, mark);
+        retv = strtok((char*)ptr, mark);
     }
     else
         retv = strtok(NULL, mark);

@@ -1181,22 +1181,23 @@ typedef struct _ast_final_clause_ {
     struct _ast_function_body_* body;
 } ast_final_clause_t;
 
-#define CALL_NODE_FUNC(f) do { \
-        if((f) != NULL) { \
+#define CALL_NODE_FUNC(f)            \
+    do {                             \
+        if((f) != NULL) {            \
             (*f)((ast_node_t*)node); \
-        }\
+        }                            \
     } while(0)
 
-#define TRACE_TERMINAL(t) do { \
-        if((t) != NULL) { \
+#define TRACE_TERMINAL(t)                                                \
+    do {                                                                 \
+        if((t) != NULL) {                                                \
             TRACE("%s is %s '%s': %d: %d: %s", #t, token_type_to_str(t), \
-                    raw_string(t->str), \
-                    t->line_no, t->col_no, t->fname); \
-        } \
-        else { \
-            TRACE("%s is a NULL TERMINAL", #t); \
-        } \
-    } while (0)
+                  raw_string(t->str), t->line_no, t->col_no, t->fname);  \
+        }                                                                \
+        else {                                                           \
+            TRACE("%s is a NULL TERMINAL", #t);                          \
+        }                                                                \
+    } while(0)
 
 typedef void (*AstFuncPtr)(ast_node_t* node);
 ast_node_t* create_ast_node(AstNodeType type);
@@ -1242,13 +1243,19 @@ void traverse_namespace_definition(ast_namespace_definition_t* node, AstFuncPtr 
 void traverse_class_definition(ast_class_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_class_body_item(ast_class_body_item_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_class_body(ast_class_body_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_class_inheritance_item(ast_class_inheritance_item_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_class_inheritance_list(ast_class_inheritance_list_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_class_inheritance_item(ast_class_inheritance_item_t* node,
+                                     AstFuncPtr pre,
+                                     AstFuncPtr post);
+void traverse_class_inheritance_list(ast_class_inheritance_list_t* node,
+                                     AstFuncPtr pre,
+                                     AstFuncPtr post);
 void traverse_function_definition(ast_function_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_create_definition(ast_create_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_destroy_definition(ast_destroy_definition_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_function_body(ast_function_body_t* node, AstFuncPtr pre, AstFuncPtr post);
-void traverse_function_body_element(ast_function_body_element_t* node, AstFuncPtr pre, AstFuncPtr post);
+void traverse_function_body_element(ast_function_body_element_t* node,
+                                    AstFuncPtr pre,
+                                    AstFuncPtr post);
 void traverse_loop_body(ast_loop_body_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_loop_body_element(ast_loop_body_element_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_assign_eq_item(ast_assign_eq_item_t* node, AstFuncPtr pre, AstFuncPtr post);
@@ -1278,4 +1285,4 @@ void traverse_func_parm_decl(ast_func_parm_decl_t* node, AstFuncPtr pre, AstFunc
 void traverse_func_parm_decl_list(ast_func_parm_decl_list_t* node, AstFuncPtr pre, AstFuncPtr post);
 void traverse_function_membership(ast_function_membership_t* node, AstFuncPtr pre, AstFuncPtr post);
 
-#endif  /* _AST_H_ */
+#endif /* _AST_H_ */

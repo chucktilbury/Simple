@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -52,10 +52,10 @@ ast_create_reference_t* parse_create_reference(parser_state_t* pstate) {
                     consume_token();
                     state = 2;
                 }
-                else 
+                else
                     state = 101;
                 break;
-                
+
             case 2:
                 TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
@@ -67,13 +67,13 @@ ast_create_reference_t* parse_create_reference(parser_state_t* pstate) {
                     consume_token();
                     state = 3;
                 }
-                else 
+                else
                     state = 101;
                 break;
-                
+
             case 3:
                 TRACE_STATE;
-                if(NULL != (inp = parse_expression_list(pstate))) 
+                if(NULL != (inp = parse_expression_list(pstate)))
                     state = 100;
                 else {
                     EXPECTED("an list of expressions");
@@ -111,4 +111,3 @@ ast_create_reference_t* parse_create_reference(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

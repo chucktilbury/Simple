@@ -82,5 +82,4 @@ ast_alias_definition_t* parse_alias_definition(parser_state_t* pstate);
 ast_function_membership_t* parse_function_membership(parser_state_t* pstate);
 ast_func_parm_decl_list_t* parse_func_parm_decl_list(parser_state_t* pstate);
 ast_func_parm_decl_t* parse_func_parm_decl(parser_state_t* pstate);
-#endif  /* _PARSER_PROTOTYPES_H_ */
-
+#endif /* _PARSER_PROTOTYPES_H_ */

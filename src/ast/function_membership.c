@@ -1,24 +1,24 @@
 /**
  * @file function_membership.c
  * @author Chuck Tilbury (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-13
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
  * Grammar production:
  *
  * function_membership
- *     : compound_name ':' 
+ *     : compound_name ':'
  *     ;
  */
 void traverse_function_membership(ast_function_membership_t* node, AstFuncPtr pre, AstFuncPtr post) {
@@ -31,4 +31,3 @@ void traverse_function_membership(ast_function_membership_t* node, AstFuncPtr pr
     CALL_NODE_FUNC(post);
     RET;
 }
-

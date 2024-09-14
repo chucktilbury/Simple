@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -55,20 +55,20 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
                 else if(TOK_LITERAL_TRUE == TTYPE) {
                     TRACE_TOKEN;
                     literal = copy_token(get_token());
-                    consume_token();                    
+                    consume_token();
                     state = 100;
                 }
                 else if(TOK_LITERAL_FALSE == TTYPE) {
                     TRACE_TOKEN;
                     literal = copy_token(get_token());
-                    consume_token();                    
+                    consume_token();
                     state = 100;
                 }
                 else if(NULL != (str = parse_string_literal(pstate))) {
                     TRACE("parse literal string");
                     state = 100;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -102,4 +102,3 @@ ast_literal_value_t* parse_literal_value(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

@@ -1,21 +1,21 @@
 /**
  * @file symbols.c
  * @author your name (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-05
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
-#include <time.h>
 #include "symbols.h"
+#include <time.h>
 
 /**
  * @brief Create a symbol object.
- * 
- * @param node 
- * @return symbol_t* 
+ *
+ * @param node
+ * @return symbol_t*
  */
 void init_symbol(symbol_t* sym, SymbolType type, String* name) {
 
@@ -29,9 +29,9 @@ void init_symbol(symbol_t* sym, SymbolType type, String* name) {
 
 /**
  * @brief Add the symbol to the parser state.
- * 
- * @param pstate 
- * @param sym 
+ *
+ * @param pstate
+ * @param sym
  */
 void add_global_symbol(parser_state_t* pstate, symbol_t* sym) {
 
@@ -44,9 +44,9 @@ void add_global_symbol(parser_state_t* pstate, symbol_t* sym) {
 /**
  * @brief Set the symbol context in the parser state. This is called when
  * a namespace or a class is parsed.
- * 
- * @param pstate 
- * @param sym 
+ *
+ * @param pstate
+ * @param sym
  */
 void set_symbol_context(parser_state_t* pstate, symbol_t* sym) {
 
@@ -57,11 +57,11 @@ void set_symbol_context(parser_state_t* pstate, symbol_t* sym) {
 }
 
 /**
- * @brief Look up a symbol that is supposed to be a compound name in the 
+ * @brief Look up a symbol that is supposed to be a compound name in the
  * global context.
- * 
- * @param name 
- * @return symbol_t* 
+ *
+ * @param name
+ * @return symbol_t*
  */
 symbol_t* lookup_symbol_name(ast_compound_name_t* name) {
 
@@ -75,9 +75,9 @@ symbol_t* lookup_symbol_name(ast_compound_name_t* name) {
 /**
  * @brief Look up a symbol that is supposed to be a compound reference in
  * the global context.
- * 
- * @param name 
- * @return symbol_t* 
+ *
+ * @param name
+ * @return symbol_t*
  */
 symbol_t* lookup_symbol_ref(ast_compound_reference_t* name) {
 
@@ -90,9 +90,9 @@ symbol_t* lookup_symbol_ref(ast_compound_reference_t* name) {
 
 /**
  * @brief Add a local symbol into the function context.
- * 
- * @param func 
- * @param sym 
+ *
+ * @param func
+ * @param sym
  */
 void add_local_symbol(ast_function_definition_t* func, symbol_t* sym) {
 
@@ -105,10 +105,10 @@ void add_local_symbol(ast_function_definition_t* func, symbol_t* sym) {
 
 /**
  * @brief Look up a symbol in the function context.
- * 
- * @param func 
- * @param name 
- * @return symbol_t* 
+ *
+ * @param func
+ * @param name
+ * @return symbol_t*
  */
 symbol_t* lookup_local_symbol(ast_function_definition_t* func, const char* name) {
 
@@ -121,12 +121,12 @@ symbol_t* lookup_local_symbol(ast_function_definition_t* func, const char* name)
 }
 
 /**
- * @brief Generate a name suitable for storage in the hash table from a 
- * ast_compound_name_t data structure. This is used by the variable functions. 
+ * @brief Generate a name suitable for storage in the hash table from a
+ * ast_compound_name_t data structure. This is used by the variable functions.
  * The function decorator has it's own version.
- * 
- * @param name 
- * @return String* 
+ *
+ * @param name
+ * @return String*
  */
 String* decorate_compound_name(ast_compound_name_t* name) {
 
@@ -145,33 +145,31 @@ String* decorate_compound_name(ast_compound_name_t* name) {
             append_string_string(str, item->str);
         }
     }
-    
+
     RETURN(str);
 }
 
 /**
  * @brief Generate a cheap UUID from rand()
- * 
- * @return String* 
+ *
+ * @return String*
  */
 String* generate_uuid(void) {
-    
+
     ENTER;
     srand(time(NULL));
-    
+
     // Generate four 32-bit random numbers
     unsigned int num1 = rand();
     unsigned int num2 = rand();
     unsigned int num3 = rand();
     unsigned int num4 = rand();
-    
+
     // Convert the random numbers to a string
     String* str = create_string(NULL);
-    append_string_fmt(str, "%08x-%04x-%04x-%04x-%08x%04x",
-            num1, num2 >> 16, num2 & 0xFFFF,
-            num3 >> 16, num3 & 0xFFFF, num4);
+    append_string_fmt(str, "%08x-%04x-%04x-%04x-%08x%04x", num1, num2 >> 16,
+                      num2 & 0xFFFF, num3 >> 16, num3 & 0xFFFF, num4);
 
     TRACE("UUID = %s", raw_string(str));
     RETURN(str);
 }
-

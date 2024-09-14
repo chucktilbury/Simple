@@ -65,7 +65,7 @@ typedef enum {
     TOK_OCBRACE,
     TOK_CCBRACE,
     TOK_CLASS,
-    //TOK_ITERATOR,
+    // TOK_ITERATOR,
     TOK_CREATE,
     TOK_DESTROY,
     TOK_PLUS_EQUAL,
@@ -131,5 +131,4 @@ const char* token_to_str(TokenType type);
 const char* token_type_to_str(const Token* tok);
 token_database_t* find_keyword(const char* str);
 
-#endif  /* _TOKEN_DEFS_H_ */
-
+#endif /* _TOKEN_DEFS_H_ */

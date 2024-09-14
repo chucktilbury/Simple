@@ -93,7 +93,7 @@ static inline bool is_a_token(int ch) {
 
 static void init_parser(int argc, char** argv) {
 
-    parser       = _ALLOC_DS(_parser_t_);
+    parser = _ALLOC_DS(_parser_t_);
     parser->argc = argc;
     parser->argv = argv;
     parser->aidx = 1;
@@ -125,7 +125,7 @@ static int parse_short(void) {
     String* str = create_string(NULL);
 
     bool finished = false;
-    int state     = 0;
+    int state = 0;
     int ch;
     _cmd_opt_t_* opt = NULL;
 
@@ -154,7 +154,8 @@ static int parse_short(void) {
                         cmderror("unknown short command option: '%s'", crnt_opt());
                 }
                 else
-                    cmderror("expected a short option in '%s', but got '%c'", crnt_opt(), ch);
+                    cmderror("expected a short option in '%s', but got '%c'",
+                             crnt_opt(), ch);
                 break;
 
             case 1:
@@ -180,8 +181,8 @@ static int parse_short(void) {
                 }
                 else
                     cmderror("expected a short command option in '%s', but got "
-                          "'%c'",
-                          crnt_opt(), ch);
+                             "'%c'",
+                             crnt_opt(), ch);
                 break;
 
             case 2:
@@ -213,15 +214,18 @@ static int parse_short(void) {
                     }
                     else {
                         if(opt->flag & CMD_SEEN)
-                            cmdwarning("duplicate option value being replaced: %s", crnt_opt());
+                            cmdwarning("duplicate option value being replaced: "
+                                       "%s",
+                                       crnt_opt());
                         clear_str_lst(opt->values);
                         append_str_lst(opt->values, copy_string(str));
                         state = 6;
                     }
                 }
                 else
-                    cmderror("expected an option argument in '%s', but got a %c",
-                          crnt_opt(), ch);
+                    cmderror("expected an option argument in '%s', but got a "
+                             "%c",
+                             crnt_opt(), ch);
                 break;
 
             case 5:
@@ -236,16 +240,18 @@ static int parse_short(void) {
                     state = 100;
                 }
                 else
-                    cmderror("unexpected character in command argument '%s': '%c'",
-                          crnt_opt(), ch);
+                    cmderror("unexpected character in command argument '%s': "
+                             "'%c'",
+                             crnt_opt(), ch);
                 break;
 
             case 6:
                 // verify EOS
                 if(ch != EOS)
-                    cmderror("unexpected character following command option '%s': "
-                          "%c",
-                          crnt_opt(), ch);
+                    cmderror("unexpected character following command option "
+                             "'%s': "
+                             "%c",
+                             crnt_opt(), ch);
                 else {
                     opt->flag |= CMD_SEEN;
                     state = 100;
@@ -280,7 +286,7 @@ static int parse_long(void) {
             (*opt->callback)();
 
         bool finished = false;
-        int state     = 0;
+        int state = 0;
         int ch;
 
         while(!finished) {
@@ -305,7 +311,7 @@ static int parse_long(void) {
                     }
                     else
                         cmderror("expected an argument for command option: %s",
-                              raw_string(str));
+                                 raw_string(str));
                     break;
 
                 case 2:
@@ -319,17 +325,19 @@ static int parse_long(void) {
                         state = 100;
                     }
                     else
-                        cmderror("unexpected character following command option "
-                              "'%s': %c",
-                              crnt_opt(), ch);
+                        cmderror("unexpected character following command "
+                                 "option "
+                                 "'%s': %c",
+                                 crnt_opt(), ch);
                     break;
 
                 case 3:
                     // make sure no arg is present
                     if(ch != EOS)
-                        cmderror("unexpected character following command option "
-                              "'%s': %c",
-                              crnt_opt(), ch);
+                        cmderror("unexpected character following command "
+                                 "option "
+                                 "'%s': %c",
+                                 crnt_opt(), ch);
                     else {
                         state = 100;
                     }
@@ -345,8 +353,8 @@ static int parse_long(void) {
                         else {
                             if(opt->flag & CMD_SEEN)
                                 cmdwarning("duplicate option value being "
-                                        "replaced: %s",
-                                        crnt_opt());
+                                           "replaced: %s",
+                                           crnt_opt());
                             clear_str_lst(opt->values);
                             append_str_lst(opt->values, copy_string(str));
                             state = 3;
@@ -354,8 +362,8 @@ static int parse_long(void) {
                     }
                     else
                         cmderror("expected an option argument, but got a %c in "
-                              "'%s'",
-                              ch, crnt_opt());
+                                 "'%s'",
+                                 ch, crnt_opt());
                     break;
 
                 case 5:
@@ -369,9 +377,10 @@ static int parse_long(void) {
                         state = 100;
                     }
                     else
-                        cmderror("unexpected character in command argument '%s': "
-                              "%c",
-                              crnt_opt(), ch);
+                        cmderror("unexpected character in command argument "
+                                 "'%s': "
+                                 "%c",
+                                 crnt_opt(), ch);
                     break;
 
                 case 100:
@@ -417,7 +426,7 @@ void internal_parse_cmdline(int argc, char** argv) {
 
     init_parser(argc, argv);
 
-    int state     = 0;
+    int state = 0;
     bool finished = false;
     int ch;
 
@@ -438,7 +447,7 @@ void internal_parse_cmdline(int argc, char** argv) {
                     state = 100;
                 else
                     cmderror("expected a command option in '%s', but got '%c'",
-                          crnt_opt(), ch);
+                             crnt_opt(), ch);
                 // does not return
                 break;
 

@@ -1,17 +1,17 @@
 /**
  * @file alias_definition.c
  * @author Chuck Tilbury (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-13
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  * Grammar production:
@@ -49,7 +49,7 @@ ast_alias_definition_t* parse_alias_definition(parser_state_t* pstate) {
                     consume_token();
                     state = 2;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -97,4 +97,3 @@ ast_alias_definition_t* parse_alias_definition(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

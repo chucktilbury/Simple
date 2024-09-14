@@ -1,27 +1,27 @@
 /**
  * @file class_inheritance_item.c
  * @author your name (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-10
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  * @brief Parse the class inheritance item
- * 
+ *
  * class_inheritance_item
  *     : (scope_operator)? compound_name 'as' IDENT
  *     ;
- * 
- * @param pstate 
- * @return ast_class_inheritance_item_t* 
+ *
+ * @param pstate
+ * @return ast_class_inheritance_item_t*
  */
 ast_class_inheritance_item_t* parse_class_inheritance_item(parser_state_t* pstate) {
 
@@ -52,10 +52,10 @@ ast_class_inheritance_item_t* parse_class_inheritance_item(parser_state_t* pstat
                         EXPECTED("a compound name");
                         state = 102;
                     }
-                    else 
+                    else
                         state = 101;
                 }
-                else 
+                else
                     state = 2;
                 break;
 
@@ -98,7 +98,7 @@ ast_class_inheritance_item_t* parse_class_inheritance_item(parser_state_t* pstat
                     scope->tok->col_no = 0;
                     scope->tok->fname = _DUP_STR("internal");
                 }
-                node->scope = scope; 
+                node->scope = scope;
                 node->ident = ident;
                 node->name = name;
                 finished = true;
@@ -125,5 +125,3 @@ ast_class_inheritance_item_t* parse_class_inheritance_item(parser_state_t* pstat
 
     RETURN(node);
 }
-
-

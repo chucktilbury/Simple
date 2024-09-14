@@ -1,17 +1,17 @@
 /**
  * @file function_membership.c
  * @author Chuck Tilbury (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-13
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -32,14 +32,14 @@ ast_function_membership_t* parse_function_membership(parser_state_t* pstate) {
     void* post = post_token_queue();
 
     ast_compound_name_t* name = NULL;
-    
+
     while(!finished) {
         switch(state) {
             case 0:
                 TRACE_STATE;
                 if(NULL != (name = parse_compound_name(pstate)))
                     state = 1;
-                else 
+                else
                     state = 101;
                 break;
 
@@ -82,4 +82,3 @@ ast_function_membership_t* parse_function_membership(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

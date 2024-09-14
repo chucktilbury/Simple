@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -39,7 +39,7 @@ ast_while_definition_t* parse_while_definition(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -50,7 +50,7 @@ ast_while_definition_t* parse_while_definition(parser_state_t* pstate) {
                     state = 2;
                 }
                 else {
-                    //EXPECTED("a '('");
+                    // EXPECTED("a '('");
                     state = 100;
                 }
                 break;
@@ -107,4 +107,3 @@ ast_while_definition_t* parse_while_definition(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -41,7 +41,7 @@ ast_formatted_strg_t* parse_formatted_strg(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -81,4 +81,3 @@ ast_formatted_strg_t* parse_formatted_strg(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

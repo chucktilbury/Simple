@@ -8,9 +8,9 @@
  * @copyright Copyright (c) 2024
  *
  */
-#include <stdarg.h>
-#include "common.h"
 #include "errors.h"
+#include "common.h"
+#include <stdarg.h>
 
 static int errors = 0;
 static int warnings = 0;
@@ -29,13 +29,11 @@ void error(ErrorType type, Token* tok, const char* func, const char* fmt, ...) {
 
     switch(type) {
         case ET_SYNTAX:
-            fprintf(stderr, "ERROR: %s: %d: %d: ",
-                    tok->fname, tok->line_no, tok->col_no);
+            fprintf(stderr, "ERROR: %s: %d: %d: ", tok->fname, tok->line_no, tok->col_no);
             errors++;
             break;
         case ET_WARNING:
-            fprintf(stderr, "WARNING: %s: %d: %d: ",
-                    tok->fname, tok->line_no, tok->col_no);
+            fprintf(stderr, "WARNING: %s: %d: %d: ", tok->fname, tok->line_no, tok->col_no);
             warnings++;
             break;
         case ET_SCANNER:
@@ -51,7 +49,6 @@ void error(ErrorType type, Token* tok, const char* func, const char* fmt, ...) {
             fprintf(stderr, "FATAL: %s: ", func);
             errors++;
             break;
-
     }
 
     va_start(args, fmt);
@@ -77,8 +74,8 @@ void expected(const char* str) {
             break;
     }
 
-    fprintf(stderr, "ERROR: %s: %d: %d: expected %s but got '%s'",
-            tok->fname, tok->line_no, tok->col_no, str, got);
+    fprintf(stderr, "ERROR: %s: %d: %d: expected %s but got '%s'", tok->fname,
+            tok->line_no, tok->col_no, str, got);
     errors++;
 
     fputc('\n', stderr);
@@ -106,8 +103,7 @@ int get_warnings(void) {
 
 void recover_error(void) {
 
-    //SYNTAX("Syntax error");
+    // SYNTAX("Syntax error");
     fprintf(stderr, "Syntax Error\n");
     exit(1);
 }
-

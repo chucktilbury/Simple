@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -48,7 +48,7 @@ ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
                     consume_token();
                     state = 2;
                 }
-                else 
+                else
                     // could be destroy or something else, even if member != NULL
                     state = 101;
                 break;
@@ -62,7 +62,7 @@ ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
                     state = 102;
                 }
                 break;
-            
+
             case 3:
                 // optional function body
                 TRACE_STATE;
@@ -102,4 +102,3 @@ ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

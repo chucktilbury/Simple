@@ -1,15 +1,15 @@
 /**
  * @file local.c
  * @author Chuck Tilbury (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-12
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
-#include "common.h"
 #include "local.h"
+#include "common.h"
 
 sym_local_t* create_local_symbol(ast_node_t* node) {
 
@@ -23,4 +23,3 @@ sym_local_t* create_local_symbol(ast_node_t* node) {
 
     RETURN(sym);
 }
-

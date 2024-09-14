@@ -1,15 +1,15 @@
 /**
  * @file namespace.c
  * @author Chuck Tilbury (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-09-12
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
-#include "common.h"
 #include "namespace.h"
+#include "common.h"
 
 sym_namespace_t* create_namespace_symbol(ast_namespace_definition_t* node) {
 

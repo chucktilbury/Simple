@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 String* decorate_func_def(ast_function_definition_t* func);
 /**
@@ -60,13 +60,12 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
                 TRACE_STATE;
                 if(NULL != (inp = parse_func_parm_decl_list(pstate)))
                     state = 3;
-                else
-                    if(member == NULL)
-                        state = 101; // an id by itself is not an error yet.
-                    else {
-                        EXPECTED("a function parameter list");
-                        state = 102;
-                    }
+                else if(member == NULL)
+                    state = 101; // an id by itself is not an error yet.
+                else {
+                    EXPECTED("a function parameter list");
+                    state = 102;
+                }
                 break;
 
             case 3:
@@ -122,4 +121,3 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

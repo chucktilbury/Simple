@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -41,7 +41,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -51,7 +51,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                     consume_token();
                     state = 2;
                 }
-                else 
+                else
                     state = 6;
                 break;
 
@@ -59,7 +59,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                 TRACE_STATE;
                 if(NULL != (expr = parse_expression(pstate)))
                     state = 3; // not empty
-                else 
+                else
                     state = 5; // is empty
                 break;
 
@@ -86,7 +86,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
                 else {
                     EXPECTED("an identifier");
                     state = 102;
-                } 
+                }
                 break;
 
             case 5:
@@ -103,7 +103,7 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
             case 6:
                 TRACE_STATE;
-                if(NULL != (body = parse_loop_body(pstate))) 
+                if(NULL != (body = parse_loop_body(pstate)))
                     state = 100;
                 else {
                     EXPECTED("a loop body");
@@ -142,4 +142,3 @@ ast_for_clause_t* parse_for_clause(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

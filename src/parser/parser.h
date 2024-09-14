@@ -36,7 +36,10 @@ typedef struct {
 
 #ifdef USE_TRACE
 #include "trace.h"
-#define TRACE_STATE do { TRACE("state: %d", state); } while(0)
+#define TRACE_STATE                \
+    do {                           \
+        TRACE("state: %d", state); \
+    } while(0)
 #else
 #define TRACE_STATE
 #endif
@@ -52,5 +55,4 @@ void set_parser_scope(parser_state_t* state, ScopeType scope);
 ScopeType pop_parser_scope(parser_state_t* state);
 ScopeType get_parser_scope(parser_state_t* state);
 
-#endif  /* _PARSER_H_ */
-
+#endif /* _PARSER_H_ */

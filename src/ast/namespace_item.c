@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -36,7 +36,8 @@ void traverse_namespace_item(ast_namespace_item_t* node, AstFuncPtr pre, AstFunc
             traverse_scope_operator((ast_scope_operator_t*)(node->ptr), pre, post);
             break;
         case AST_NAMESPACE_DEFINITION:
-            traverse_namespace_definition((ast_namespace_definition_t*)(node->ptr), pre, post);
+            traverse_namespace_definition((ast_namespace_definition_t*)(node->ptr),
+                                          pre, post);
             break;
         case AST_CLASS_DEFINITION:
             traverse_class_definition((ast_class_definition_t*)(node->ptr), pre, post);
@@ -63,4 +64,3 @@ void traverse_namespace_item(ast_namespace_item_t* node, AstFuncPtr pre, AstFunc
     CALL_NODE_FUNC(post);
     RET;
 }
-

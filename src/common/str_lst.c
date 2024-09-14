@@ -166,8 +166,8 @@ void sort_str_lst(StrLst* lst) {
         flag = 0;
         for(size_t i = 0; i < lst->len - 1; i++) {
             if(comp_string_string(lst->list[i], lst->list[i + 1]) > 0) {
-                String* tmp      = lst->list[i];
-                lst->list[i]     = lst->list[i + 1];
+                String* tmp = lst->list[i];
+                lst->list[i] = lst->list[i + 1];
                 lst->list[i + 1] = tmp;
                 flag++;
             }
@@ -185,7 +185,7 @@ void sort_str_lst(StrLst* lst) {
  */
 StrLst* split_string(String* str, const char* mark) {
 
-    int post    = 0;
+    int post = 0;
     StrLst* lst = create_str_lst();
     const char* tmp;
 
@@ -205,7 +205,7 @@ StrLst* split_string(String* str, const char* mark) {
  */
 String* join_string(StrLst* lst, const char* str) {
 
-    int post  = 0;
+    int post = 0;
     String* s = create_string(NULL);
     String* tmp;
 

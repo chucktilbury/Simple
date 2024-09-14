@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -24,7 +24,7 @@ void traverse_expression_list(ast_expression_list_t* node, AstFuncPtr pre, AstFu
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    ast_expression_t* ex; 
+    ast_expression_t* ex;
     int mark = 0;
 
     while(NULL != (ex = iterate_ptr_lst(node->list, &mark)))
@@ -33,4 +33,3 @@ void traverse_expression_list(ast_expression_list_t* node, AstFuncPtr pre, AstFu
     CALL_NODE_FUNC(post);
     RET;
 }
-

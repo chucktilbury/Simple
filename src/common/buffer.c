@@ -69,10 +69,10 @@ static inline void resize_buffer(Buffer* buf, size_t len) {
  */
 Buffer* create_buffer(void* bytes, size_t length) {
 
-    Buffer* ptr   = _ALLOC_DS(Buffer);
-    ptr->length   = 0;
+    Buffer* ptr = _ALLOC_DS(Buffer);
+    ptr->length = 0;
     ptr->capacity = 0x01 << 3;
-    ptr->buffer   = _ALLOC_DS_ARRAY(unsigned char, ptr->capacity);
+    ptr->buffer = _ALLOC_DS_ARRAY(unsigned char, ptr->capacity);
 
     if(bytes != NULL)
         append_buffer(ptr, bytes, length);
@@ -177,7 +177,7 @@ int iterate_buffer(Buffer* buf, int* post) {
     int retv = 0;
 
     if(*post >= 0 && *post < (int)buf->length) {
-        retv  = buf->buffer[*post];
+        retv = buf->buffer[*post];
         *post = *post + 1;
     }
     else
@@ -257,7 +257,7 @@ void* clip_buffer(Buffer* buf, int start, int end) {
     if(si >= ei)
         return NULL;
 
-    int len   = ei - si;
+    int len = ei - si;
     char* tmp = _ALLOC(len + 1);
     memcpy(tmp, &buf->buffer[si], len);
     tmp[len] = '\0';
@@ -338,7 +338,7 @@ static void dump_buffer(Buffer* buf, const char* msg, ...) {
  */
 int main(void) {
 
-    char* str   = "this is the test string";
+    char* str = "this is the test string";
     Buffer* buf = create_buffer((void*)str, strlen(str));
     dump_buffer(buf, "after create");
 

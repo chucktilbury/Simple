@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -39,7 +39,7 @@ ast_module_t* parse_module(parser_state_t* pstate) {
                 TRACE_STATE;
                 if(NULL != (ptr = parse_module_item(pstate))) {
                     append_ptr_lst(list, ptr);
-                    //state = 1;
+                    // state = 1;
                 }
                 else if(TOK_END_OF_FILE == TTYPE) {
                     consume_token();
@@ -80,4 +80,3 @@ ast_module_t* parse_module(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

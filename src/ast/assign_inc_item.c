@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -24,8 +24,8 @@ void traverse_assign_inc_item(ast_assign_inc_item_t* node, AstFuncPtr pre, AstFu
 
     ENTER;
     CALL_NODE_FUNC(pre);
-    
-        switch(nterm_type(node->ptr)) {
+
+    switch(nterm_type(node->ptr)) {
         case AST_EXPRESSION:
             traverse_expression((ast_expression_t*)(node->ptr), pre, post);
             break;
@@ -39,4 +39,3 @@ void traverse_assign_inc_item(ast_assign_inc_item_t* node, AstFuncPtr pre, AstFu
     CALL_NODE_FUNC(post);
     RET;
 }
-

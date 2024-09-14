@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -60,16 +60,16 @@ ast_try_clause_t* parse_try_clause(parser_state_t* pstate) {
                 else {
                     EXPECTED("a function body");
                     state = 102;
-                }                
+                }
                 break;
 
             case 2:
                 TRACE_STATE;
-                if(NULL != (exc = parse_except_clause(pstate))) 
+                if(NULL != (exc = parse_except_clause(pstate)))
                     append_ptr_lst(list, exc);
-                else if(NULL != (fin = parse_final_clause(pstate))) 
+                else if(NULL != (fin = parse_final_clause(pstate)))
                     state = 100;
-                else 
+                else
                     state = 100;
                 break;
 
@@ -111,4 +111,3 @@ ast_try_clause_t* parse_try_clause(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

@@ -6,10 +6,10 @@
  * This file was generated on Wed Aug 21 11:39:59 2024.
  *
  */
-#include "common.h"
-#include "trace.h"
-#include "errors.h"
 #include "ast.h"
+#include "common.h"
+#include "errors.h"
+#include "trace.h"
 
 /**
  *
@@ -31,9 +31,9 @@ void traverse_literal_value(ast_literal_value_t* node, AstFuncPtr pre, AstFuncPt
         TRACE_TERMINAL(node->literal);
     else if(node->str != NULL)
         traverse_string_literal(node->str, pre, post);
-    else FATAL("never ever happens");
+    else
+        FATAL("never ever happens");
 
     CALL_NODE_FUNC(post);
     RET;
 }
-

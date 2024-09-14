@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -51,10 +51,10 @@ ast_destroy_reference_t* parse_destroy_reference(parser_state_t* pstate) {
                     consume_token();
                     state = 2;
                 }
-                else 
+                else
                     state = 101;
                 break;
-                
+
             case 2:
                 TRACE_STATE;
                 if(TOK_IDENT == TTYPE) {
@@ -66,7 +66,7 @@ ast_destroy_reference_t* parse_destroy_reference(parser_state_t* pstate) {
                     consume_token();
                     state = 100;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -99,4 +99,3 @@ ast_destroy_reference_t* parse_destroy_reference(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

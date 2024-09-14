@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -83,4 +83,3 @@ ast_class_body_item_t* parse_class_body_item(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

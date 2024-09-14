@@ -7,16 +7,16 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
  * Grammar production:
  *
  * exit_statement
- *     : 'exit' 
+ *     : 'exit'
  *     ;
  */
 ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
@@ -37,7 +37,7 @@ ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
                     consume_token();
                     state = 100;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -69,4 +69,3 @@ ast_exit_statement_t* parse_exit_statement(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

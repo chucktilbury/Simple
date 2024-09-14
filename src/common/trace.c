@@ -1,24 +1,24 @@
 /**
  * @file trace.c
  * @author your name (chucktilbury@gmail.com)
- * @brief 
+ * @brief
  * @version 0.1
  * @date 2024-08-19
- * 
+ *
  * @copyright Copyright (c) 2024
- * 
+ *
  */
+#include <stdarg.h>
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdarg.h>
 
 #define INDENT 2
 static int indent = 0;
 
 #include "llist.h"
-#include "trace.h"
-#include "myassert.h"
 #include "memory.h"
+#include "myassert.h"
+#include "trace.h"
 
 static LinkList* stack = NULL;
 
@@ -95,7 +95,7 @@ void push_trace_state(TraceState val) {
 
     ASSERT_MSG(stack != NULL, "trace is not initialized");
 
-    push_link_list(stack , _DUP_DS(&val, TraceState));
+    push_link_list(stack, _DUP_DS(&val, TraceState));
 }
 
 TraceState pop_trace_state(void) {

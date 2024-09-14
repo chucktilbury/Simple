@@ -7,9 +7,9 @@
  *
  */
 #include "common.h"
-#include "tokens.h"
 #include "errors.h"
 #include "parser.h"
+#include "tokens.h"
 
 /**
  *
@@ -40,7 +40,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
                     consume_token();
                     state = 1;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -50,7 +50,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
                     append_ptr_lst(list, expr);
                     state = 2;
                 }
-                else 
+                else
                     state = 10;
                 break;
 
@@ -88,7 +88,7 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
                     consume_token();
                     state = 100;
                 }
-                else 
+                else
                     state = 101;
                 break;
 
@@ -121,4 +121,3 @@ ast_expression_list_t* parse_expression_list(parser_state_t* pstate) {
 
     RETURN(node);
 }
-

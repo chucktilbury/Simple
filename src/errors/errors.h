@@ -8,8 +8,8 @@
  * @copyright Copyright (c) 2024
  *
  */
- #ifndef _ERRORS_H_
- #define _ERRORS_H_
+#ifndef _ERRORS_H_
+#define _ERRORS_H_
 
 #include "tokens.h"
 
@@ -22,7 +22,8 @@ typedef enum {
 } ErrorType;
 
 #define SYNTAX(fmt, ...) error(ET_SYNTAX, get_token(), NULL, fmt, ##__VA_ARGS__)
-#define WARNING(fmt, ...) error(ET_WARNING, get_token(), NULL, fmt, ##__VA_ARGS__)
+#define WARNING(fmt, ...) \
+    error(ET_WARNING, get_token(), NULL, fmt, ##__VA_ARGS__)
 #define SCANNER(fmt, ...) error(ET_SCANNER, NULL, NULL, fmt, ##__VA_ARGS__)
 #define FATAL(fmt, ...) error(ET_FATAL, NULL, __func__, fmt, ##__VA_ARGS__)
 #define OTHER(fmt, ...) error(ET_OTHER, NULL, __func__, fmt, ##__VA_ARGS__)
@@ -35,4 +36,3 @@ int get_warnings(void);
 void recover_error(void);
 
 #endif /* _ERRORS_H_ */
-
