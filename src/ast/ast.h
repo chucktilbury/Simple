@@ -497,6 +497,7 @@ typedef struct _ast_func_parm_decl_ {
 typedef struct _ast_func_parm_decl_list_ {
     ast_node_t node;
     // list of struct ast_func_parm_decl_t
+    bool inout;
     PtrLst* list;
 } ast_func_parm_decl_list_t;
 

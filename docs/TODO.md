@@ -1,15 +1,8 @@
 # TODO list
 
-This is a list of things that I actually intend to do in order of priority. When an item is complete, move it to the **Done** section.
+This is a list of things that I actually intend to do in order of priority. When an item is complete, move it to the (**Done**)[#Done] section.
 
 * Switch the hashtable library to use String* as keys.
-
-* Allow function definitions inside a class definition. There is no notion of an inline function because all function are held as pointers in the class and functions cannot be inlined if a pointer to them exists. 
-    * This depends on reworking how the AST stores names. 
-    * Function parameters require a variable name for definitions, but for declarations, the name should be optional.
-    * The function definition node in the AST is the same for a declaration or a definition except that for a declaration, the function body is not defined.
-
-* Function prototypes have to have the input and output parameters differentiated so that the AST traverse functions can tell them apart. Probably just add a flag of some kind.
 
 * Directives for include paths, compiler options, and linker options. Could be new keywords that start with a ``.``.
 
@@ -29,6 +22,13 @@ This is a list of things that I actually intend to do in order of priority. When
 
 
 ## Done
+* Allow function definitions inside a class definition. There is no notion of an inline function because all function are held as pointers in the class and functions cannot be inlined if a pointer to them exists. 
+    * This depends on reworking how the AST stores names. 
+    * Function parameters require a variable name for definitions, but for declarations, the name should be optional.
+    * The function definition node in the AST is the same for a declaration or a definition except that for a declaration, the function body is not defined.
+
+* Function prototypes have to have the input and output parameters differentiated so that the AST traverse functions can tell them apart. Probably just add a flag of some kind.
+
 * Implement aliases. An alias can appear anywhere in a module and it has the syntax of ``compound_name 'as' IDENT``. All it does is check the existence of the compound name and makes an entry in the symbol table that maps the IDENT to that name. An alias is required to define an inheritance specification, for example.
 
 * Take function assignment to variables out of the syntax.

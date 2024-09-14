@@ -32,6 +32,7 @@ void traverse_func_parm_decl_list(ast_func_parm_decl_list_t* node, AstFuncPtr pr
     ast_func_parm_decl_t* item;
     int mark = 0;
 
+    TRACE("input list = %s", (node->inout)? "true": "false");
     while(NULL != (item = iterate_ptr_lst(node->list, &mark)))
         traverse_func_parm_decl(item, pre, post);
 

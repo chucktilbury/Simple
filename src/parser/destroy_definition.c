@@ -53,13 +53,10 @@ ast_destroy_definition_t* parse_destroy_definition(parser_state_t* pstate) {
                 break;
 
             case 2:
+                // optional function body
                 TRACE_STATE;
-                if(NULL != (body = parse_function_body(pstate)))
+                body = parse_function_body(pstate);
                     state = 100;
-                else {
-                    EXPECTED("a function body");
-                    state = 102;
-                }
                 break;
 
             case 100:

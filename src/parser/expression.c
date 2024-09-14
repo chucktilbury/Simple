@@ -250,10 +250,10 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 break;
 
             case 3:
-                // left assoc operator
+                // right assoc operator
                 TRACE_STATE;
                 // {
-                while(get_prec(peek_ptr_lst(stack)) > get_prec(operator)) {
+                while(get_prec(peek_ptr_lst(stack)) >= get_prec(operator)) {
                     ast_expr_operator_t* oper = pop_ptr_lst(stack);
                     if(oper != NULL) {
                         TRACE("transfer token: %s", token_type_to_str(oper->oper));
@@ -269,10 +269,10 @@ ast_expression_t* parse_expression(parser_state_t* pstate) {
                 break;
 
             case 4:
-                // right assoc operator
+                // left assoc operator
                 TRACE_STATE;
                 // {
-                while(get_prec(peek_ptr_lst(stack)) >= get_prec(operator)) {
+                while(get_prec(peek_ptr_lst(stack)) > get_prec(operator)) {
                     ast_expr_operator_t* oper = pop_ptr_lst(stack);
                     if(oper != NULL) {
                         TRACE("transfer token: %s", token_type_to_str(oper->oper));

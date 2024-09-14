@@ -26,10 +26,12 @@ void traverse_function_definition(ast_function_definition_t* node, AstFuncPtr pr
 
     //TRACE("is_iter = %s", node->is_iter? "true": "false");
     TRACE_TERMINAL(node->name);
-    traverse_function_membership(node->member, pre, post);
+    if(node->member != NULL)
+        traverse_function_membership(node->member, pre, post);
     traverse_func_parm_decl_list(node->inp, pre, post);
     traverse_func_parm_decl_list(node->outp, pre, post);
-    traverse_function_body(node->body, pre, post);
+    if(node->body != NULL)
+        traverse_function_body(node->body, pre, post);
 
     CALL_NODE_FUNC(post);
     RET;

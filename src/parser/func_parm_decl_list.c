@@ -48,9 +48,15 @@ ast_func_parm_decl_list_t* parse_func_parm_decl_list(parser_state_t* pstate) {
 
             case 1:
                 TRACE_STATE;
-                if(NULL != (item = parse_func_parm_decl(pstate)))
+                if(NULL != (item = parse_func_parm_decl(pstate))) {
+                    append_ptr_lst(list, item);
                     state = 2;
-                else
+                }
+                else if(TOK_CPAREN == TTYPE) {
+                    consume_token();
+                    state = 100;
+                }
+                else 
                     state = 101;
                 break;
 
@@ -72,8 +78,10 @@ ast_func_parm_decl_list_t* parse_func_parm_decl_list(parser_state_t* pstate) {
 
             case 3:
                 TRACE_STATE;
-                if(NULL != (item = parse_func_parm_decl(pstate)))
+                if(NULL != (item = parse_func_parm_decl(pstate))) {
+                    append_ptr_lst(list, item);
                     state = 2;
+                }
                 else {
                     EXPECTED("a function parameter declaration");
                     state = 102;

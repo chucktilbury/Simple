@@ -2,10 +2,20 @@
 ;
 ;-------------------------------------------------------------------------------
 
-this.is.a.compound.name as znook
-the.func.name(string blart, integer bacon)(float number, asd.qwer poot) {
-    float name = 123.123
+name(string blart, integer bacon)(float number, asd.qwer poot) {
+    float nyuk = 123.123
+    asd.wer.create(5.123, "string")
 }
 
+class somename {
+	oiuoiu()()
+	create() {
+		asdfr(asd.sdf, 123, "stri")(sdf)
+		}
+}
+
+asd.wer:create(poolie doodle) {
+integer asd
+}
 
 ;--------

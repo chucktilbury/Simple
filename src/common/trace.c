@@ -62,6 +62,18 @@ void trace_return(const char* func, size_t val) {
     }
 }
 
+void trace_return_noval(const char* func) {
+
+    ASSERT_MSG(stack != NULL, "trace is not initialized");
+
+    TraceState* s = peek_link_list(stack);
+    if(*s != 0) {
+        indent -= INDENT;
+        pad();
+        printf("RETURN: %s\n", func);
+    }
+}
+
 void trace(const char* func, const char* fmt, ...) {
 
     ASSERT_MSG(stack != NULL, "trace is not initialized");

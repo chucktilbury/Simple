@@ -19,7 +19,7 @@ typedef enum {
 #ifdef USE_TRACE 
 #define INIT_TRACE() init_trace()
 #define ENTER   trace_enter(__func__)
-#define RET     do {trace_return(__func__, 0); return; } while(0)
+#define RET     do {trace_return_noval(__func__); return; } while(0)
 #define RETURN(v) do { trace_return(__func__, (size_t)(v)); return (v); } while(0)
 #define TRACE(fmt, ...) trace(__func__, fmt, ##__VA_ARGS__)
 #define PUSH_TRACE_STATE(v) push_trace_state(v)
@@ -37,6 +37,7 @@ typedef enum {
 void init_trace(void);
 void trace_enter(const char* func);
 void trace_return(const char* func, size_t val);
+void trace_return_noval(const char* func);
 void trace(const char* func, const char* fmt, ...);
 void push_trace_state(TraceState val);
 TraceState pop_trace_state(void);

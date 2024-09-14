@@ -61,8 +61,10 @@ String* decorate_func_def(ast_function_definition_t* func) {
     ASSERT(func != NULL);
     String* str = create_string(NULL);
 
-    append_string_string(str, decorate_membership(func->member));
-    append_string_char(str, ':');
+    if(func->member != NULL) {
+        append_string_string(str, decorate_membership(func->member));
+        append_string_char(str, ':');
+    }
     append_string_string(str, func->name->str);
     append_string_char(str, '(');
     // func->inp is the input parameters of type ast_var_decl_list_t*

@@ -18,6 +18,7 @@
         "inher",
         "lstr",
         "NEQU",
+        "noval",
         "ntok",
         "OCBRACE",
         "Ofast",

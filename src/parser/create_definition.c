@@ -64,13 +64,10 @@ ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
                 break;
             
             case 3:
+                // optional function body
                 TRACE_STATE;
-                if(NULL != (body = parse_function_body(pstate)))
-                    state = 100;
-                else {
-                    EXPECTED("a function body");
-                    state = 102;
-                }
+                body = parse_function_body(pstate);
+                state = 100;
                 break;
 
             case 100:
@@ -79,6 +76,7 @@ ast_create_definition_t* parse_create_definition(parser_state_t* pstate) {
                 node = (ast_create_definition_t*)create_ast_node(AST_CREATE_DEFINITION);
                 node->member = member;
                 node->inp = inp;
+                node->inp->inout = true;
                 node->body = body;
                 finished = true;
                 break;

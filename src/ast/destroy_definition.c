@@ -24,8 +24,10 @@ void traverse_destroy_definition(ast_destroy_definition_t* node, AstFuncPtr pre,
     ENTER;
     CALL_NODE_FUNC(pre);
 
-    traverse_function_membership(node->member, pre, post);
-    traverse_function_body(node->body, pre, post);
+    if(node->member != NULL)
+        traverse_function_membership(node->member, pre, post);
+    if(node->body != NULL)
+        traverse_function_body(node->body, pre, post);
 
     CALL_NODE_FUNC(post);
     RET;

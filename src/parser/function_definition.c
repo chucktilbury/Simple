@@ -26,7 +26,7 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
     ENTER;
 
     ast_function_definition_t* node = NULL;
-    int state = 1;
+    int state = 0;
     bool finished = false;
     void* post = post_token_queue();
 
@@ -82,7 +82,8 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
             case 4:
                 // optional function body
                 TRACE_STATE;
-
+                body = parse_function_body(pstate);
+                state = 100;
                 break;
 
             case 100:
@@ -92,7 +93,9 @@ ast_function_definition_t* parse_function_definition(parser_state_t* pstate) {
                 node->member = member;
                 node->name = name;
                 node->inp = inp;
+                node->inp->inout = true;
                 node->outp = outp;
+                node->outp->inout = false;
                 node->body = body;
                 decorate_func_def(node);
                 finished = true;
