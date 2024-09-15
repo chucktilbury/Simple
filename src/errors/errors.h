@@ -35,4 +35,4 @@ int get_errors(void);
 int get_warnings(void);
 void recover_error(void);
 
-#endif /* _ERRORS_H_ */
+#endif  /* _ERRORS_H_ */

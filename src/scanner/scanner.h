@@ -13,7 +13,7 @@
 #ifndef _SCANNER_H_
 #define _SCANNER_H_
 
-#include "tokens.h"
+//#include "tokens.h"
 
 /**
  * @brief Open a file for the scanner to read from. Files are expected to be
@@ -42,4 +42,4 @@ void init_scanner(const char* fname);
  */
 Token* scan_token(void);
 
-#endif /* _SCANNER_H_ */
+#endif  /* _SCANNER_H_ */

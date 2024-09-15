@@ -19,6 +19,7 @@
  * @date 01-07-2024
  * @copyright Copyright (c) 2024
  */
+#include "token_defs.h"
 #include "scanner.h"
 #include "common.h"
 #include "fileio.h"

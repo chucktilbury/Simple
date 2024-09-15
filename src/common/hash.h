@@ -5,6 +5,7 @@
 #define _HASH_H_
 
 #include <stdlib.h> // size_t
+#include "str.h"
 
 typedef struct {
     const char* key;
@@ -27,15 +28,14 @@ typedef enum {
     HASH_OK,
     HASH_DUP,
     HASH_NF,
+    HASH_ERR,
 } HashResult;
 
-// TODO: use the list functions for the table. That means that the list needs to
-// be able to handle NULL pointers.
 HashTable* create_hashtable(void);
 void destroy_hashtable(HashTable* table);
-HashResult insert_hashtable(HashTable* table, const char* key, void* data, size_t size);
-HashResult find_hashtable(HashTable* tab, const char* key, void* data, size_t size);
-HashResult remove_hashtable(HashTable* tab, const char* key);
+void insert_hashtable(HashTable* table, String* key, void* data, int* result);
+void* find_hashtable(HashTable* tab, String* key, int* result);
+void remove_hashtable(HashTable* tab, String* key, int* result);
 
 void dump_hashtable(HashTable* tab);
 

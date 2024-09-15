@@ -15,8 +15,8 @@
  * This header contains a sorted list of the actual keywords that are
  * scanned in the scanner.
  */
-#include "scanner.h"
 #include "token_defs.h"
+#include "scanner.h"
 
 #define TTYPE (token_type(get_token()))
 
@@ -97,4 +97,4 @@ void reset_token_queue(void* post);
  */
 void* post_token_queue(void);
 
-#endif /* _TOKENS_H_ */
+#endif  /* _TOKENS_H_ */

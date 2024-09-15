@@ -33,8 +33,13 @@
 
 #include "hash.h"
 #include "memory.h"
+#include "myassert.h"
 
-
+#define RESULT(v) do { \
+        if(result != NULL) \
+            *result = (v); \
+    } while(0)
+    
 static uint32_t hash_func(const char* key) {
 
     uint32_t hash = 2166136261u;
@@ -107,6 +112,16 @@ static void rehash_table(HashTable* tab) {
     }
 }
 
+/******************************************************************
+ * Public Interface 
+ * 
+ */
+
+/**
+ * @brief Create a hashtable object
+ * 
+ * @return HashTable* 
+ */
 HashTable* create_hashtable(void) {
 
     HashTable* tab = _ALLOC_DS(HashTable);
@@ -121,8 +136,15 @@ HashTable* create_hashtable(void) {
     return tab;
 }
 
+/**
+ * @brief Destroy hashtable object.
+ * 
+ * @param table 
+ */
 void destroy_hashtable(HashTable* table) {
 
+    ASSERT(table != NULL);
+    
     if(table != NULL) {
         for(int i = 0; i < table->cap; i++) {
             if(table->table[i] != NULL) {
@@ -139,57 +161,88 @@ void destroy_hashtable(HashTable* table) {
     }
 }
 
-HashResult insert_hashtable(HashTable* table, const char* key, void* data, size_t size) {
+/**
+ * @brief Insert a value into the hash table. If the value is a duplicate, 
+ * then set the result to be HASH_DUP to indicate an error. Otherwise, set the
+ * result to HASH_OK. If the result pointer is NULL, then do not try to update 
+ * it.
+ * 
+ * @param table 
+ * @param str 
+ * @param data 
+ * @param result 
+ */
+void insert_hashtable(HashTable* table, String* str, void* data, int* result) {
 
+    ASSERT(table != NULL);
+    ASSERT(str != NULL);
+    ASSERT(data != NULL);
+    
     rehash_table(table);
 
+    const char* key = raw_string(str);
     int slot = find_slot(table, key);
-    if(slot < 0)
-        return false;
+    if(slot < 0) {
+        RESULT(HASH_ERR);
+        return;
+    }
 
     // help me, obi wan optimizer, you are my only hope
     if(table->table[slot] != NULL) {
         if(table->table[slot]->key != NULL) {
-            // printf("cannot store duplicate key: \"%s\"\n", key);
-            return HASH_DUP;
+            RESULT(HASH_DUP);
+            return;
         }
     }
     else
         table->table[slot] = _ALLOC_DS(_hash_node);
 
     table->table[slot]->key = _DUP_STR(key);
-    if(data != NULL && size != 0) {
-        table->table[slot]->data = _ALLOC(size);
-        table->table[slot]->size = size;
-        memcpy(table->table[slot]->data, data, size);
-    }
-    else {
-        table->table[slot]->data = NULL;
-        table->table[slot]->size = 0;
-    }
+    table->table[slot]->data = data;
 
-    return HASH_OK;
+    RESULT(HASH_OK);
+    return;
 }
 
-HashResult find_hashtable(HashTable* tab, const char* key, void* data, size_t size) {
+/**
+ * @brief Find a value in the hash table.
+ * 
+ * @param tab 
+ * @param str 
+ * @param result 
+ * @return void* 
+ */
+void* find_hashtable(HashTable* tab, String* str, int* result) {
 
+    ASSERT(tab != NULL);
+    ASSERT(str != NULL);
+
+    const char* key = raw_string(str);
     int slot = find_slot(tab, key);
 
     if(tab->table[slot] != NULL && tab->table[slot]->key != NULL) {
         if(strcmp(tab->table[slot]->key, key) == 0) {
-            if(tab->table[slot]->size != size)
-                printf("data size mismatch: %lu != %lu\n", size,
-                       tab->table[slot]->size);
-            memcpy(data, tab->table[slot]->data, size);
-            return HASH_OK;
+            RESULT(HASH_OK);
+            return tab->table[slot]->data;
         }
     }
 
-    return HASH_NF;
+    RESULT(HASH_NF);
+    return NULL;
 }
 
-HashResult remove_hashtable(HashTable* tab, const char* key) {
+/**
+ * @brief Remove a value from the hash table.
+ * 
+ * @param tab 
+ * @param str 
+ */
+void remove_hashtable(HashTable* tab, String* str, int* result) {
 
+    ASSERT(tab != NULL);
+    ASSERT(str != NULL);
+
+    const char* key = raw_string(str);
     int slot = find_slot(tab, key);
 
     if((tab->table[slot] != NULL) && (tab->table[slot]->key != NULL)) {
@@ -201,13 +254,18 @@ HashResult remove_hashtable(HashTable* tab, const char* key) {
             tab->table[slot]->size = 0;
             tab->count--;
             tab->tombstones++;
-            return HASH_OK;
+            RESULT(HASH_OK);
         }
     }
 
-    return HASH_NF;
+    RESULT(HASH_NF);
 }
 
+/**
+ * @brief Dump the hash table keys to the console.
+ * 
+ * @param tab 
+ */
 void dump_hashtable(HashTable* tab) {
 
     int count = 1;
