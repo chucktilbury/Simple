@@ -7,6 +7,10 @@ This is a list of things that I actually intend to do in order of priority. When
      
 * Switch the hashtable library to use String* as keys.
 
+* Command line include path list.
+
+* Configuration file and environment variables.
+  
 * Directives for include paths, compiler options, and linker options. Could be new keywords that start with a ``.``.
 
 * Built in class functions such as the ones in Python that handle stringalation, typealation, and comparisons.
