@@ -1,7 +1,8 @@
-# Simple
-The **Simple** programming language.
+# Elf
+The **Elf** programming language. 
+"ELF" stands for Elf Language Framework.
 
-This is a very simple object-oriented programming language compiler which is written in C. It's a fun hobby project. See the grammar [here](docs/simple-grammar.txt). It's pretty complete and I am actively working on a parser and AST for it. (September, 2024)
+This is a very simple object-oriented programming language compiler which is written in C. It's a fun hobby project. See the grammar [here](docs/elf-grammar.txt). It's pretty complete and I am actively working on a parser and AST for it. (September, 2024)
 
 The language is a synthesis or Python and C. It has the object model of Python but shares a lot of syntax with both C and C++.
 
@@ -40,5 +41,5 @@ This requires an ANSI C compiler and friends, [gc](https://github.com/chucktilbu
 I would also welcome some help. Compilers are such a slog....
 
 # Grammar
-This is the complete and updated [grammar for **Simple**](docs/simple-grammar.txt) 
+This is the complete and updated [grammar for **Elf**](docs/elf-grammar.txt) 
 
