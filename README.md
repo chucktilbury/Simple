@@ -1,6 +1,5 @@
 # Simple
 The **Simple** programming language. 
-"ELF" stands for Simple Language Framework.
 
 This is a very simple object-oriented programming language compiler which is written in C. It's a fun hobby project. See the grammar [here](docs/elf-grammar.txt). It's pretty complete and I am actively working on a parser and AST for it. (September, 2024)
 
